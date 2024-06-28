@@ -1,0 +1,46 @@
+/* Style de base pour le corps de la page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style pour la barre de navigation */
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+/* Style pour la liste de navigation */
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Style pour les éléments de la liste de navigation */
+.nav-item {
+    margin: 0 15px;
+}
+
+/* Style pour les liens de la liste de navigation */
+.nav-item a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+/* Style pour les liens au survol */
+.nav-item a:hover {
+    background-color: #575757;
+}
+
+/* Style pour le contenu principal */
+.content {
+    padding: 20px;
+}

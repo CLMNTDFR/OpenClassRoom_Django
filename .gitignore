@@ -1,0 +1,5 @@
+django-web-app/merchex/merchex/__pycache__/settings.cpython-310.pyc
+django-web-app/merchex/merchex/__pycache__/urls.cpython-310.pyc
+env/
+db.sqlite3
+__pycache__/
