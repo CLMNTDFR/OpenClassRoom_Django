@@ -1,3 +1,20 @@
+# Django exercices
+
+Welcome to this repository dedicated to learning the Django Framework.
+In this project, you will see that I have developed the following skills:
+- Installing Django via a virtual environment
+- Initialized a basic project with the appropriate dependencies
+- Started a server and created a database
+- Created a sub-application that I installed in the project
+- Created views with HTTP responses
+- Separated the application logic with a Django template
+- Added style with CSS
+- Performed CRUD operations via the Django administrator
+- Linked data to views
+- Use of DjangoForms and ModelForm
+
+# Memo for a quick start
+
 ## Init: Django Project:
 
 1. <strong>Create env:</strong><br>
@@ -48,16 +65,3 @@ INSTALLED_APPS = [
     'listings',
 ]
 ```
-## Create page/views:
-
-1. <strong>Open `listings/views.py` and add:</strong><br>
-```
-from django.http import HttpResponse
-from django.shortcuts import render
-
-def hello(request):
-    return HttpResponse('<h1>Hello Django!</h1>')
-```
-
-
-
