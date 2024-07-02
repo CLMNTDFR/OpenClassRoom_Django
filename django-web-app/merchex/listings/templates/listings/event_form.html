@@ -1,0 +1,15 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <div class="title">Add a New Event</div>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Event</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -5,21 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merchex</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>N.U.B - North Underground Bands</title>
+    <link rel="stylesheet" href="{% static 'listings/styles.css' %}">
 </head>
 <body>
+    <div class="logo">N.U.B</div>
     <nav class="navbar">
         <ul class="nav-list">
-            <li class="nav-item"><a href="{% url 'hello' %}">Accueil</a></li>
-            <li class="nav-item"><a href="{% url 'about' %}">À propos</a></li>
-            <li class="nav-item"><a href="{% url 'listings' %}">Listings</a></li>
+            <li class="nav-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="nav-item"><a href="{% url 'bands_list' %}">Bands</a></li>
+            <li class="nav-item"><a href="{% url 'listing_list' %}">Merch</a></li>
+            <li class="nav-item"><a href="{% url 'event_list' %}">Events</a></li>
+            <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
             <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
     </nav>
     <hr>
     <div class="content">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 N.U.B - North Underground Bands (Clément DEFER) - All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

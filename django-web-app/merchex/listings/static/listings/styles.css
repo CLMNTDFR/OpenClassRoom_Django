@@ -1,14 +1,58 @@
+/* Importation des polices de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lekton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jaini&display=swap');
+
 /* Style de base pour le corps de la page */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Lekton', monospace; /* Utilisation d'une police de type machine à écrire */
     margin: 0;
     padding: 0;
+    background-color: #000; /* Fond noir */
+    color: #fff; /* Texte en blanc */
+}
+
+.underline {
+    text-decoration: underline;
+    font-weight: lighter;
+}
+
+.logo {
+    font-family: 'Jaini', cursive;
+    font-size: 4rem; /* Ajuste la taille du logo */
+    color: #fff;
+    text-align: center;
+    margin: 20px 0; /* Ajoute un peu de marge autour du logo */
+}
+
+.bandname {
+    font-family: 'Jaini', cursive;
+    font-size: 2rem; /* Ajuste la taille du nom de groupe */
+    letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
+}
+
+.home {
+    font-family: 'Jaini', cursive;
+    font-size: 3rem; /* Ajuste la taille du nom de groupe */
+    letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
+    text-align: center; /* Centre le texte horizontalement */
+    margin: 20px 0; /* Ajoute un peu de marge en haut et en bas */
+}
+
+.title {
+    font-family: 'Jaini', cursive;
+    font-size: 3rem; /* Ajuste la taille du nom de groupe */
+    letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
+    margin: 20px 0; /* Ajoute un peu de marge en haut et en bas */
 }
 
 /* Style pour la barre de navigation */
 .navbar {
-    background-color: #333;
+    background-color: #000000;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+    width: 100%;
+    z-index: 500; /* Assure que la navbar est au-dessus du reste du contenu */
 }
 
 /* Style pour la liste de navigation */
@@ -32,7 +76,14 @@ body {
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-    transition: background-color 0.3s;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+}
+
+/* Style pour les liens visités */
+.nav-item a:visited {
+    color: #ccc; /* Couleur des liens visités en gris */
 }
 
 /* Style pour les liens au survol */
@@ -43,4 +94,411 @@ body {
 /* Style pour le contenu principal */
 .content {
     padding: 20px;
+    text-align: left; /* Aligner le contenu à gauche */
+    margin-top: 20px; /* Marge supérieure égale à la hauteur de la navbar */
+    margin-left: 60px; /* Marge à gauche */
+    margin-right: 60px; /* Marge à droite */
+}
+
+/* Style pour les liens de la liste de navigation */
+.content a {
+    color: #ffffff; /* Couleur par défaut des liens non visités */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Style pour les liens visités */
+.content a:visited {
+    color: #a186bd; /* Couleur des liens visités */
+}
+
+/* Style pour les liens au survol */
+.content a:hover {
+    color: #fff; /* Couleur des liens au survol */
+    text-decoration: underline;
+}
+
+/* Footer styles */
+footer {
+    background: linear-gradient(to bottom, #000000, #202020); /* Dégradé du noir vers le gris */
+    padding: 8px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    color: #fff; /* Texte en blanc */
+    display: flex; /* Utilisation de flexbox */
+    justify-content: space-between; /* Aligner les éléments avec un espace entre eux */
+    align-items: center; /* Centrer verticalement les éléments */
+}
+
+.footer-content p {
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 10px;
+}
+
+.footer-links li {
+    display: inline-block; /* Pour que chaque lien soit sur une ligne */
+    margin: 0 10px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 8px;
+    border: 1px solid #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer-links a:hover {
+    background-color: #fff;
+    color: #222;
+}
+
+.social-media {
+    margin-top: 10px;
+}
+
+.social-media a {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.social-media img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Couleur de fond gris foncé pour les champs de saisie */
+input[type="text"],
+input[type="email"],
+textarea {
+    background-color: #141414;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    width: calc(100% - 22px); /* Largeur ajustée pour tenir compte de la marge */
+}
+
+/* Styles pour les messages d'erreur */
+.errorlist {
+    color: red; /* Couleur du message d'erreur */
+    font-size: 0.8rem; /* Taille de police du message d'erreur */
+    margin-top: 4px; /* Espace au-dessus du message d'erreur */
+}
+
+/* Agrandir la zone de texte pour le champ "message" */
+textarea {
+    height: 150px; /* Hauteur de la zone de texte */
+    resize: vertical; /* Permettre le redimensionnement vertical */
+}
+
+/* Styles supplémentaires pour les champs de saisie */
+input[type="text"],
+input[type="email"] {
+    font-size: 1rem; /* Taille de police par défaut */
+    display: block;
+    width: calc(100% - 12px); /* Largeur ajustée pour tenir compte de la marge */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #000000;
+    border-color: #000000;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+/* Styles généraux pour les formulaires */
+.form-container {
+    width: 60%; /* Largeur du formulaire */
+    margin: 0 auto; /* Centre le formulaire horizontalement */
+    padding: 20px; /* Espacement intérieur du formulaire */
+    background-color: #000000; /* Couleur de fond */
+    border: 1px solid #000000; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container textarea {
+    width: calc(100% - 20px); /* Largeur ajustée pour tenir compte de la marge */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+.form-container textarea {
+    height: 150px; /* Hauteur de la zone de texte */
+    resize: vertical; /* Permettre le redimensionnement vertical */
+}
+
+.form-container button {
+    background-color: #4CAF50; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-container button:hover {
+    background-color: #246227; /* Couleur de fond au survol */
+}
+
+/* Style pour les zones de saisie de type date */
+input[type="date"].form-control {
+    background-color: black;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* Style pour les menus déroulants */
+select.form-control {
+    background-color: black;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* Style pour les options des menus déroulants */
+select.form-control option {
+    background-color: black;
+    color: white;
+}
+
+.btn-add-band {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #254627; /* Bordure initiale verte clair */
+    border-radius: 30px; /* Bords très arrondis */
+    background-color: #254627; /* Fond vert clair */
+    color: #fff; /* Texte en blanc */
+    font-size: 16px;
+    font-family: 'Lekton', monospace; /* Même police d'écriture que le corps de la page */
+    text-decoration: none;
+    transition: background-color 0.3s, border-color 0.3s; /* Transition des couleurs au survol */
+    float: right; /* Aligne le bouton à droite */
+    margin-top: 10px; /* Marge en haut pour l'espacement par rapport au contenu */
+}
+
+.btn-add-band:hover {
+    background-color: #132913; /* Fond vert foncé au survol */
+    border-color: #132913; /* Bordure verte foncé au survol */
+}
+
+.empty-message {
+    color: #888; /* Gris */
+    font-style: italic;
+}
+
+.back-button, .update-button, .delete-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.back-button {
+    background-color: #1d1d1d;
+}
+
+.back-button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.update-button {
+    background-color: rgb(1, 87, 1);
+}
+
+.update-button:hover {
+    background-color: rgb(0, 35, 0);
+    color: #fff;
+}
+
+.delete-button {
+    background-color: rgb(133, 2, 2);
+}
+
+.delete-button:hover {
+    background-color: rgb(45, 0, 0);
+    color: #fff;
+}
+
+.index {
+    text-align: center; /* Centre le texte horizontalement */
+    margin: 20px 0; /* Ajoute un peu de marge en haut et en bas */
+}
+
+.index a {
+    color: gray; /* Change la couleur du texte en gris */
+    text-decoration: none; /* Supprime le soulignement des liens */
+    margin: 0 5px; /* Ajoute un peu de marge entre les lettres */
+}
+
+.index a:hover {
+    color: rgb(255, 255, 255); /* Change la couleur du texte en noir lors du survol */
+}
+
+/* Style pour la première ligne des événements */
+.event-date {
+    font-size: 1.2em; /* Augmente la taille de la police */
+}
+
+/* Style pour le nom du groupe en italique */
+em {
+    font-style: italic;
+}
+
+/* Style pour les titres des données (Venue, Price, Description) en gras */
+ul li strong {
+    font-weight: bold;
+}
+
+.event-item {
+    margin-bottom: 30px; /* Ajoute une marge en bas de chaque élément d'événement */
+}
+
+/* Style pour l'index des événements */
+.event-index {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.event-index li {
+    margin: 0 10px;
+}
+
+.event-index a {
+    text-decoration: none;
+    color: #505050;
+    font-weight: bold;
+}
+
+.event-index a:hover {
+    text-decoration: underline;
+}
+
+/* static/listings/styles.css */
+.centered-image {
+    display: block;
+    margin: auto;
+    width: 60%;
+}
+
+.messages {
+    list-style: none;
+    padding: 0;
+}
+
+.messages .success {
+    color: green;
+}
+
+.update-button-small, .delete-button-small {
+    display: inline-block;
+    padding: 5px 10px; /* Réduit le padding pour rendre les boutons plus petits */
+    margin: 5px 0;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.9rem; /* Réduit la taille de la police pour rendre les boutons plus petits */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.update-button-small {
+    background-color: rgb(0, 0, 0);
+}
+
+.update-button-small:hover {
+    background-color: darkgreen;
+    color: #fff;
+}
+
+.delete-button-small {
+    background-color: rgb(0, 0, 0);
+}
+
+.delete-button-small:hover {
+    background-color: darkred;
+    color: #fff;
+}
+
+/* Styles for the delete button */
+.ultime-delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.ultime-delete-button:hover {
+    background-color: darkred;
+}
+
+/* Styles for the cancel button */
+.ultime-cancel-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.ultime-cancel-button:hover {
+    background-color: #45a049;
 }

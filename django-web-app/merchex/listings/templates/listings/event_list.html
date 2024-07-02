@@ -1,0 +1,81 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<div class="title">Events</div>
+<a href="{% url 'event_create' %}" class="btn-add-band">+ Add a new event</a>
+<p>
+    Discover the upcoming events and the past events of the bands from the North of France.
+</p>
+<br><br>
+<nav>
+    <ul class="event-index">
+        <li><a href="#upcoming">UPCOMING</a></li>  |  
+        <li><a href="#past">PAST</a></li>
+    </ul>
+</nav>
+
+<h2 class="bandname" id="upcoming">Upcoming   Events</h2>
+<ul>
+    {% for event in upcoming_events %}
+        <li class="event-item">
+            <strong><span class="event-date">{{ event.date }}</span> - <em>{{ event.band.name }}</em></strong>
+            <ul>
+                <li><strong>Venue:</strong> {{ event.venue }}</li>
+                <li><strong>Price:</strong> {{ event.price }}</li>
+                <li><strong>Description:</strong> {{ event.description }}</li>
+                {% if event.event_link %}
+                <li>
+                    <div class="event-link-container" style="display: inline-block; padding: 5px 10px; border-radius: 15px; background-color: white; transition: background-color 0.3s, color 0.3s;">
+                        <a href="{{ event.event_link }}" target="_blank" style="text-decoration: none; color: black; transition: background-color 0.3s, color 0.3s;">Event Link</a>
+                    </div>
+                    <style>
+                        .event-link-container:hover {
+                            background-color: red !important;
+                            color: white !important;
+                        }
+                    </style>
+                </li>
+                {% endif %}
+            </ul>
+            <br>
+            <a href="{% url 'event-update' event.id %}" class="update-button-small">Update</a>
+            <a href="{% url 'event-delete' event.id %}" class="delete-button-small">Delete</a>
+        </li>
+    {% empty %}
+        <li>No upcoming events.</li>
+    {% endfor %}
+</ul>
+<br>
+<hr>
+<br>
+<h2 class="bandname" id="past">Past   Events</h2>
+<ul>
+    {% for event in past_events %}
+        <li class="event-item">
+            <strong><span class="event-date">{{ event.date }}</span> - <em>{{ event.band.name }}</em></strong>
+            <ul>
+                <li><strong>Venue:</strong> {{ event.venue }}</li>
+                <li><strong>Price:</strong> {{ event.price }}</li>
+                <li><strong>Description:</strong> {{ event.description }}</li>
+                {% if event.event_link %}
+                <li>
+                    <div class="event-link-container" style="display: inline-block; padding: 5px 10px; border-radius: 15px; background-color: white; transition: background-color 0.3s, color 0.3s;">
+                        <a href="{{ event.event_link }}" target="_blank" style="text-decoration: none; color: black; transition: background-color 0.3s, color 0.3s;">Event Link</a>
+                    </div>
+                    <style>
+                        .event-link-container:hover {
+                            background-color: red !important;
+                            color: white !important;
+                        }
+                    </style>
+                </li>
+                {% endif %}
+            </ul>
+        </li>
+    {% empty %}
+        <li>No past events.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

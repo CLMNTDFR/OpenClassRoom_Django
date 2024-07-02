@@ -1,0 +1,44 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<h2 class="bandname">{{ band.name }}</h2>
+
+<ul>
+    <li><b>Genre :</b> {{ band.genre }}</li>
+    <li><b>Year formed :</b> {{ band.year_formed }}</li>
+    <li><b>Active :</b> {{ band.active|yesno }}</li>
+    <li><b>Official Homepage :</b> <a href="{{ band.official_homepage }}">{{ band.official_homepage }}</a></li>
+</ul>
+<hr>
+<p><b>Bio</b> : {{ band.biography }}</p>
+<hr>
+<br>
+<h3>Merch:</h3>
+<ul>
+    {% for listing in band.listing_set.all %}
+        <li><a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a></li>
+    {% empty %}
+        <li class="empty-message">No merch available.</li>
+    {% endfor %}
+</ul>
+<hr>
+<br>
+<h3>Events:</h3>
+<ul>
+    {% for event in band.events.all %}
+        <li class="event-item">
+            <strong>{{ event.date }}</strong> @ {{ event.venue }}<br>
+            <b>Price:</b> {{ event.price }}<br>
+            <b>Description:</b> {{ event.description }}
+        </li>
+    {% empty %}
+        <li class="empty-message">No events available.</li>
+    {% endfor %}
+</ul>
+<hr>
+<a href="{% url 'band-update' band.id %}" class="update-button">Update</a>
+<a href="{% url 'band-delete' band.id %}" class="delete-button">Delete</a>
+<a href="{% url 'bands_list' %}" class="back-button">Back to all bands</a>
+
+{% endblock %}

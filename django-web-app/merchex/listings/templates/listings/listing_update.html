@@ -1,0 +1,16 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<div class="form-container">
+    <div class="title">Update an Item</div>
+    <p>You are updating the item: <b>{{ listing.description }}</b></p>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Item</button>
+    </form>
+</div>
+
+{% endblock %}

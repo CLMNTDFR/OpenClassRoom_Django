@@ -1,0 +1,35 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<div class="title">Merch</div>
+<a href="{% url 'listing_create' %}" class="btn-add-band">+ Add a new item</a>
+<p>
+    This section lists merchandise from bands and artists from the North of France.<br>
+    It's not yet a marketplace but you can find out where to buy the products 
+</p>
+<br><br>
+<!-- Index for quick navigation -->
+<div class="index">
+    {% for letter in alphabet %}
+        <a href="#{{ letter }}">{{ letter }}</a> |
+    {% endfor %}
+</div>
+<br>
+{% regroup listings by band.name.0 as band_list %}
+
+<ul>
+    {% for band in band_list %}
+    <li>
+        <strong><a id="{{ band.grouper }}">{{ band.grouper }}</a></strong>
+        <ul>
+            {% for listing in band.list %}
+            <li><a href="{% url 'listing_detail' listing.id %}"><strong>{{ listing.band.name }}</strong> - {{ listing.description }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    <hr>
+    {% endfor %}
+</ul>
+
+{% endblock %}

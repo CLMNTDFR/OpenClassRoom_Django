@@ -1,0 +1,20 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<p>Are you sure you want to delete the band: <b>{{ band.name }}</b>?</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="ultime-delete-button">
+    <a href="{% url 'band_detail' band.id %}" class="ultime-cancel-button">Cancel</a>
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

@@ -19,9 +19,24 @@ from django.urls import path
 from listings import views
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
-    path('hello/', views.hello, name='hello'),
+    path('bands/', views.band_list, name='bands_list'),
+    path('bands/<int:id>/', views.band_detail, name='band_detail'),
+    path('bands/add/', views.band_create, name='band-create'),
+    path('bands/<int:id>/change/', views.band_update, name='band-update'),
     path('about/', views.about, name='about'),
-    path('listings/', views.listings, name='listings'),
+    path('merch/', views.listing_list, name='listing_list'),
+    path('merch/<int:id>/', views.listing_detail, name='listing_detail'),
+    path('merch/add/', views.listing_create, name='listing_create'),
+    path('merch/<int:id>/change/', views.listing_update, name='listing-update'),
+    path('events/', views.event_list, name='event_list'),
+    path('events/create/', views.event_create, name='event_create'),
+    path('events/<int:id>/change/', views.event_update, name='event-update'),
     path('contact/', views.contact, name='contact'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('terms-of-service/', views.terms_of_service, name='terms_of_service'),
+    path('bands/<int:id>/delete/', views.band_delete, name='band-delete'),
+    path('merch/<int:id>/delete/', views.listing_delete, name='listing-delete'),
+    path('events/<int:id>/delete/', views.event_delete, name='event-delete'),
 ]
