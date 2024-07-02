@@ -13,9 +13,14 @@ In this project, you will see that I have developed the following skills:
 - Linked data to views
 - Use of DjangoForms and ModelForm
 
-# Memo for a quick start
+I turned the project to create a web application similar to a social network.
+The aim of this network is to share groups from the Lille underground scene.
+A user will be able to authenticate in order to share various information about a music group, such as its contact details, its derivative products and its events using typical "CRUD" operations.<br><br>
+For now, I've named this interface N.U.B for "North Underground Bands".
+Feel free to browse the site and navigate through structured data.<br><br>
+I am open to any avenues for improvement!
 
-## Init: Django Project:
+# Memo for a quick start
 
 1. <strong>Create env:</strong><br>
 - `python -m venv env`
