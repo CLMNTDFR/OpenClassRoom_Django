@@ -2,8 +2,16 @@
 
 {% block content %}
 {% load static %}
-
-<h1 class="home">Welcome to N.U.B - North Underground Bands</h1>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<h1 class="home">Welcome to N.U.B</h1>
+<div class="home-sub"><b>•</b> North Underground Bands <b>•</b></div>
+<br>
 <p>Discover the best underground bands from the North of France. Our mission is to bring you the latest and greatest in underground music, featuring diverse genres and unique sounds. Stay tuned for upcoming events, new releases, and exclusive interviews with your favorite bands.</p>
 <br>
 <div class="home">Latest news</div>

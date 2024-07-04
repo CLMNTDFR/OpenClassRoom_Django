@@ -1,0 +1,29 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+<div class="form-login">
+    <div class="centerlog">• Log In •</div><br>
+    <p class="introduction-text">Please login to access to the contents</p>
+    {% if not user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <br>
+    <p class="invitation-text">Don't have an account yet?</p>
+    <a href="{% url 'signup' %}" class="sign-up-button">Sign up!</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <br>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    {% endif %}
+    <br>
+</div>
+{% endblock content %}

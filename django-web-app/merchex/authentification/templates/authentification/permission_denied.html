@@ -1,0 +1,14 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+
+<div class="centerlog">Permission Denied</div>
+<br>
+<p class="introduction-text">You do not have permission to view this page.</p>
+<hr>
+<br>
+<p class="invitation-text">Log in to your own account here:</p>
+<a href="{% url 'login' %}" class="btn-add-band">Login</a>
+<br><br>
+
+{% endblock content %}

@@ -9,18 +9,23 @@
     <link rel="stylesheet" href="{% static 'listings/styles.css' %}">
 </head>
 <body>
-    <div class="logo">N.U.B</div>
-    <nav class="navbar">
-        <ul class="nav-list">
-            <li class="nav-item"><a href="{% url 'home' %}">Home</a></li>
-            <li class="nav-item"><a href="{% url 'bands_list' %}">Bands</a></li>
-            <li class="nav-item"><a href="{% url 'listing_list' %}">Merch</a></li>
-            <li class="nav-item"><a href="{% url 'event_list' %}">Events</a></li>
-            <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
-            <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
-        </ul>
-    </nav>
-    <hr>
+    <div class="header-container">
+        <div class="logo"><a href="{% url 'home' %}">N.U.B</a></div>
+        <nav class="navbar">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="{% url 'bands_list' %}">Bands</a></li>
+                <li class="nav-item"><a href="{% url 'listing_list' %}">Merch</a></li>
+                <li class="nav-item"><a href="{% url 'event_list' %}">Events</a></li>
+                <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
+                <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item logout-button"><a href="{% url 'logout' %}">Logout: {{ user.username }}</a></li>
+                {% else %}
+                    <li class="nav-item login-button"><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
     <div class="content">
         {% if messages %}
         <ul class="messages">
@@ -29,11 +34,14 @@
             {% endfor %}
         </ul>
         {% endif %}
+        {% if user.is_authenticated %}
+        <a href="{% url 'account' user.username %}" class="update-button-small sticky-button">My account</a>
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
     <footer>
         <div class="footer-content">
-            <p>&copy; 2024 N.U.B - North Underground Bands (Clément DEFER) - All rights reserved.</p>
+            <p class="footer-copyright">&copy; 2024 N.U.B - North Underground Bands (Clément DEFER) - All rights reserved.</p>
             <ul class="footer-links">
                 <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
                 <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>

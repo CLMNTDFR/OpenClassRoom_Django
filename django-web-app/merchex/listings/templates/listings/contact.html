@@ -1,8 +1,7 @@
 {% extends 'listings/base.html' %}
 
 {% block content %}
-<div class="title">Contact us</div>
-<h3>Need assistance?</h3>
+<div class="title">• Contact us •</div>
 
 <!-- Afficher le message de confirmation si le formulaire a été soumis avec succès -->
 {% if messages %}
@@ -13,6 +12,7 @@
     {% endfor %}
 {% endif %}
 <!-- Afficher le formulaire -->
+<div class="form-container">
 <form action="" method="post" novalidate>
     {% csrf_token %}
     {% for field in form %}
@@ -28,6 +28,8 @@
         {% endif %}
     </div>
     {% endfor %}
-    <input type="submit" value="Send">
+    <br>
+    <input type="submit" value="Send" class="btn-add-band">
 </form>
+</div>
 {% endblock %}

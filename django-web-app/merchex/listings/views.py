@@ -5,15 +5,19 @@ from listings.forms import ContactUsForm, BandForm, EventForm, ListingForm
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
 
 def home(request):
     return render(request, 'listings/home.html')
 
+@login_required
 def band_list(request):
     bands = Band.objects.order_by('name')
     alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
     return render(request, 'listings/band_list.html', {'bands': bands, 'alphabet': alphabet})
 
+@login_required
 def band_detail(request, id):
     try:
         band = Band.objects.get(id=id)
@@ -22,6 +26,7 @@ def band_detail(request, id):
     
     return render(request, 'listings/band_detail.html', {'band': band})
 
+@login_required
 def band_create(request):
     if request.method == 'POST':
         form = BandForm(request.POST)
@@ -34,6 +39,7 @@ def band_create(request):
 
     return render(request, 'listings/band_form.html', {'form': form})
 
+@login_required
 def band_update(request, id):
     band = get_object_or_404(Band, id=id)
     if request.method == 'POST':
@@ -45,11 +51,13 @@ def band_update(request, id):
         form = BandForm(instance=band)
     return render(request, 'listings/band_update.html', {'form': form, 'band': band})
 
+@login_required
 def listing_list(request):
     listings = Listing.objects.select_related('band').order_by('band__name', 'description')
     alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
     return render(request, 'listings/listing_list.html', {'listings': listings, 'alphabet': alphabet})
 
+@login_required
 def listing_detail(request, id):
     try:
         listing = Listing.objects.get(id=id)
@@ -58,6 +66,7 @@ def listing_detail(request, id):
 
     return render(request, 'listings/listing_detail.html', {'listing': listing})
 
+@login_required
 def listing_create(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
@@ -69,6 +78,7 @@ def listing_create(request):
     
     return render(request, 'listings/listing_form.html', {'form': form})
 
+@login_required
 def listing_update(request, id):
     listing = get_object_or_404(Listing, id=id)
     if request.method == 'POST':
@@ -80,12 +90,14 @@ def listing_update(request, id):
         form = ListingForm(instance=listing)
     return render(request, 'listings/listing_update.html', {'form': form, 'listing': listing})
 
+@login_required
 def event_list(request):
     now = timezone.now()
     upcoming_events = Event.objects.filter(date__gte=now).order_by('date')
     past_events = Event.objects.filter(date__lt=now).order_by('-date')
     return render(request, 'listings/event_list.html', {'upcoming_events': upcoming_events, 'past_events': past_events})
 
+@login_required
 def event_create(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
@@ -97,6 +109,7 @@ def event_create(request):
     
     return render(request, 'listings/event_form.html', {'form': form})
 
+@login_required
 def event_update(request, id):
     event = get_object_or_404(Event, id=id)
     if request.method == 'POST':
@@ -131,6 +144,7 @@ def contact(request):
 
     return render(request, 'listings/contact.html', {'form': form})
 
+@login_required
 def band_delete(request, id):
     band = get_object_or_404(Band, id=id)
     if request.method == 'POST':
@@ -139,6 +153,7 @@ def band_delete(request, id):
         return redirect('band_list')
     return render(request, 'listings/band_delete.html', {'band': band})
 
+@login_required
 def listing_delete(request, id):
     listing = get_object_or_404(Listing, id=id)
     if request.method == 'POST':
@@ -147,6 +162,7 @@ def listing_delete(request, id):
         return redirect('listing_list')
     return render(request, 'listings/listing_delete.html', {'listing': listing})
 
+@login_required
 def event_delete(request, id):
     event = get_object_or_404(Event, id=id)
     if request.method == 'POST':

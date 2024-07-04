@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<div class="title">Events</div>
-<a href="{% url 'event_create' %}" class="btn-add-band">+ Add a new event</a>
-<p>
+<div class="title">• Events •</div>
+<p class="introduction-text">
     Discover the upcoming events and the past events of the bands from the North of France.
 </p>
+<a href="{% url 'event_create' %}" class="btn-add-band">+ Add a new event</a>
 <br><br>
 <nav>
     <ul class="event-index">
@@ -26,15 +26,9 @@
                 <li><strong>Description:</strong> {{ event.description }}</li>
                 {% if event.event_link %}
                 <li>
-                    <div class="event-link-container" style="display: inline-block; padding: 5px 10px; border-radius: 15px; background-color: white; transition: background-color 0.3s, color 0.3s;">
-                        <a href="{{ event.event_link }}" target="_blank" style="text-decoration: none; color: black; transition: background-color 0.3s, color 0.3s;">Event Link</a>
+                    <div class="event-link-container">
+                        <a href="{{ event.event_link }}" target="_blank" >Event Link</a>
                     </div>
-                    <style>
-                        .event-link-container:hover {
-                            background-color: red !important;
-                            color: white !important;
-                        }
-                    </style>
                 </li>
                 {% endif %}
             </ul>

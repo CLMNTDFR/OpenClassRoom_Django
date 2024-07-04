@@ -17,10 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from listings import views
+import authentification.views
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
+    path('login/', authentification.views.login_page, name='login'),
+    path('logout/', authentification.views.logout_user, name='logout'),
+    path('signup/', authentification.views.signup_page, name='signup'),
+    path('account/<str:username>/', authentification.views.account_view, name='account'),
     path('bands/', views.band_list, name='bands_list'),
     path('bands/<int:id>/', views.band_detail, name='band_detail'),
     path('bands/add/', views.band_create, name='band-create'),

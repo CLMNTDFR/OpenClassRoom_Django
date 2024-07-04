@@ -2,26 +2,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Lekton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jaini&display=swap');
 
-/* Style de base pour le corps de la page */
-body {
-    font-family: 'Lekton', monospace; /* Utilisation d'une police de type machine à écrire */
-    margin: 0;
-    padding: 0;
-    background-color: #000; /* Fond noir */
-    color: #fff; /* Texte en blanc */
+* {
+    max-width: 100vw; /* Limite la largeur maximale du contenu */
+}
+
+/* Personnalisation de la scrollbar */
+::-webkit-scrollbar {
+    width: 12px; /* Largeur de la scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #333; /* Couleur de fond de la piste */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #555; /* Couleur de fond du thumb (la partie que vous déplacez) */
+    border-radius: 6px; /* Coins arrondis du thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Couleur de fond du thumb au survol */
+}
+
+/* Pour Firefox */
+* {
+    scrollbar-width: thin; /* Largeur de la scrollbar */
+    scrollbar-color: #555 #333; /* Couleur du thumb et de la piste */
 }
 
 .underline {
     text-decoration: underline;
     font-weight: lighter;
-}
-
-.logo {
-    font-family: 'Jaini', cursive;
-    font-size: 4rem; /* Ajuste la taille du logo */
-    color: #fff;
-    text-align: center;
-    margin: 20px 0; /* Ajoute un peu de marge autour du logo */
 }
 
 .bandname {
@@ -35,60 +46,244 @@ body {
     font-size: 3rem; /* Ajuste la taille du nom de groupe */
     letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
     text-align: center; /* Centre le texte horizontalement */
-    margin: 20px 0; /* Ajoute un peu de marge en haut et en bas */
+    margin: 0 0; /* Ajoute un peu de marge en haut et en bas */
+}
+
+.home-sub {
+    font-family: 'Lekton', monospace;
+    font-size: 1.5rem; /* Ajuste la taille du nom de groupe */
+    letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
+    text-align: center; /* Centre le texte horizontalement */
+    margin: 0 0; /* Ajoute un peu de marge en haut et en bas */
 }
 
 .title {
     font-family: 'Jaini', cursive;
     font-size: 3rem; /* Ajuste la taille du nom de groupe */
     letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
-    margin: 20px 0; /* Ajoute un peu de marge en haut et en bas */
+    margin: 0 auto 40px; /* Ajoute un peu de marge en haut et en bas */
+    text-align: center;
 }
 
-/* Style pour la barre de navigation */
+.introduction-text {
+    text-align: center; /* Justifie le texte pour que chaque ligne ait la même largeur */
+    width: fit-content;
+    margin: 0 auto 40px; /* Centre le paragraphe horizontalement */
+    background-color: #141414; /* Fond gris foncé */
+    color: #fff; /* Texte en blanc pour une meilleure lisibilité sur fond sombre */
+    padding: 20px; /* Espace interne pour l'espacement du texte par rapport au fond */
+    border-radius: 5px;
+}
+
+.invitation-text {
+    text-align: center; /* Justifie le texte pour que chaque ligne ait la même largeur */
+    color: #fff; /* Texte en blanc pour une meilleure lisibilité sur fond sombre */
+}
+
+.centerlog {
+    font-family: 'Jaini', cursive;
+    font-size: 3rem; /* Ajuste la taille du nom de groupe */
+    letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
+    margin: 10px 10px; /* Ajoute un peu de marge en haut et en bas */
+    text-align: center; /* Centre le texte horizontalement */
+}
+
+.sticky-button {
+    text-align: right;
+}
+
+/* Style de base pour le corps de la page */
+body {
+    font-family: 'Lekton', monospace; /* Utilisation d'une police de type machine à écrire */
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Fond noir */
+    color: #fff; /* Texte en blanc */
+}
+
+body a {
+    text-decoration: none; /* Supprime le soulignement des liens */
+}
+
+/* Styles de base pour le header */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Réduit l'espace à gauche et à droite */
+    background-color: #fff; /* Fond blanc pour le header */
+    box-shadow: 0 6px 4px rgba(255, 255, 255, 0.319); /* Ajoute une légère ombre blanche en dessous */
+}
+
+.logo {
+    font-family: 'Jaini', cursive;
+    font-size: 4rem; /* Ajuste la taille du logo */
+    color: #000; /* Texte en noir */
+    margin-left: 20px; /* Réduit l'espace à gauche du logo */
+    text-decoration: none !important; /* Retire le soulignement */
+}
+
+.logo a:visited {
+    color: #000; /* Assure que le texte reste noir même après avoir été visité */
+}
+
 .navbar {
-    background-color: #000000;
+    background-color: #fff; /* Fond blanc pour la navbar */
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 5px 0;
-    width: 100%;
     z-index: 500; /* Assure que la navbar est au-dessus du reste du contenu */
+    margin-right: 20px; /* Réduit l'espace à droite de la navbar */
 }
 
-/* Style pour la liste de navigation */
 .nav-list {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
 }
 
-/* Style pour les éléments de la liste de navigation */
 .nav-item {
     margin: 0 15px;
 }
 
-/* Style pour les liens de la liste de navigation */
 .nav-item a {
     display: block;
-    color: white;
+    color: #000; /* Texte en noir */
     text-align: center;
-    padding: 14px 20px;
+    padding: 5px 20px;
+    font-weight: 700; /* Rend le texte plus gras */
     text-decoration: none;
-    font-weight: 500;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 4px;
 }
 
-/* Style pour les liens visités */
 .nav-item a:visited {
-    color: #ccc; /* Couleur des liens visités en gris */
+    color: #555; /* Couleur des liens visités en gris foncé */
 }
 
-/* Style pour les liens au survol */
 .nav-item a:hover {
-    background-color: #575757;
+    background-color: #ddd; /* Couleur de fond plus claire au survol */
+}
+
+.login-button a {
+    background-color: green; /* Couleur de fond verte */
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+}
+
+.login-button a:hover {
+    background-color: darkgreen; /* Couleur de fond plus sombre au survol */
+}
+
+.logout-button a {
+    background-color: red;
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+}
+
+.logout-button a:hover {
+    background-color: darkred; /* Couleur de fond plus sombre au survol */
+}
+
+/* Media queries pour la responsivité */
+@media (max-width: 1200px) {
+    .logo {
+        font-size: 3rem; /* Réduire la taille du logo pour les écrans plus petits */
+        margin-left: 30px; /* Réduire la marge à gauche du logo */
+    }
+}
+
+@media (max-width: 992px) {
+    .nav-item {
+        margin: 0 10px; /* Réduire la marge entre les éléments de la navbar */
+    }
+
+    .footer-content {
+        flex-direction: column; /* Afficher les éléments en colonne sur les petits écrans */
+    }
+
+    .footer-links {
+        margin: 10px 0 0; /* Réduire la marge en haut des liens */
+    }
+
+    .footer-links li {
+        margin: 5px 0; /* Réduire la marge entre les liens */
+    }
+
+    .footer-copyright {
+        width: 70%; /* Le paragraphe occupe au maximum 70% de la largeur de l'écran */
+        margin: 0 auto; /* Centrer le paragraphe horizontalement */
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; /* Afficher les éléments en colonne sur les petits écrans */
+        align-items: center; /* Centrer les éléments */
+    }
+
+    .logo {
+        margin: 0 0 20px 0; /* Supprimer la marge à gauche du logo et ajouter une marge en bas */
+        font-size: 4rem; /* Restaurer la taille du logo */
+    }
+
+    .navbar {
+        margin-right: 0; /* Supprimer la marge à droite de la navbar */
+    }
+
+    .nav-list {
+        flex-wrap: wrap; /* Permettre aux éléments de passer à la ligne */
+        justify-content: center; /* Centrer les éléments */
+    }
+
+    .nav-item {
+        flex: 1 1 30%; /* Chaque élément prendra 30% de la largeur */
+        margin: 5px; /* Réduire la marge entre les éléments de la navbar */
+        text-align: center; /* Centrer le texte des éléments */
+    }
+
+    .footer-content {
+        flex-direction: column; /* Afficher les éléments en colonne sur les petits écrans */
+        box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.1); /* Ajoute une ombre à l'intérieur et en haut du footer */
+    }
+
+    .footer-links {
+        margin: 10px 0 0; /* Réduire la marge en haut des liens */
+    }
+
+    .footer-links li {
+        margin: 5px 0; /* Réduire la marge entre les liens */
+    }
+}
+
+@media (max-width: 576px) {
+    .logo {
+        font-size: 3rem; /* Réduire davantage la taille du logo pour les très petits écrans */
+    }
+
+    .nav-item a {
+        padding: 5px 10px; /* Réduire le padding des liens de la navbar */
+    }
+
+    .footer-content p {
+        font-size: 0.9em; /* Réduire la taille du texte pour les très petits écrans */
+    }
+
+    .footer-links a {
+        font-size: 0.9em; /* Réduire la taille du texte pour les très petits écrans */
+    }
 }
 
 /* Style pour le contenu principal */
@@ -98,6 +293,7 @@ body {
     margin-top: 20px; /* Marge supérieure égale à la hauteur de la navbar */
     margin-left: 60px; /* Marge à gauche */
     margin-right: 60px; /* Marge à droite */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.77); /* Ajoute une ombre grise en dessous du contenu */
 }
 
 /* Style pour les liens de la liste de navigation */
@@ -115,12 +311,13 @@ body {
 /* Style pour les liens au survol */
 .content a:hover {
     color: #fff; /* Couleur des liens au survol */
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* Footer styles */
 footer {
-    background: linear-gradient(to bottom, #000000, #202020); /* Dégradé du noir vers le gris */
+    background: white;
+    width: 100%;
     padding: 8px 0;
     text-align: center;
     width: 100%;
@@ -129,7 +326,7 @@ footer {
 .footer-content {
     max-width: 1000px;
     margin: 0 auto;
-    color: #fff; /* Texte en blanc */
+    color: #000000; /* Texte en noir */
     display: flex; /* Utilisation de flexbox */
     justify-content: space-between; /* Aligner les éléments avec un espace entre eux */
     align-items: center; /* Centrer verticalement les éléments */
@@ -153,15 +350,15 @@ footer {
 
 .footer-links a {
     text-decoration: none;
-    color: #fff;
+    color: #000000;
     padding: 5px 8px;
-    border: 1px solid #fff;
+    border: 1px solid #000000;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .footer-links a:hover {
-    background-color: #fff;
-    color: #222;
+    background-color: #000000;
+    color: #ffffff;
 }
 
 .social-media {
@@ -181,7 +378,9 @@ footer {
 /* Couleur de fond gris foncé pour les champs de saisie */
 input[type="text"],
 input[type="email"],
-textarea {
+input[type="password"],
+textarea,
+select {
     background-color: #141414;
     color: #fff;
     border: 1px solid #555;
@@ -206,7 +405,8 @@ textarea {
 
 /* Styles supplémentaires pour les champs de saisie */
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+input[type="password"] {
     font-size: 1rem; /* Taille de police par défaut */
     display: block;
     width: calc(100% - 12px); /* Largeur ajustée pour tenir compte de la marge */
@@ -245,7 +445,9 @@ input[type="email"] {
 
 .form-container input[type="text"],
 .form-container input[type="email"],
-.form-container textarea {
+.form-container input[type="password"],
+.form-container textarea,
+.form-container select {
     width: calc(100% - 20px); /* Largeur ajustée pour tenir compte de la marge */
     padding: 10px;
     margin-bottom: 10px;
@@ -270,6 +472,16 @@ input[type="email"] {
 
 .form-container button:hover {
     background-color: #246227; /* Couleur de fond au survol */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.help-text {
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
 }
 
 /* Style pour les zones de saisie de type date */
@@ -297,23 +509,35 @@ select.form-control option {
 }
 
 .btn-add-band {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid #254627; /* Bordure initiale verte clair */
-    border-radius: 30px; /* Bords très arrondis */
-    background-color: #254627; /* Fond vert clair */
-    color: #fff; /* Texte en blanc */
-    font-size: 16px;
-    font-family: 'Lekton', monospace; /* Même police d'écriture que le corps de la page */
-    text-decoration: none;
-    transition: background-color 0.3s, border-color 0.3s; /* Transition des couleurs au survol */
-    float: right; /* Aligne le bouton à droite */
-    margin-top: 10px; /* Marge en haut pour l'espacement par rapport au contenu */
+    display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
+    background-color: green; /* Couleur de fond verte */
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+    width: fit-content; /* Assure que la largeur du bouton s'adapte à son contenu */
+    margin: 0 auto; /* Ajoutez cette ligne pour centrer le bouton horizontalement */
+}
+
+.sign-up-button {
+    display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
+    background-color: rgb(0, 47, 128); /* Couleur de fond verte */
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+    width: fit-content; /* Assure que la largeur du bouton s'adapte à son contenu */
+    margin: 0 auto; /* Ajoutez cette ligne pour centrer le bouton horizontalement */
 }
 
 .btn-add-band:hover {
-    background-color: #132913; /* Fond vert foncé au survol */
-    border-color: #132913; /* Bordure verte foncé au survol */
+    background-color: darkgreen; /* Fond vert foncé au survol */
 }
 
 .empty-message {
@@ -326,7 +550,6 @@ select.form-control option {
     padding: 10px 20px;
     margin: 10px 0;
     color: #fff;
-    border: 2px solid #fff;
     border-radius: 25px;
     text-decoration: none;
     font-size: 1rem;
@@ -437,30 +660,37 @@ ul li strong {
     display: inline-block;
     padding: 5px 10px; /* Réduit le padding pour rendre les boutons plus petits */
     margin: 5px 0;
-    color: #fff;
-    border: 2px solid #fff;
+    text-decoration: none; /* Ajoutez cette ligne pour s'assurer qu'il n'y a pas de soulignement par défaut */
+}
+
+.update-button-small {
+    background-color: rgb(0, 0, 0);
+    border: 2px solid darkgreen;
     border-radius: 25px;
     text-decoration: none;
     font-size: 0.9rem; /* Réduit la taille de la police pour rendre les boutons plus petits */
     transition: background-color 0.3s, color 0.3s;
 }
 
-.update-button-small {
-    background-color: rgb(0, 0, 0);
-}
-
 .update-button-small:hover {
     background-color: darkgreen;
     color: #fff;
+    text-decoration: none; /* Ajoutez cette ligne pour retirer le soulignement au survol */
 }
 
 .delete-button-small {
     background-color: rgb(0, 0, 0);
+    border: 2px solid darkred;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 0.9rem; /* Réduit la taille de la police pour rendre les boutons plus petits */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .delete-button-small:hover {
     background-color: darkred;
     color: #fff;
+    text-decoration: none; /* Ajoutez cette ligne pour retirer le soulignement au survol */
 }
 
 /* Styles for the delete button */
@@ -501,4 +731,154 @@ ul li strong {
 
 .ultime-cancel-button:hover {
     background-color: #45a049;
+}
+
+.form-login {
+    width: 60%; /* Largeur du formulaire */
+    margin: 0 auto; /* Centre le formulaire horizontalement */
+    padding: 20px; /* Espacement intérieur du formulaire */
+    background-color: #000000; /* Couleur de fond */
+    border: 1px solid #000000; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+
+.form-login .input-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.form-login .input-group input[type="text"],
+.form-login .input-group input[type="password"] {
+    flex: 1; /* Permet aux champs de saisie de prendre autant d'espace que possible */
+    padding: 10px;
+    margin: 0 10px; /* Marge entre les deux champs de saisie */
+    border: 1px solid #333; /* Bordure grise foncée */
+    border-radius: 4px;
+    background-color: #333; /* Fond gris foncé */
+    color: white; /* Texte en blanc pour contraste */
+}
+
+.form-login button {
+    display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
+    margin: 0 auto; /* Centre le bouton horizontalement */
+    font-family: 'Lekton', monospace;
+    font-size: 1.2em; /* Texte légèrement plus grand */
+    text-align: center;
+    background-color: green;
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+}
+
+.form-login button:hover {
+    background-color: darkgreen; /* Couleur de fond au survol */
+}
+
+.form-login button.logout-button {
+    display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
+    margin: 0 auto; /* Centre le bouton horizontalement */
+    font-family: 'Lekton', monospace;
+    font-size: 1.2em; /* Texte légèrement plus grand */
+    text-align: center;
+    background-color: red;
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+}
+
+.form-login button.logout-button:hover {
+    background-color: darkred; /* Couleur de fond plus sombre au survol */
+}
+
+.form-login .success-message {
+    color: green; /* Couleur du texte vert */
+    text-align: center; /* Centrer le texte horizontalement */
+    margin: 10px 0; /* Ajouter un peu de marge en haut et en bas */
+}
+
+.form-login .error-message {
+    color: red; /* Couleur du texte rouge */
+    text-align: center; /* Centrer le texte horizontalement */
+    margin: 10px 0; /* Ajouter un peu de marge en haut et en bas */
+}
+
+/* Nouvelles classes pour le formulaire d'inscription */
+.form-signup {
+    width: 60%; /* Largeur du formulaire */
+    margin: 0 auto; /* Centre le formulaire horizontalement */
+    padding: 20px; /* Espacement intérieur du formulaire */
+    background-color: #000000; /* Couleur de fond */
+    border: 1px solid #000000; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+}
+
+.form-signup .input-group {
+    display: flex;
+    flex-direction: column; /* Les éléments seront empilés verticalement */
+    margin-bottom: 20px;
+}
+
+.form-signup .input-group input[type="text"],
+.form-signup .input-group input[type="password"],
+.form-signup .input-group input[type="email"] {
+    flex: 1; /* Permet aux champs de saisie de prendre autant d'espace que possible */
+    padding: 10px;
+    margin-bottom: 10px; /* Marge en bas pour séparer les champs */
+    border: 1px solid #333; /* Bordure grise foncée */
+    border-radius: 4px;
+    background-color: #333; /* Fond gris foncé */
+    color: white; /* Texte en blanc pour contraste */
+}
+
+.form-signup button {
+    display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
+    margin: 0 auto; /* Centre le bouton horizontalement */
+    font-family: 'Lekton', monospace;
+    font-size: 1.2em; /* Texte légèrement plus grand */
+    text-align: center;
+    background-color: green;
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+}
+
+.form-signup button:hover {
+    background-color: darkgreen; /* Couleur de fond au survol */
+}
+
+.event-link-container {
+    display: inline-block !important;
+    padding: 5px 10px !important;
+    border-radius: 15px !important;
+    background-color: rgb(30, 30, 30) !important;
+    transition: background-color 0.3s, color 0.3s !important;
+}
+
+.event-link-container a {
+    text-decoration: none !important;
+    color: white !important;
+    transition: background-color 0.3s, color 0.3s !important;
+}
+
+.event-link-container:hover {
+    background-color: white !important;
+}
+
+.event-link-container:hover a {
+    color: black !important;
 }
