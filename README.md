@@ -20,6 +20,7 @@ In this project, you will see that I have developed the following skills:
 - Performed CRUD operations via the Django administrator
 - Linked data to views
 - Use of DjangoForms and ModelForm
+- The front end is only designed with raw HTML and CSS
 <br><br><br>
 I turned the project to create a web application similar to a social network.
 The aim of this network is to share groups from the Lille underground scene.
