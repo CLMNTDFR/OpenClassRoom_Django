@@ -88,10 +88,6 @@
     text-align: center; /* Centre le texte horizontalement */
 }
 
-.sticky-button {
-    text-align: right;
-}
-
 /* Style de base pour le corps de la page */
 body {
     font-family: 'Lekton', monospace; /* Utilisation d'une police de type machine à écrire */
@@ -522,6 +518,25 @@ select.form-control option {
     margin: 0 auto; /* Ajoutez cette ligne pour centrer le bouton horizontalement */
 }
 
+.btn-account {
+    display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
+    background-color: #141414; /* Couleur de fond verte */
+    color: white !important; /* Texte en blanc */
+    font-weight: 700; /* Rend le texte plus gras */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Bords arrondis */
+    padding: 5px 20px; /* Espacement interne */
+    text-decoration: none; /* Pas de soulignement */
+    transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
+    width: fit-content; /* Assure que la largeur du bouton s'adapte à son contenu */
+    margin: 0 auto; /* Ajoutez cette ligne pour centrer le bouton horizontalement */
+}
+
+.btn-account:hover {
+    background-color: #343434;
+}
+
+
 .sign-up-button {
     display: block; /* Changez de inline-block à block pour permettre l'utilisation de margin: 0 auto; */
     background-color: rgb(0, 47, 128); /* Couleur de fond verte */
@@ -534,6 +549,10 @@ select.form-control option {
     transition: background-color 0.3s, color 0.3s; /* Transition en douceur */
     width: fit-content; /* Assure que la largeur du bouton s'adapte à son contenu */
     margin: 0 auto; /* Ajoutez cette ligne pour centrer le bouton horizontalement */
+}
+
+.sign-up-button:hover {
+    background-color: rgb(12, 1, 123);
 }
 
 .btn-add-band:hover {

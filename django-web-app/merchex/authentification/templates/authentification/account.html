@@ -3,10 +3,10 @@
 {% block content %}
 
 <h1>Welcome, {{ user.username }}!</h1>
-    <p>Email: {{ user.email }}</p>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <p>Role: {{ user.get_role_display }}</p>
-    <p>Created: {{ user.date_joined }}</p>
-    <p>Updated: {{ user.last_login }}</p>
+<p><b>Email:</b> {{ user.email }}</p>
+<p><b>First Name:</b> {{ user.first_name }}</p>
+<p><b>Last Name:</b> {{ user.last_name }}</p>
+<p><b>Role:</b> {{ user.get_role_display }}</p>
+<p><b>Created:</b> {{ user.date_joined }}</p>
+<p><b>Last connection:</b> {{ user.last_login }}</p>
 {% endblock content %}
