@@ -1,4 +1,12 @@
-# Django exercices
+<p align="center">
+<img src="https://i.postimg.cc/XvHcvShj/NUB-logo.png" alt="N.U.B"/></p>
+
+<div align="center">
+
+# North Underground Bands
+
+## Django exercices
+</div>
 
 Welcome to this repository dedicated to learning the Django Framework.
 In this project, you will see that I have developed the following skills:
@@ -12,15 +20,18 @@ In this project, you will see that I have developed the following skills:
 - Performed CRUD operations via the Django administrator
 - Linked data to views
 - Use of DjangoForms and ModelForm
-
+<br><br><br>
 I turned the project to create a web application similar to a social network.
 The aim of this network is to share groups from the Lille underground scene.
 A user will be able to authenticate in order to share various information about a music group, such as its contact details, its derivative products and its events using typical "CRUD" operations.<br><br>
 For now, I've named this interface N.U.B for "North Underground Bands".
 Feel free to browse the site and navigate through structured data.<br><br>
 I am open to any avenues for improvement!
+<br><br>
+<div align="center">
 
 # Memo for a quick start
+</div>
 
 1. <strong>Create env:</strong><br>
 - `python -m venv env`
