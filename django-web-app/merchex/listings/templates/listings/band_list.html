@@ -2,13 +2,16 @@
 
 {% block content %}
 
-<div class="title">• BANDS •</div>
+<div class="title">• Bands •</div>
 <p class="introduction-text">
     Discover the vibrant music scene of Northern France with our curated list of bands.<br>
     Feel free to add bands to expand this list and share your favorite northern artists with the world.
-</p>
-<a href="{% url 'band-create' %}" class="btn-add-band">+ Add a new band</a>
-<br><br>
+</p><br>
+<div class="button-container">
+    <a href="{% url 'band-create' %}" class="btn-add-band">
+      <span>Add a new band</span>
+    </a>
+  </div>
 <!-- Index for quick navigation -->
 <div class="index">
     {% for letter in alphabet %}

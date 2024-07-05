@@ -26,7 +26,7 @@
                 <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
                 <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item logout-button"><a href="{% url 'logout' %}">Logout: {{ user.username }}</a></li>
+                    <li class="nav-item"><a href="{% url 'account' user.username %}"><b>{{ user.username }}</b></a></li>
                 {% else %}
                     <li class="nav-item login-button"><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
@@ -40,10 +40,6 @@
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
             {% endfor %}
         </ul>
-        {% endif %}
-        {% if user.is_authenticated %}
-        <a href="{% url 'account' user.username %}" class="btn-account">My account</a>
-        <br>
         {% endif %}
         {% block content %}{% endblock %}
     </div>

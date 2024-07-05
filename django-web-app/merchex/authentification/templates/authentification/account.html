@@ -2,11 +2,19 @@
 
 {% block content %}
 
-<h1>Welcome, {{ user.username }}!</h1>
+<div class="title">Welcome, {{ user.username }}!</div>
+<div class="nav-item logout-button"><a href="{% url 'logout' %}">Logout</a></div>
+<br>
 <p><b>Email:</b> {{ user.email }}</p>
 <p><b>First Name:</b> {{ user.first_name }}</p>
 <p><b>Last Name:</b> {{ user.last_name }}</p>
 <p><b>Role:</b> {{ user.get_role_display }}</p>
 <p><b>Created:</b> {{ user.date_joined }}</p>
 <p><b>Last connection:</b> {{ user.last_login }}</p>
+
+<br>
+<br>
+<br>
+<br>
 {% endblock content %}
+

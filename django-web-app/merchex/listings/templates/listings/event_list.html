@@ -5,9 +5,12 @@
 <div class="title">• Events •</div>
 <p class="introduction-text">
     Discover the upcoming events and the past events of the bands from the North of France.
-</p>
-<a href="{% url 'event_create' %}" class="btn-add-band">+ Add a new event</a>
-<br><br>
+</p><br>
+<div class="button-container">
+    <a href="{% url 'band-create' %}" class="btn-add-band">
+      <span>Add a new event</span>
+    </a>
+  </div>
 <nav>
     <ul class="event-index">
         <li><a href="#upcoming">UPCOMING</a></li>  |  
