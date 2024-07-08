@@ -1,0 +1,15 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+<div class="title">Confirm Account Deletion</div>
+<p class="introduction-text">Are you sure you want to delete your account, {{ user.username }}?</p>
+<br>
+<div class="button-container">
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="confirm-btn">Yes, delete my account</button>
+    </form>
+    <a href="{% url 'account' username=user.username %}" class="cancel-btn">Cancel</a>
+</div>
+<br><br><br><br><br><br>
+{% endblock content %}

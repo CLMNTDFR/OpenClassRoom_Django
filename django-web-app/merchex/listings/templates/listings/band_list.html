@@ -12,14 +12,7 @@
       <span>Add a new band</span>
     </a>
   </div>
-<!-- Index for quick navigation -->
-<div class="index">
-    {% for letter in alphabet %}
-        <a href="#{{ letter }}">{{ letter }}</a> |
-    {% endfor %}
-</div>
-<br>
-<br><br>
+
 
 {% regroup bands by name.0 as band_list %}
 

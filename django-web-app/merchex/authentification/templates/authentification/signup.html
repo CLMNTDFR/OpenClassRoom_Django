@@ -1,9 +1,10 @@
 {% extends 'listings/base.html' %}
 
 {% block content %}
-<div class="form-signup">
-    <div class="centerlog">• Sign Up •</div><br>
+<div class="form-container">
+    <div class="title">• Sign Up •</div><br>
     <p class="introduction-text">Please sign up to create an account</p>
+    <br>
     {% if form.errors %}
         {{ form.errors }}
     {% endif %}
@@ -19,7 +20,7 @@
             </div>
         {% endfor %}
         <br>
-        <button type="submit">Sign Up!</button>
+        <button type="submit" class="sign-up-button">Sign Up!</button>
     </form>
     <br>
 </div>

@@ -3,10 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from . import forms
-from .forms import SignupForm
+from .forms import SignupForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from .models import User
-
 
 def signup_page(request):
     form = SignupForm()
@@ -45,6 +44,30 @@ def login_page(request):
         request, 'authentification/login.html', context={'form': form})
 
 def logout_user(request):
-    
     logout(request)
     return redirect('login')
+
+@login_required
+def edit_account(request, username):
+    user = get_object_or_404(User, username=username)
+    if user != request.user:
+        return render(request, 'authentification/permission_denied.html')
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('account', username=user.username)
+    else:
+        form = UserUpdateForm(instance=user)
+    return render(request, 'authentification/edit_account.html', {'form': form})
+
+@login_required
+def delete_account(request, username):
+    user = get_object_or_404(User, username=username)
+    if user != request.user:
+        return render(request, 'authentification/permission_denied.html')
+    if request.method == 'POST':
+        user.delete()
+        logout(request)
+        return redirect('home')
+    return render(request, 'authentification/confirm_delete.html', {'user': user})

@@ -1,0 +1,12 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+<div class="form-container">
+<div class="title">Edit Profile</div>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="sign-up-button">Save changes</button>
+</form>
+</div>
+{% endblock content %}

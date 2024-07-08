@@ -28,3 +28,8 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         max_length=63, widget=forms.PasswordInput, label="PassWord"
     )
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')

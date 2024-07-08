@@ -23,7 +23,7 @@ class BandForm(forms.ModelForm):
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['band', 'date', 'venue', 'price', 'description']
+        fields = ['band', 'date', 'venue', 'price', 'description', 'event_link']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }

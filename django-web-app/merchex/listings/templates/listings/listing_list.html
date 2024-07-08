@@ -8,16 +8,10 @@
     It's not yet a marketplace but you can find out where to buy the products 
 </p><br>
 <div class="button-container">
-    <a href="{% url 'band-create' %}" class="btn-add-band">
+    <a href="{% url 'listing_create' %}" class="btn-add-band">
       <span>Add a new item</span>
     </a>
   </div>
-<!-- Index for quick navigation -->
-<div class="index">
-    {% for letter in alphabet %}
-        <a href="#{{ letter }}">{{ letter }}</a> |
-    {% endfor %}
-</div>
 <br>
 {% regroup listings by band.name.0 as band_list %}
 

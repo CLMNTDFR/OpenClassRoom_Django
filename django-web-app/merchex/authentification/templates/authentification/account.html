@@ -3,7 +3,11 @@
 {% block content %}
 
 <div class="title">Welcome, {{ user.username }}!</div>
-<div class="nav-item logout-button"><a href="{% url 'logout' %}">Logout</a></div>
+<div class="button-container">
+    <div class="nav-item edit-profil-button"><a href="{% url 'edit_account' username=user.username %}">Edit</a></div>
+    <div class="nav-item logout-button"><a href="{% url 'logout' %}">Logout</a></div>
+    <div class="nav-item edit-profil-button"><a href="{% url 'delete_account' username=user.username %}">Delete Account</a></div>
+</div>
 <br>
 <p><b>Email:</b> {{ user.email }}</p>
 <p><b>First Name:</b> {{ user.first_name }}</p>
@@ -17,4 +21,3 @@
 <br>
 <br>
 {% endblock content %}
-
