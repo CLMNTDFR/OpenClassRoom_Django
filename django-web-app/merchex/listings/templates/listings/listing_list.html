@@ -11,7 +11,7 @@
     <a href="{% url 'listing_create' %}" class="btn-add-band">
       <span>Add a new item</span>
     </a>
-  </div>
+</div>
 <br>
 {% regroup listings by band.name.0 as band_list %}
 
@@ -21,7 +21,15 @@
         <strong><a id="{{ band.grouper }}">{{ band.grouper }}</a></strong>
         <ul>
             {% for listing in band.list %}
-            <li><a href="{% url 'listing_detail' listing.id %}"><strong>{{ listing.band.name }}</strong> - {{ listing.description }}</a></li>
+            <li>
+                <a href="{% url 'listing_detail' listing.id %}"><strong>{{ listing.band.name }}</strong> - {{ listing.description }}</a>
+                {% if listing.user == request.user %}
+                    <div style="color: grey; font-size: 0.8em; margin-left: 35px;">
+                        <a href="{% url 'listing-update' listing.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | 
+                        <a href="{% url 'listing-delete' listing.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a>
+                    </div>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
     </li>

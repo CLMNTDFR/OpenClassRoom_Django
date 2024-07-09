@@ -6,7 +6,9 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.generic import ListView
 
 def home(request):
     return render(request, 'listings/home.html')
@@ -15,7 +17,7 @@ def home(request):
 def band_list(request):
     bands = Band.objects.order_by('name')
     alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
-    return render(request, 'listings/band_list.html', {'bands': bands, 'alphabet': alphabet})
+    return render(request, 'listings/band_list.html', {'bands': bands, 'alphabet': alphabet, 'request': request})
 
 @login_required
 def band_detail(request, id):
@@ -24,7 +26,7 @@ def band_detail(request, id):
     except Band.DoesNotExist:
         return HttpResponse('<h1>Sorry, Band not found</h1><h3>Please try again with another ID</h3>', status=404)
     
-    return render(request, 'listings/band_detail.html', {'band': band})
+    return render(request, 'listings/band_detail.html', {'band': band, 'request': request})
 
 @login_required
 def band_create(request):
@@ -39,7 +41,7 @@ def band_create(request):
     else:
         form = BandForm()
 
-    return render(request, 'listings/band_form.html', {'form': form})
+    return render(request, 'listings/band_form.html', {'form': form, 'request': request})
 
 @login_required
 def band_update(request, id):
@@ -54,13 +56,13 @@ def band_update(request, id):
             return redirect('band_detail', id=band.id)
     else:
         form = BandForm(instance=band)
-    return render(request, 'listings/band_update.html', {'form': form, 'band': band})
+    return render(request, 'listings/band_update.html', {'form': form, 'band': band, 'request': request})
 
 @login_required
 def listing_list(request):
     listings = Listing.objects.select_related('band').order_by('band__name', 'description')
     alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
-    return render(request, 'listings/listing_list.html', {'listings': listings, 'alphabet': alphabet})
+    return render(request, 'listings/listing_list.html', {'listings': listings, 'alphabet': alphabet, 'request': request})
 
 @login_required
 def listing_detail(request, id):
@@ -69,7 +71,7 @@ def listing_detail(request, id):
     except Listing.DoesNotExist:
         return HttpResponse('<h1>Sorry, Listing not found</h1><h3>Please try again with another ID</h3>', status=404)
 
-    return render(request, 'listings/listing_detail.html', {'listing': listing})
+    return render(request, 'listings/listing_detail.html', {'listing': listing, 'request': request})
 
 @login_required
 def listing_create(request):
@@ -83,7 +85,7 @@ def listing_create(request):
     else:
         form = ListingForm()
     
-    return render(request, 'listings/listing_form.html', {'form': form})
+    return render(request, 'listings/listing_form.html', {'form': form, 'request': request})
 
 @login_required
 def listing_update(request, id):
@@ -98,14 +100,14 @@ def listing_update(request, id):
             return redirect('listing_detail', id=listing.id)
     else:
         form = ListingForm(instance=listing)
-    return render(request, 'listings/listing_update.html', {'form': form, 'listing': listing})
+    return render(request, 'listings/listing_update.html', {'form': form, 'listing': listing, 'request': request})
 
 @login_required
 def event_list(request):
     now = timezone.now()
     upcoming_events = Event.objects.filter(date__gte=now).order_by('date')
     past_events = Event.objects.filter(date__lt=now).order_by('-date')
-    return render(request, 'listings/event_list.html', {'upcoming_events': upcoming_events, 'past_events': past_events})
+    return render(request, 'listings/event_list.html', {'upcoming_events': upcoming_events, 'past_events': past_events, 'request': request})
 
 @login_required
 def event_create(request):
@@ -119,7 +121,7 @@ def event_create(request):
     else:
         form = EventForm()
     
-    return render(request, 'listings/event_form.html', {'form': form})
+    return render(request, 'listings/event_form.html', {'form': form, 'request': request})
 
 @login_required
 def event_update(request, id):
@@ -134,13 +136,13 @@ def event_update(request, id):
             return redirect('event_list')
     else:
         form = EventForm(instance=event)
-    return render(request, 'listings/event_update.html', {'form': form, 'event': event})
+    return render(request, 'listings/event_update.html', {'form': form, 'event': event, 'request': request})
 
 def about(request):
-    return render(request, 'listings/about.html')
+    return render(request, 'listings/about.html', {'request': request})
 
 def listings(request):
-    return render(request, 'listings/listings.html')
+    return render(request, 'listings/listings.html', {'request': request})
 
 def contact(request):
     if request.method == 'POST':
@@ -157,7 +159,7 @@ def contact(request):
     else:
         form = ContactUsForm()
 
-    return render(request, 'listings/contact.html', {'form': form})
+    return render(request, 'listings/contact.html', {'form': form, 'request': request})
 
 @login_required
 def band_delete(request, id):
@@ -169,7 +171,7 @@ def band_delete(request, id):
         band.delete()
         messages.success(request, f'The band "{band.name}" has been deleted successfully.', extra_tags='success')
         return redirect('band_list')
-    return render(request, 'listings/band_delete.html', {'band': band})
+    return render(request, 'listings/band_delete.html', {'band': band, 'request': request})
 
 @login_required
 def listing_delete(request, id):
@@ -181,7 +183,7 @@ def listing_delete(request, id):
         listing.delete()
         messages.success(request, f'The listing "{listing.description}" has been deleted successfully.', extra_tags='success')
         return redirect('listing_list')
-    return render(request, 'listings/listing_delete.html', {'listing': listing})
+    return render(request, 'listings/listing_delete.html', {'listing': listing, 'request': request})
 
 @login_required
 def event_delete(request, id):
@@ -193,10 +195,10 @@ def event_delete(request, id):
         event.delete()
         messages.success(request, f'The event "{event.name}" has been deleted successfully.', extra_tags='success')
         return redirect('event_list')
-    return render(request, 'listings/event_delete.html', {'event': event})
+    return render(request, 'listings/event_delete.html', {'event': event, 'request': request})
 
 def privacy_policy(request):
-    return render(request, 'listings/privacy_policy.html')
+    return render(request, 'listings/privacy_policy.html', {'request': request})
 
 def terms_of_service(request):
-    return render(request, 'listings/terms_of_service.html')
+    return render(request, 'listings/terms_of_service.html', {'request': request})

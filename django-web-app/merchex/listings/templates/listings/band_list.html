@@ -11,8 +11,7 @@
     <a href="{% url 'band-create' %}" class="btn-add-band">
       <span>Add a new band</span>
     </a>
-  </div>
-
+</div>
 
 {% regroup bands by name.0 as band_list %}
 
@@ -22,7 +21,13 @@
         <strong><a id="{{ band.grouper }}">{{ band.grouper }}</a></strong>
         <ul>
             {% for b in band.list %}
-            <li><a href="{% url 'band_detail' b.id %}">{{ b.name }} - {{ b.city }}</a></li>
+            <li>
+                <a href="{% url 'band_detail' b.id %}">{{ b.name }} - {{ b.city }}</a>
+                {% if b.user == request.user %}
+                <div style="color: grey; font-size: 0.8em; margin-left: 35px;"><a href="{% url 'band-update' b.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | 
+                    <a href="{% url 'band-delete' b.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a></div>
+                {% endif %}
+            </li>
             {% endfor %}
         </ul>
     </li>
