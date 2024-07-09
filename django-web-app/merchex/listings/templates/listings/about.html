@@ -1,11 +1,21 @@
 {% extends 'listings/base.html' %}
 
+{% load static %}
+
 {% block content %}
 
-<div class="title">• About N.U.B •</div>
+<img src="{% static 'listings/images/NUB-logo2.png' %}" alt="logo" class="centered-image">
+<br>
     <p class="introduction-text">
-        N.U.B is a website that lists Lille-based groups from the rock, metal, alternative, and other violent genres.<br>
-        The goal is to share the bands and their merchandise.
+        N.U.B is a website that lists rock, metal, alternative, and other violent genre-based groups from the North of France.<br>
+        The goal is to share the bands and their merchandise.<br>
+        <br>
+        This site is not intended to generate financial profits and has been created voluntarily with the sole purpose of promoting underground culture
+        in the Hauts-de-France region. The aim is to facilitate communication between artists, fans, bookers, and other stakeholders in the local scene,
+        as well as to connect with underground scenes in other regions of France and the world.<br>
+        <br>
+        This site is in beta testing, feel free to share your feedback and suggestions to improve the user experience.<br>
     </p>
-
+    <br>
+    <br>
 {% endblock %}

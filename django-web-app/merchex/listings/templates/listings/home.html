@@ -14,6 +14,66 @@
 <br>
 <p class="introduction-text">Discover the best underground bands from the North of France. Our mission is to bring you the latest and greatest in underground music, featuring diverse genres and unique sounds. Stay tuned for upcoming events, new releases, and exclusive interviews with your favorite bands.</p>
 <br>
+<!-- Carrousel Inline CSS and JS -->
+<style>
+    .carousel-container {
+        position: relative;
+        width: 800px;
+        height: 300px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.313);
+    }
+    .carousel-slide {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .carousel-slide img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* This will ensure the image covers the area without distortion */
+        object-position: center; /* This will center the image within the frame */
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+    }
+    .carousel-slide img.active {
+        opacity: 1;
+    }
+</style>
+<div class="carousel-container">
+    <div class="carousel-slide" id="carousel-slide">
+        <img src="{% static 'listings/images/0001.jpg' %}" alt="Upcoming event" class="active">
+        <img src="{% static 'listings/images/0002.jpg' %}" alt="Upcoming event">
+        <img src="{% static 'listings/images/0003.jpg' %}" alt="Upcoming event">
+    </div>
+</div>
+<script>
+    let slideIndex = 0;
+    const slides = document.getElementById('carousel-slide').children;
+    const totalSlides = slides.length;
+
+    function showSlides() {
+        // Hide all slides
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+        }
+
+        // Show next slide
+        slideIndex++;
+        if (slideIndex >= totalSlides) {
+            slideIndex = 0;
+        }
+        slides[slideIndex].classList.add('active');
+
+        setTimeout(showSlides, 3000); // Change image every 3 seconds
+    }
+
+    showSlides();
+</script>
+<br>
 <div class="home">Latest news</div>
 <br>
 <div style="text-align: center;">
