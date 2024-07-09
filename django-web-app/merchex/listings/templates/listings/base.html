@@ -26,20 +26,13 @@
                 <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
                 <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
                 {% if user.is_authenticated %}
-                <li class="nav-item user-item">
-                    <label for="menu-cb" class="menu-label">
-                        <b>{{ user.username }}</b>
-                    </label>
+                <li class="nav-item dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">{{ user.username }}</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'account' user.username %}">Account</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
                 </li>
-                <input id="menu-cb" type="checkbox" class="menu-cb">
-                <nav class="menu-nav">
-                    <ul>
-                        <li class="menu-item"><a href="#page4">Items</a></li>
-                        <hr>
-                        <li class="menu-item"><a href="{% url 'account' user.username %}">Account</a></li>
-                        <li class="menu-item"><div class="logout-link"><a href="{% url 'logout' %}">Logout</a></div></li>
-                    </ul>
-                  </nav>
                 {% else %}
                     <li class="nav-item login-button"><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
