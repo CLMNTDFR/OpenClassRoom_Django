@@ -31,9 +31,11 @@ def band_create(request):
     if request.method == 'POST':
         form = BandForm(request.POST)
         if form.is_valid():
-            form.save()
+            band = form.save(commit=False)
+            band.user = request.user  # Définir l'utilisateur actuellement connecté
+            band.save()
             messages.success(request, 'Band created successfully!')
-            return redirect('band_detail', form.instance.id)
+            return redirect('band_detail', band.id)
     else:
         form = BandForm()
 
@@ -42,6 +44,9 @@ def band_create(request):
 @login_required
 def band_update(request, id):
     band = get_object_or_404(Band, id=id)
+    if band.user != request.user:
+        return HttpResponse('You are not authorized to update this band.', status=403)
+
     if request.method == 'POST':
         form = BandForm(request.POST, instance=band)
         if form.is_valid():
@@ -71,8 +76,10 @@ def listing_create(request):
     if request.method == 'POST':
         form = ListingForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('listing_detail', form.instance.id)
+            listing = form.save(commit=False)
+            listing.user = request.user  # Définir l'utilisateur actuellement connecté
+            listing.save()
+            return redirect('listing_detail', listing.id)
     else:
         form = ListingForm()
     
@@ -81,6 +88,9 @@ def listing_create(request):
 @login_required
 def listing_update(request, id):
     listing = get_object_or_404(Listing, id=id)
+    if listing.user != request.user:
+        return HttpResponse('You are not authorized to update this listing.', status=403)
+
     if request.method == 'POST':
         form = ListingForm(request.POST, instance=listing)
         if form.is_valid():
@@ -102,7 +112,9 @@ def event_create(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            event = form.save(commit=False)
+            event.user = request.user  # Définir l'utilisateur actuellement connecté
+            event.save()
             return redirect('event_list')
     else:
         form = EventForm()
@@ -112,6 +124,9 @@ def event_create(request):
 @login_required
 def event_update(request, id):
     event = get_object_or_404(Event, id=id)
+    if event.user != request.user:
+        return HttpResponse('You are not authorized to update this event.', status=403)
+
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
         if form.is_valid():
@@ -147,6 +162,9 @@ def contact(request):
 @login_required
 def band_delete(request, id):
     band = get_object_or_404(Band, id=id)
+    if band.user != request.user:
+        return HttpResponse('You are not authorized to delete this band.', status=403)
+
     if request.method == 'POST':
         band.delete()
         messages.success(request, f'The band "{band.name}" has been deleted successfully.', extra_tags='success')
@@ -156,6 +174,9 @@ def band_delete(request, id):
 @login_required
 def listing_delete(request, id):
     listing = get_object_or_404(Listing, id=id)
+    if listing.user != request.user:
+        return HttpResponse('You are not authorized to delete this listing.', status=403)
+
     if request.method == 'POST':
         listing.delete()
         messages.success(request, f'The listing "{listing.description}" has been deleted successfully.', extra_tags='success')
@@ -165,6 +186,9 @@ def listing_delete(request, id):
 @login_required
 def event_delete(request, id):
     event = get_object_or_404(Event, id=id)
+    if event.user != request.user:
+        return HttpResponse('You are not authorized to delete this event.', status=403)
+
     if request.method == 'POST':
         event.delete()
         messages.success(request, f'The event "{event.name}" has been deleted successfully.', extra_tags='success')

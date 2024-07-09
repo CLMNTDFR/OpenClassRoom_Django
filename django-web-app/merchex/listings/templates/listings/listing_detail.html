@@ -12,10 +12,10 @@
     <li><b>Band :</b> <a href="{% url 'band_detail' listing.band.id %}">{{ listing.band.name }}</a></li>
     <li><b>Point of Sale :</b> {{ listing.point_of_sale }}</li>
 </ul>
-<a href="{% url 'listing-update' listing.id %}" class="update-button-small">Update</a>
-<a href="{% url 'listing-delete' listing.id %}" class="delete-button-small">Delete</a>
+{% if listing.user == request.user %}
+    <a href="{% url 'listing-update' listing.id %}" class="update-button-small">Update</a>
+    <a href="{% url 'listing-delete' listing.id %}" class="delete-button-small">Delete</a>
+{% endif %}
 </div>
 </div>
-
-
 {% endblock %}

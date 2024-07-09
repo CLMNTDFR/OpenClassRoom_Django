@@ -26,13 +26,7 @@
                 <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
                 <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
                 {% if user.is_authenticated %}
-                <li class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="dropbtn">{{ user.username }}</a>
-                    <div class="dropdown-content">
-                        <a href="{% url 'account' user.username %}">Account</a>
-                        <a href="{% url 'logout' %}">Logout</a>
-                    </div>
-                </li>
+                    <li class="nav-item"><a href="{% url 'account' user.username %}"><b>{{ user.username }}</b></a></li>
                 {% else %}
                     <li class="nav-item login-button"><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
@@ -58,6 +52,5 @@
             </ul>
         </div>
     </footer>
-    <script src="{% static 'listings/script.js' %}"></script>
 </body>
 </html>

@@ -130,28 +130,30 @@ body a {
     text-decoration: none; /* Supprime le soulignement des liens */
 }
 
+/* Retirer les styles pour le dropdown */
+
 /* Styles de base pour le header */
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Réduit l'espace à gauche et à droite */
-    background-color: rgba(0, 0, 0, 0.621); /* Fond semi-transparent */
-    backdrop-filter: blur(10px); /* Effet de flou */
-    box-shadow: 0 6px 10px rgba(67, 67, 67, 0.319); /* Ajoute une légère ombre blanche en dessous */
-    transition: background-color 0.3s, backdrop-filter 0.3s; /* Transition pour le fond et le flou */
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.621);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 6px 10px rgba(67, 67, 67, 0.319);
+    transition: background-color 0.3s, backdrop-filter 0.3s;
 }
 
 .logo {
     font-family: 'Jaini', cursive;
-    font-size: 2.5rem; /* Ajuste la taille du logo */
-    color: #ffffff; /* Texte en noir */
-    margin-left: 40px; /* Réduit l'espace à gauche du logo */
-    text-decoration: none !important; /* Retire le soulignement */
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-left: 40px;
+    text-decoration: none !important;
 }
 
 .logo a:visited {
-    color: #ffffff; /* Assure que le texte reste noir même après avoir été visité */
+    color: #ffffff;
 }
 
 .navbar {
@@ -161,8 +163,8 @@ body a {
     font-style: normal;
     overflow: hidden;
     padding: 5px 0;
-    z-index: 500; /* Assure que la navbar est au-dessus du reste du contenu */
-    margin-right: 20px; /* Réduit l'espace à droite de la navbar */
+    z-index: 500;
+    margin-right: 20px;
 }
 
 .nav-list {
@@ -171,7 +173,7 @@ body a {
     padding: 0;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si nécessaire */
+    flex-wrap: wrap;
 }
 
 .nav-item {
@@ -183,64 +185,31 @@ body a {
     margin: 0 15px;
     display: flex;
     align-items: center;
-    justify-content: center; /* Ajoutez cette ligne */
-    align-items: center; /* Ajoutez cette ligne */
+    justify-content: center;
 }
 
-.nav-item a,
-.dropbtn {
+.nav-item a {
     display: block;
     font-family: "Noto Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
-    color: #ffffff; /* Texte en blanc */
+    color: #ffffff;
     text-align: center;
     padding: 5px 20px;
-    font-weight: 300; /* Rend le texte plus gras */
+    font-weight: 300;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.nav-item a:visited,
-.dropbtn:visited {
-    color: #ffffff; /* Couleur des liens visités en gris foncé */
+.nav-item a:visited {
+    color: #ffffff;
 }
 
-.nav-item a:hover,
-.dropbtn:hover {
-    background-color: #272727; /* Couleur de fond plus claire au survol */
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #242526;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: #fff;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #3A3B3C;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+.nav-item a:hover {
+    background-color: #272727;
 }
 
 .logout-link a {
@@ -1311,5 +1280,49 @@ ul li strong {
 
     .event-link-container:hover a {
         color: black !important;
+    }
+}
+.container {
+    max-width: 1000px; /* Vous pouvez ajuster cette valeur selon vos besoins */
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+}
+
+.column-container {
+    display: flex;
+    justify-content: space-between;
+}
+.column {
+    flex: 1;
+    margin-right: 20px;
+}
+.column:last-child {
+    margin-right: 0;
+}
+.column ul {
+    list-style-type: none;
+    padding: 0;
+}
+.column li {
+    margin-bottom: 10px;
+}
+.separator {
+    border-left: 1px solid #ccc;
+    height: 100%;
+    margin: 0 20px;
+}
+
+@media (max-width: 600px) {
+    .column-container {
+        flex-direction: column;
+    }
+    .column {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    .separator {
+        border-left: none;
+        border-top: 1px solid #ccc;
+        height: 1px;
+        margin: 20px 0;
     }
 }

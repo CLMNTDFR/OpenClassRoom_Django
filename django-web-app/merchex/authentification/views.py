@@ -6,6 +6,7 @@ from . import forms
 from .forms import SignupForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from .models import User
+from listings.models import Band, Event, Listing  # Import des modèles depuis l'application listings
 
 def signup_page(request):
     form = SignupForm()
@@ -24,7 +25,13 @@ def account_view(request, username):
     if user != request.user:
         # Si l'utilisateur n'est pas celui connecté, rediriger vers une page d'erreur ou de permission refusée
         return render(request, 'authentification/permission_denied.html')
-    return render(request, 'authentification/account.html', {'user': user})
+    
+    # Récupérer les items créés par l'utilisateur
+    bands = Band.objects.filter(user=user)
+    events = Event.objects.filter(user=user)
+    listings = Listing.objects.filter(user=user)
+    
+    return render(request, 'authentification/account.html', {'user': user, 'bands': bands, 'events': events, 'listings': listings})
 
 def login_page(request):
     form = forms.LoginForm()

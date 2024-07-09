@@ -31,8 +31,10 @@
                 </li>
                 {% endif %}
             </ul>
-            <a href="{% url 'event-update' event.id %}" class="update-button-small">Update</a>
-            <a href="{% url 'event-delete' event.id %}" class="delete-button-small">Delete</a>
+            {% if event.user == request.user %}
+                <a href="{% url 'event-update' event.id %}" class="update-button-small">Update</a>
+                <a href="{% url 'event-delete' event.id %}" class="delete-button-small">Delete</a>
+            {% endif %}
         </div>
     {% empty %}
         <li>No upcoming events.</li>
@@ -60,7 +62,11 @@
             </li>
             {% endif %}
         </ul>
-        </div>
+        {% if event.user == request.user %}
+            <a href="{% url 'event-update' event.id %}" class="update-button-small">Update</a>
+            <a href="{% url 'event-delete' event.id %}" class="delete-button-small">Delete</a>
+        {% endif %}
+    </div>
     {% empty %}
         <li>No past events.</li>
     {% endfor %}
