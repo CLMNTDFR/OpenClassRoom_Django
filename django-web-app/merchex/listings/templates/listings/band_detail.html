@@ -47,13 +47,14 @@
 </ul>
 </div>
 </div>
-<div class="event-container">
-    <div class="event-border">
         {% if band.user == request.user %}
+        <div class="event-container">
+            <div class="event-border">
             <a href="{% url 'band-update' band.id %}" class="update-button-small">Update</a>
             <a href="{% url 'band-delete' band.id %}" class="delete-button-small">Delete</a>
-        {% endif %}
+        </div>
     </div>
-</div>
+        {% endif %}
+
 
 {% endblock %}

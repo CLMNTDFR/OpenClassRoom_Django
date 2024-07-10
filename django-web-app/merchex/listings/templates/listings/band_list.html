@@ -1,6 +1,7 @@
 {% extends 'listings/base.html' %}
 
 {% block content %}
+{% load static %}
 
 <div class="title">• Bands •</div>
 <p class="introduction-text">
@@ -15,24 +16,51 @@
 
 {% regroup bands by name.0 as band_list %}
 
-<ul>
+
     {% for band in band_list %}
-    <li>
-        <strong><a id="{{ band.grouper }}">{{ band.grouper }}</a></strong>
-        <ul>
+    
+        <div class="title"><a id="{{ band.grouper }}">{{ band.grouper }}</a></div>
             {% for b in band.list %}
-            <li>
-                <a href="{% url 'band_detail' b.id %}">{{ b.name }} - {{ b.city }}</a>
+            <div class="introduction-text">
+                <a href="{% url 'band_detail' b.id %}"><b>{{ b.name }}</b> - <i>{{ b.city }}</i></a><br>
+                <img id="like-button-{{ b.id }}" src="{% if request.user in b.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" onclick="likeBand('{{ b.id }}')" style="height: 30px; cursor: pointer; vertical-align: middle;">
+                <span id="likes-{{ b.id }}" style="font-family: 'Jaini', cursive; vertical-align: middle; font-size: 1em;">{{ b.likes.count }}</span><br>
                 {% if b.user == request.user %}
-                <div style="color: grey; font-size: 0.8em; margin-left: 35px;"><a href="{% url 'band-update' b.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | 
-                    <a href="{% url 'band-delete' b.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a></div>
+                <hr>
+                <div style="display: inline-block">
+                    <a href="{% url 'band-update' b.id %}" style="color: rgb(171, 171, 171) !important; font-size: 0.8em;">Update</a> | 
+                    <a href="{% url 'band-delete' b.id %}" style="color: rgb(171, 171, 171) !important; font-size: 0.8em;">Delete</a>
+                </div>
                 {% endif %}
-            </li>
+            </div>
+            <br>
             {% endfor %}
-        </ul>
-    </li>
-    <hr>
     {% endfor %}
-</ul>
+
+
+<script>
+function likeBand(bandId) {
+    fetch(`/bands/${bandId}/like/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById(`likes-${bandId}`).innerText = data.likes;
+            const likeButton = document.getElementById(`like-button-${bandId}`);
+            if (data.action === 'like') {
+                likeButton.src = "{% static 'listings/images/metal hand ON.svg' %}";
+            } else if (data.action === 'unlike') {
+                likeButton.src = "{% static 'listings/images/metal hand OFF.svg' %}";
+            }
+        } else {
+            alert(data.message);
+        }
+    });
+}
+</script>
 
 {% endblock %}

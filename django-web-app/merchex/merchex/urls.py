@@ -32,6 +32,7 @@ urlpatterns = [
     path('bands/<int:id>/', views.band_detail, name='band_detail'),
     path('bands/add/', views.band_create, name='band-create'),
     path('bands/<int:id>/change/', views.band_update, name='band-update'),
+    path('bands/<int:id>/like/', views.like_band, name='like_band'),
     path('about/', views.about, name='about'),
     path('merch/', views.listing_list, name='listing_list'),
     path('merch/<int:id>/', views.listing_detail, name='listing_detail'),

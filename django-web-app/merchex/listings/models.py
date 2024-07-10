@@ -38,6 +38,7 @@ class Band(models.Model):
     city = models.CharField(max_length=100, null=True, blank=True)
     mail = models.EmailField(null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bands', default=1)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_bands', blank=True)
 
     def __str__(self):
         return f'{self.name}'

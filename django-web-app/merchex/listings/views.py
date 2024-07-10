@@ -10,6 +10,18 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
+@require_POST
+@login_required
+def like_band(request, id):
+    band = get_object_or_404(Band, id=id)
+    user = request.user
+    if user in band.likes.all():
+        band.likes.remove(user)
+        return JsonResponse({'status': 'success', 'action': 'unlike', 'likes': band.likes.count()})
+    else:
+        band.likes.add(user)
+        return JsonResponse({'status': 'success', 'action': 'like', 'likes': band.likes.count()})
+
 def home(request):
     return render(request, 'listings/home.html')
 
