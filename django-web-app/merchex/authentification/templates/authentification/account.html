@@ -1,20 +1,20 @@
 {% extends 'listings/base.html' %}
-
+{% load static %}
 {% block content %}
 
-<div class="title">Welcome, {{ user.username }}!</div>
+<div class="title">Welcome, {{ user.username }}! <img src="{% static 'listings/images/account OFF2.svg' %}" style="height: 30px; vertical-align: middle; margin-right: 5px;"></div>
 <div class="button-container">
-    <div class="nav-item edit-profil-button"><a href="{% url 'edit_account' username=user.username %}">Edit</a></div>
-    <div class="nav-item logout-button"><a href="{% url 'logout' %}">Logout</a></div>
-    <div class="nav-item edit-profil-button"><a href="{% url 'delete_account' username=user.username %}">Delete Account</a></div>
+<div style="color: grey !important; font-size: 0.8em;"><a href="{% url 'edit_account' username=user.username %}">Edit</a> | 
+<a href="{% url 'logout' %}">Logout</a> | 
+<a href="{% url 'delete_account' username=user.username %}">Delete Account</a></div>
 </div>
 <br>
-<p class="introduction-text"><b>Email:</b> {{ user.email }}</p><br>
-<p class="introduction-text"><b>First Name:</b> {{ user.first_name }}</p><br>
-<p class="introduction-text"><b>Last Name:</b> {{ user.last_name }}</p><br>
-<p class="introduction-text"><b>Role:</b> {{ user.get_role_display }}</p><br>
-<p class="introduction-text"><b>Created:</b> {{ user.date_joined }}</p><br>
-<p class="introduction-text"><b>Last connection:</b> {{ user.last_login }}</p><br>
+<div style="color: rgb(180, 180, 180) !important; font-size: 0.8em; text-align: center;">Email:</div><p class="introduction-text">{{ user.email }}</p><br>
+<div style="color: rgb(180, 180, 180) !important; font-size: 0.8em; text-align: center;">First Name:</div><p class="introduction-text">{{ user.first_name }}</p><br>
+<div style="color: rgb(180, 180, 180) !important; font-size: 0.8em; text-align: center;">Last Name:</div><p class="introduction-text">{{ user.last_name }}</p><br>
+<div style="color: rgb(180, 180, 180) !important; font-size: 0.8em; text-align: center;">Role:</div><p class="introduction-text">{{ user.get_role_display }}</p><br>
+<div style="color: rgb(180, 180, 180) !important; font-size: 0.8em; text-align: center;">Created:</div><p class="introduction-text">{{ user.date_joined }}</p><br>
+<div style="color: rgb(180, 180, 180) !important; font-size: 0.8em; text-align: center;">Last connection:</div><p class="introduction-text">{{ user.last_login }}</p><br>
 <hr>
 
 <div class="title">Your items</div>
@@ -28,7 +28,7 @@
                 {% for band in bands %}
                     <li>• {{ band.name }}
                     <br>
-                    <div style="color: grey; font-size: 0.8em;"><a href="{% url 'band-update' band.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | <a href="{% url 'band-delete' band.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a></div></li>
+                    <div style="color: grey; font-size: 0.8em;"><a href="{% url 'band-update' band.id %}">Update</a> | <a href="{% url 'band-delete' band.id %}">Delete</a></div></li>
                 {% empty %}
                     <li style="font-style: italic; font-size: 0.9em; color: gray;">No band created.</li>
                 {% endfor %}

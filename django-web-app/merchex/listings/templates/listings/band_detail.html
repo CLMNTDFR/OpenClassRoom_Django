@@ -5,12 +5,10 @@
 <h2 class="bandname">{{ band.name }}</h2>
 <div class="band-container">
     <div class="band-border">
-<ul>
-    <li><b>Genre :</b> {{ band.genre }}</li>
-    <li><b>Year formed :</b> {{ band.year_formed }}</li>
-    <li><b>Active :</b> {{ band.active|yesno }}</li>
-    <li><b>Official Homepage :</b> <a href="{{ band.official_homepage }}">{{ band.official_homepage }}</a></li>
-</ul>
+    <b>Genre :</b> {{ band.genre }}<br>
+    <b>Year formed :</b> {{ band.year_formed }}<br>
+    <b>Active :</b> {{ band.active|yesno }}<br>
+    <b>Official Homepage :</b> <a href="{{ band.official_homepage }}">{{ band.official_homepage }}</a><br>
     </div>
 </div>
 <div class="band-container">
@@ -24,9 +22,9 @@
 <h3>Merch:</h3>
 <ul>
     {% for listing in band.listing_set.all %}
-        <li><a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a></li>
+        <a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a><br>
     {% empty %}
-        <li class="empty-message">No merch available.</li>
+        <div class="empty-message">No merch available.</div>
     {% endfor %}
 </ul>
 </div>
@@ -36,11 +34,11 @@
 <h3>Events:</h3>
 <ul>
     {% for event in band.events.all %}
-        <li class="event-item">
+        <div class="event-item">
             <strong>{{ event.date }}</strong> @ {{ event.venue }}<br>
             <b>Price:</b> {{ event.price }}€<br>
             <b>Description:</b> {{ event.description }}
-        </li>
+        </div>
             {% empty %}
         <li class="empty-message">No events available.</li>
     {% endfor %}

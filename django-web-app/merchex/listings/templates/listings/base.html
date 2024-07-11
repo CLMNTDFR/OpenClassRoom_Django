@@ -34,23 +34,27 @@
                 <span class="line line3"></span>
               </div>  
               <div class="header-text">N.U.B</div>
-              <div class="logo">
-                <h1></h1>
-              </div>
               <div class="menu-items">
                 <li><a href="{% url 'home' %}">Home</a></li>
+                <hr>
+                <br>
                 <li><a href="{% url 'bands_list' %}">Bands</a></li>
                 <li><a href="{% url 'listing_list' %}">Merch</a></li>
                 <li><a href="{% url 'event_list' %}">Events</a></li>
+                <hr>
+                <br>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
                 <hr>
+                <br>
                 {% if user.is_authenticated %}
-                    <li style="color: red !important"><a href="{% url 'account' user.username %}">{{ user.username }}</a></li>
-                {% else %}
-                    <li style="color: green !important"><a href="{% url 'login' %}">Login</a></li>
-                {% endif %}
-              </div>
+                <li><a href="{% url 'account' user.username %}"><img src="{% static 'listings/images/account OFF2.svg' %}" style="height: 30px; vertical-align: middle; margin-right: 5px;">{{ user.username }}</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}"><img src="{% static 'listings/images/account OFF.svg' %}" style="height: 30px; vertical-align: middle; margin-right: 5px;">Login</a></li>
+            {% endif %}
+                </div>
           </div>
         </div>
       </nav>
@@ -62,16 +66,10 @@
             {% endfor %}
         </ul>
         {% endif %}
+        <br><br>
         {% block content %}{% endblock %}
     </div>
     <footer>
-        <div class="footer-content">
-            <p class="footer-copyright">&copy; 2024 N.U.B - North Underground Bands (Clément DEFER) - All rights reserved.</p>
-            <ul class="footer-links">
-                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
-                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
-            </ul>
-        </div>
     </footer>
 </body>
 </html>
