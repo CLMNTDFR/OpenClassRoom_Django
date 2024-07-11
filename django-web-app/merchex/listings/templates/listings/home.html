@@ -9,12 +9,7 @@
         {% endfor %}
     </ul>
 {% endif %}
-<h1 class="home">Welcome to</h1>
-<img src="{% static 'listings/images/NUB-logo2.png' %}" alt="logo" class="centered-image"><br>
-<div class="home-sub"><b>•</b> North Underground Bands <b>•</b></div>
-<br>
-<p class="introduction-text">Discover the best underground bands from the North of France. Our mission is to bring you the latest and greatest in underground music, featuring diverse genres and unique sounds. Stay tuned for upcoming events, new releases, and exclusive interviews with your favorite bands.</p>
-<br>
+<br><br>
 <!-- Carrousel Inline CSS and JS -->
 <style>
     .carousel-container {
@@ -23,8 +18,7 @@
         height: 300px;
         margin: 0 auto;
         overflow: hidden;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.313);
+        border-radius: 5px;
     }
 
         /* Media Queries for Responsive Design */
@@ -103,7 +97,7 @@
 
     showSlides();
 </script>
-<br><br><br><hr><br><br>
+<br><br><br><br>
 <div class="home">Classified Ads</div>
 <div class="event-container">
     {% for ad in ads %}

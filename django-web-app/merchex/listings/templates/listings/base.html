@@ -16,23 +16,44 @@
     <link rel="stylesheet" href="{% static 'listings/styles.css' %}">
 </head>
 <body>
-    <div class="header-container">
-        <div class="logo"><a href="{% url 'home' %}">N.U.B</a></div>
-        <nav class="navbar">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="{% url 'bands_list' %}">Bands</a></li>
-                <li class="nav-item"><a href="{% url 'listing_list' %}">Merch</a></li>
-                <li class="nav-item"><a href="{% url 'event_list' %}">Events</a></li>
-                <li class="nav-item"><a href="{% url 'about' %}">About</a></li>
-                <li class="nav-item"><a href="{% url 'contact' %}">Contact</a></li>
+    <nav>
+        <div class="navbar" style="
+        width: 100% !important;
+        box-shadow: 0 1px 4px rgba(255, 255, 255, 0.15) !important;
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 1000 !important;
+        background-color: #000 !important;
+        min-height: 60px !important;
+    ">
+          <div class="container nav-container">
+              <input class="checkbox" type="checkbox" name="" id="" />
+              <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+              </div>  
+              <div class="header-text">N.U.B</div>
+              <div class="logo">
+                <h1></h1>
+              </div>
+              <div class="menu-items">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'bands_list' %}">Bands</a></li>
+                <li><a href="{% url 'listing_list' %}">Merch</a></li>
+                <li><a href="{% url 'event_list' %}">Events</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <hr>
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a href="{% url 'account' user.username %}"><b>{{ user.username }}</b></a></li>
+                    <li style="color: red !important"><a href="{% url 'account' user.username %}">{{ user.username }}</a></li>
                 {% else %}
-                    <li class="nav-item login-button"><a href="{% url 'login' %}">Login</a></li>
+                    <li style="color: green !important"><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
-            </ul>
-        </nav>
-    </div>
+              </div>
+          </div>
+        </div>
+      </nav>
     <div class="content">
         {% if messages %}
         <ul class="messages">
