@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from listings.models import Band, Listing, Event
-from listings.forms import ContactUsForm, BandForm, EventForm, ListingForm
+from listings.models import Band, Listing, Event, Ad
+from listings.forms import ContactUsForm, BandForm, EventForm, ListingForm, AdForm
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.utils import timezone
@@ -23,7 +23,8 @@ def like_band(request, id):
         return JsonResponse({'status': 'success', 'action': 'like', 'likes': band.likes.count()})
 
 def home(request):
-    return render(request, 'listings/home.html')
+    ads = Ad.objects.all()  # Récupérer toutes les annonces
+    return render(request, 'listings/home.html', {'ads': ads})
 
 @login_required
 def band_list(request):
@@ -214,3 +215,52 @@ def privacy_policy(request):
 
 def terms_of_service(request):
     return render(request, 'listings/terms_of_service.html', {'request': request})
+
+@login_required
+def ad_list(request):
+    ads = Ad.objects.all()
+    return render(request, 'listings/ad_list.html', {'ads': ads})
+
+@login_required
+def ad_detail(request, id):
+    ad = get_object_or_404(Ad, id=id)
+    return render(request, 'listings/ad_detail.html', {'ad': ad})
+
+@login_required
+def ad_create(request):
+    if request.method == 'POST':
+        form = AdForm(request.POST)
+        if form.is_valid():
+            ad = form.save(commit=False)
+            ad.user = request.user
+            ad.save()
+            return redirect('ad_detail', ad.id)
+    else:
+        form = AdForm()
+    return render(request, 'listings/ad_form.html', {'form': form})
+
+def ad_update(request, id):
+    ad = get_object_or_404(Ad, id=id)
+    if ad.user != request.user:
+        return HttpResponse('You are not authorized to update this ad.', status=403)
+
+    if request.method == 'POST':
+        form = AdForm(request.POST, instance=ad)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirige vers la page d'accueil après la mise à jour
+    else:
+        form = AdForm(instance=ad)
+
+    return render(request, 'listings/ad_form.html', {'form': form})
+
+@login_required
+def ad_delete(request, id):
+    ad = get_object_or_404(Ad, id=id)
+    if ad.user != request.user:
+        return HttpResponse('You are not authorized to delete this ad.', status=403)
+
+    if request.method == 'POST':
+        ad.delete()
+        return redirect('home')
+    return render(request, 'listings/ad_confirm_delete.html', {'ad': ad})

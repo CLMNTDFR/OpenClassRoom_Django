@@ -3,10 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Jaini&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
-* {
-    max-width: 100vw; /* Limite la largeur maximale du contenu */
-}
-
 /* Personnalisation de la scrollbar */
 ::-webkit-scrollbar {
     width: 12px; /* Largeur de la scrollbar */
@@ -99,7 +95,15 @@
     border-radius: 5px;
 }
 
+@media (max-width: 600px) {
+    .introduction-text {
+        width: 100%; /* Largeur du paragraphe à 95% de la largeur de l'écran sur les téléphones */
+    }
 
+    .invitation-text {
+        width: 100%; /* Largeur du paragraphe à 95% de la largeur de l'écran sur les téléphones */
+    }
+}
 
 .invitation-text {
     width: 60%; /* Largeur du paragraphe à 60% de la largeur de l'écran */
@@ -390,6 +394,13 @@ body a {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.77); /* Ajoute une ombre grise en dessous du contenu */
     line-height: 2; /* Augmente l'espacement entre les lignes de texte */
     font-size: 0.9em; /* Réduit la taille du texte */
+}
+
+@media (max-width: 600px) {
+    .content {
+        margin-left: 0px; /* Réduire la marge à gauche */
+        margin-right: 0px; /* Réduire la marge à droite */
+    }
 }
 
 /* Style pour les liens de la liste de navigation */

@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Band, Event, Listing
+from .models import Band, Event, Listing, Ad
 
 class ContactUsForm(forms.Form):
     name = forms.CharField(required=False)
@@ -36,3 +36,8 @@ class ListingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['band'].queryset = Band.objects.all()  # Afficher tous les groupes disponibles dans le formulaire
+
+class AdForm(forms.ModelForm):
+    class Meta:
+        model = Ad
+        fields = ['title', 'category', 'description']

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from listings.models import Band, Listing, Event
+from listings.models import Band, Listing, Event, Ad  # Ajoutez Ad ici
 from authentification.models import User
 
 class BandAdmin(admin.ModelAdmin):
@@ -17,7 +17,14 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('username', 'first_name', 'last_name', 'email')
     ordering = ('username',)
 
+class AdAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'user', 'created_at', 'updated_at')
+    list_filter = ('category', 'user')
+    search_fields = ('title', 'description')
+    ordering = ('-created_at',)
+
 admin.site.register(Band, BandAdmin)
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(User, UserAdmin)
+admin.site.register(Ad, AdAdmin)

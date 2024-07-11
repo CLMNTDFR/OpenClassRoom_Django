@@ -47,4 +47,8 @@ urlpatterns = [
     path('bands/<int:id>/delete/', views.band_delete, name='band-delete'),
     path('merch/<int:id>/delete/', views.listing_delete, name='listing-delete'),
     path('events/<int:id>/delete/', views.event_delete, name='event-delete'),
+    path('ads/create/', views.ad_create, name='ad_create'),
+    path('ads/<int:id>/', views.ad_detail, name='ad_detail'),
+    path('ads/<int:id>/update/', views.ad_update, name='ad_update'),
+    path('ads/<int:id>/delete/', views.ad_delete, name='ad_delete'),
 ]
