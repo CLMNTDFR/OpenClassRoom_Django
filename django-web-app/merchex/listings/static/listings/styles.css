@@ -85,7 +85,7 @@
   font-family: "Jaini", cursive;
   font-size: 2rem; /* Ajuste la taille du nom de groupe */
   letter-spacing: 0.1em; /* Ajoute un espacement entre les lettres */
-  margin: 0 auto 20px; /* Ajoute un peu de marge en haut et en bas */
+  margin: 0 auto; /* Ajoute un peu de marge en haut et en bas */
   text-align: center;
 }
 
@@ -401,12 +401,9 @@ body a {
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
-  padding: 20px;
-  text-align: left; /* Aligner le contenu à gauche */
   margin-top: 20px; /* Marge supérieure égale à la hauteur de la navbar */
   margin-left: 60px; /* Marge à gauche */
   margin-right: 60px; /* Marge à droite */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.77); /* Ajoute une ombre grise en dessous du contenu */
   line-height: 2; /* Augmente l'espacement entre les lignes de texte */
   font-size: 0.9em; /* Réduit la taille du texte */
 }

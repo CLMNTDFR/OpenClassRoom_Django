@@ -4,10 +4,7 @@
 {% load static %}
 
 <div class="title">• Bands •</div>
-<p class="introduction-text">
-    Discover the vibrant music scene of Northern France with our curated list of bands.<br>
-    Feel free to add bands to expand this list and share your favorite northern artists with the world.
-</p><br>
+<br>
 <div class="sticky-btn">
     <div class="button-container">
         <a href="{% url 'band-create' %}" class="btn-add-band">
@@ -21,11 +18,13 @@
     {% for band in band_list %}
     
         <div class="title"><a id="{{ band.grouper }}">{{ band.grouper }}</a></div>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+        <br>
             {% for b in band.list %}
             <div class="introduction-text">
                 <a href="{% url 'band_detail' b.id %}"><b>{{ b.name }}</b> - <i>{{ b.city }}</i></a><br>
                 <img id="like-button-{{ b.id }}" src="{% if request.user in b.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" onclick="likeBand('{{ b.id }}')" style="height: 30px; cursor: pointer; vertical-align: middle;">
-                <span id="likes-{{ b.id }}" style="font-family: 'Jaini', cursive; vertical-align: middle; font-size: 1.5em;">{{ b.likes.count }}</span><br>
+                <span id="likes-{{ b.id }}" style="vertical-align: middle; font-size: 1em;">{{ b.likes.count }}</span><br>
                 {% if b.user == request.user %}
                 <hr>
                 <div style="display: inline-block">
