@@ -3,21 +3,10 @@
 {% block content %}
 {% load static %}
 
-<div class="title">• Bands •</div>
-<br>
-<div class="sticky-btn">
-    <div class="button-container">
-        <a href="{% url 'band-create' %}" class="btn-add-band">
-          <span>Add a new band</span>
-        </a>
-    </div>
-    </div>
+<div class="page-name">Bands</div>
 {% regroup bands by name.0 as band_list %}
-
-
     {% for band in band_list %}
-    
-        <div class="title"><a id="{{ band.grouper }}">{{ band.grouper }}</a></div>
+            <div class="title"><a id="{{ band.grouper }}">{{ band.grouper }}</a></div>
         <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
         <br>
             {% for b in band.list %}

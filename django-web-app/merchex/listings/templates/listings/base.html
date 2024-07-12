@@ -14,47 +14,25 @@
     <meta name="theme-color" content="#ffffff">
     <title>N.U.B - North Underground Bands</title>
     <link rel="stylesheet" href="{% static 'listings/styles.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+    <script src="{% static 'listings/script.js' %}" defer></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar" style="
-        width: 100% !important;
-        position: fixed !important;
-        top: 0 !important;
-        z-index: 1000 !important;
-        background-color: #000 !important;
-        min-height: 60px !important;
-    ">
-          <div class="container nav-container">
-              <input class="checkbox" type="checkbox" name="" id="" />
-              <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-              </div>  
-              <div class="header-text">N.U.B</div>
-              <div class="menu-items">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <hr>
-                <br>
-                <li><a href="{% url 'bands_list' %}">Bands</a></li>
-                <li><a href="{% url 'listing_list' %}">Merch</a></li>
-                <li><a href="{% url 'event_list' %}">Events</a></li>
-                <hr>
-                <br>
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
-                <li><a href="{% url 'terms_of_service' %}">Terms of Service</a></li>
-                <hr>
-                <br>
-                {% if user.is_authenticated %}
-                <li><a href="{% url 'account' user.username %}"><img src="{% static 'listings/images/account OFF2.svg' %}" style="height: 30px; vertical-align: middle; margin-right: 5px;">{{ user.username }}</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}"><img src="{% static 'listings/images/account OFF.svg' %}" style="height: 30px; vertical-align: middle; margin-right: 5px;">Login</a></li>
-            {% endif %}
-                </div>
-          </div>
+    <nav class="nav">
+        <i class="uil uil-bars navOpenBtn"></i>
+        <a href="{% url 'home' %}" class="logo">N.U.B</a>
+        <ul class="nav-links">
+          <i class="uil uil-times navCloseBtn"></i>
+        <li><a href="{% url 'bands_list' %}">Bands</a></li>
+        <li><a href="{% url 'listing_list' %}">Merch</a></li>
+        <li><a href="{% url 'event_list' %}">Events</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <i class="uil uil-search search-icon" id="searchIcon"></i>
+        <div class="search-box">
+          <i class="uil uil-search search-icon"></i>
+          <input type="text" placeholder="Search here..." />
         </div>
       </nav>
     <div class="content">
@@ -67,8 +45,41 @@
         {% endif %}
         <br><br>
         {% block content %}{% endblock %}
+        <br><br><br><br>
     </div>
-    <footer>
+    <footer class="footer-nav">
+        <div class="footer-nav-icon">
+            <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'listings/images/home.svg' %}" alt="Home">
+            </a>
+        </div>
+        <div class="footer-nav-icon">
+            <img src="{% static 'listings/images/add.svg' %}" alt="Add" id="addIcon">
+        </div>
+        <div class="footer-nav-icon">
+            <img src="{% static 'listings/images/mail.svg' %}" alt="Mail">
+        </div>
+        <div class="footer-nav-icon">
+            {% if user.is_authenticated %}
+            <a href="{% url 'account' user.username %}">
+            <img src="{% static 'listings/images/user-on.svg' %}" alt="User On">
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}">
+            <img src="{% static 'listings/images/user-off.svg' %}" alt="User Off">
+            </a>
+            {% endif %}
+        </div>
     </footer>
+
+    <!-- Pop-up window -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <a href="{% url 'band-create' %}"><button><img src="{% static 'listings/images/add.png' %}" alt="Add">Add a new BAND</button></a>
+            <a href="{% url 'listing_create' %}"><button><img src="{% static 'listings/images/add.png' %}" alt="Add">Add a new ITEM</button></a>
+            <a href="{% url 'event_create' %}"><button><img src="{% static 'listings/images/add.png' %}" alt="Add">Add a new EVENT</button></a>
+        </div>
+    </div>
 </body>
 </html>

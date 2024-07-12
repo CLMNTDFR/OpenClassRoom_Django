@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="title">Welcome, {{ user.username }}! <img src="{% static 'listings/images/account OFF2.svg' %}" style="height: 30px; vertical-align: middle; margin-right: 5px;"></div>
+<div class="title"><img src="{% static 'listings/images/user-on.svg' %}" style="height: 20px; vertical-align: middle; margin-right: 5px;"> Welcome, {{ user.username }}! <img src="{% static 'listings/images/user-on.svg' %}" style="height: 20px; vertical-align: middle; margin-right: 5px;"></div>
 <div class="button-container">
 <div style="color: grey !important; font-size: 0.8em;"><a href="{% url 'edit_account' username=user.username %}">Edit</a> | 
 <a href="{% url 'logout' %}">Logout</a> | 

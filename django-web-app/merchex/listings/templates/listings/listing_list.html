@@ -3,11 +3,6 @@
 {% block content %}
 
 <div class="title">• Merch •</div>
-<div class="button-container">
-    <a href="{% url 'listing_create' %}" class="btn-add-band">
-      <span>Add a new item</span>
-    </a>
-</div>
 <br>
 {% regroup listings by band.name.0 as band_list %}
 
