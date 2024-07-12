@@ -11,7 +11,8 @@
         <br>
             {% for b in band.list %}
             <div class="introduction-text">
-                <a href="{% url 'band_detail' b.id %}"><b>{{ b.name }}</b> - <i>{{ b.city }}</i></a><br>
+                <a href="{% url 'band_detail' b.id %}"><b>{{ b.name }}</b> - <i>{{ b.city }}</i></a><br><br>
+                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
                 <img id="like-button-{{ b.id }}" src="{% if request.user in b.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" onclick="likeBand('{{ b.id }}')" style="height: 30px; cursor: pointer; vertical-align: middle;">
                 <span id="likes-{{ b.id }}" style="vertical-align: middle; font-size: 1em;">{{ b.likes.count }}</span><br>
                 {% if b.user == request.user %}

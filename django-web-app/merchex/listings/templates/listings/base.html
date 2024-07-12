@@ -76,9 +76,10 @@
     <div class="popup" id="popup">
         <div class="popup-content">
             <span class="close" id="closePopup">&times;</span>
-            <a href="{% url 'band-create' %}"><button><img src="{% static 'listings/images/add.png' %}" alt="Add">Add a new BAND</button></a>
-            <a href="{% url 'listing_create' %}"><button><img src="{% static 'listings/images/add.png' %}" alt="Add">Add a new ITEM</button></a>
-            <a href="{% url 'event_create' %}"><button><img src="{% static 'listings/images/add.png' %}" alt="Add">Add a new EVENT</button></a>
+            <a href="{% url 'band-create' %}"><button><img src="{% static 'listings/images/add.svg' %}" alt="Add">Add a new BAND</button></a>
+            <a href="{% url 'listing_create' %}"><button><img src="{% static 'listings/images/add.svg' %}" alt="Add">Add a new ITEM</button></a>
+            <a href="{% url 'event_create' %}"><button><img src="{% static 'listings/images/add.svg' %}" alt="Add">Add a new EVENT</button></a>
+            <a href="{% url 'ad_create' %}"><button><img src="{% static 'listings/images/add.svg' %}" alt="Add">Add a new AD</button></a>
         </div>
     </div>
 </body>

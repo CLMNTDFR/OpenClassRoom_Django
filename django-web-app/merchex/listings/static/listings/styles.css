@@ -180,6 +180,7 @@ body a {
     padding: 15px 200px;
     background: #000000;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
 .nav,
@@ -1123,7 +1124,7 @@ ul li strong {
 
   .form-container label,
   .form-signup .input-group label {
-    font-size: 0.6em; /* Réduit la taille du texte d'information */
+    font-size: 0.8em; /* Réduit la taille du texte d'information */
   }
 
   .form-container .input-group,
@@ -1140,7 +1141,7 @@ ul li strong {
   .form-signup .input-group input[type="text"],
   .form-signup .input-group input[type="email"],
   .form-signup .input-group input[type="password"] {
-    width: 100%; /* Les champs de saisie occupent 80% de la largeur du conteneur */
+    width: 90%; /* Les champs de saisie occupent 80% de la largeur du conteneur */
   }
 
   .introduction-text {
@@ -1328,4 +1329,87 @@ ul li strong {
     cursor: pointer;
     font-size: 20px;
     color: #fff;
+}
+
+/* Media query for small screens (e.g., phones) */
+@media (max-width: 600px) {
+    .popup-content {
+        width: 90%; /* Adjust width to 90% for small screens */
+    }
+}
+
+/* Carrousel */
+:root {
+    --w: 400;
+    --speed: 5s;
+    --s: 7; /* Nombre d'images dans le carrousel */
+}
+
+.g-container {
+    width: 400px;
+    margin: auto;
+    height: 240px;
+    line-height: 240px;
+    font-size: 20px;
+    background: #000000;
+    color: #000000;
+    overflow: hidden;
+    border: 2px solid #000;
+    position: relative; /* Pour positionner les pseudo-éléments correctement */
+}
+
+.carousel-list {
+    display: flex;
+    flex-wrap: nowrap;
+    animation: move calc(var(--speed) * var(--s)) linear infinite;
+}
+
+.carousel-list li {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.carousel-list li img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes move {
+    0% {
+        transform: translate(0, 0px);
+    }
+    100% {
+        transform: translate(calc(var(--s) * var(--w) * -1px), 0);
+    }
+}
+
+.carousel-list::after {
+    content: '';
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Dégradés sur les bords gauche et droit */
+.g-container::before,
+.g-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 200px; /* Largeur des dégradés */
+    z-index: 2;
+}
+
+.g-container::before {
+    left: 0;
+    background: linear-gradient(to right, black, transparent);
+}
+
+.g-container::after {
+    right: 0;
+    background: linear-gradient(to left, black, transparent);
 }

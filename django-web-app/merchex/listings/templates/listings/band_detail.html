@@ -22,7 +22,8 @@
 <h3>Merch:</h3>
 <ul>
     {% for listing in band.listing_set.all %}
-        <a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a><br>
+        <a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a><br><br>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
     {% empty %}
         <div class="empty-message">No merch available.</div>
     {% endfor %}
@@ -39,8 +40,9 @@
             <b>Price:</b> {{ event.price }}€<br>
             <b>Description:</b> {{ event.description }}
         </div>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
             {% empty %}
-        <li class="empty-message">No events available.</li>
+        <div class="empty-message">No events available.</div>
     {% endfor %}
 </ul>
 </div>

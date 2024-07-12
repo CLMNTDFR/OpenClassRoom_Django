@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
+from PIL import Image
 
 @require_POST
 @login_required
@@ -21,6 +22,18 @@ def like_band(request, id):
     else:
         band.likes.add(user)
         return JsonResponse({'status': 'success', 'action': 'like', 'likes': band.likes.count()})
+    
+@require_POST
+@login_required
+def like_listing(request, id):
+    listing = get_object_or_404(Listing, id=id)
+    user = request.user
+    if user in listing.likes.all():
+        listing.likes.remove(user)
+        return JsonResponse({'status': 'success', 'action': 'unlike', 'likes': listing.likes.count()})
+    else:
+        listing.likes.add(user)
+        return JsonResponse({'status': 'success', 'action': 'like', 'likes': listing.likes.count()})
 
 def home(request):
     ads = Ad.objects.all()  # Récupérer toutes les annonces

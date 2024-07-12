@@ -2,14 +2,18 @@
 
 {% block content %}
 
-<div class="title">• Events •</div>
+<div class="page-name">Events</div>
 
 <h2 class="bandname" id="upcoming">Upcoming   Events</h2>
+<hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+<br>
 <div class="event-container">
     {% for event in upcoming_events %}
         <div class="event-border">
             <strong><span class="event-date">{{ event.date|date:"d F Y" }}</span><br><em>{{ event.band.name }}</em></strong>
-            <hr>
+            <br>
+            <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+            <br>
             <ul>
                 <li><strong>Venue:</strong> {{ event.venue }}</li>
                 <li><strong>Price:</strong> {{ event.price }}€</li>
@@ -36,9 +40,10 @@
     {% endfor %}
 </div>
 <br>
-<hr>
 <br>
 <h2 class="bandname" id="past">Past   Events</h2>
+<hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+<br>
 <div class="event-container">
     {% for event in past_events %}
     <div class="event-border">

@@ -1,31 +1,55 @@
 {% extends 'listings/base.html' %}
 
 {% block content %}
+{% load static %}
 
-<div class="title">• Merch •</div>
-<br>
+<div class="page-name">Merch</div>
 {% regroup listings by band.name.0 as band_list %}
-
-<ul>
     {% for band in band_list %}
-    <li>
-        <strong><a id="{{ band.grouper }}">{{ band.grouper }}</a></strong>
-        <ul>
+    <div class="title"><a id="{{ band.grouper }}">{{ band.grouper }}</a></div>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+        <br>
             {% for listing in band.list %}
-            <li>
-                <a href="{% url 'listing_detail' listing.id %}"><strong>{{ listing.band.name }}</strong> - {{ listing.description }}</a>
+            <div class="introduction-text">
+                <a href="{% url 'listing_detail' listing.id %}"><b>{{ listing.band.name }}</b> - <i>{{ listing.description }}</i></a><br><br>
+                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
+                <img id="like-button-{{ listing.id }}" src="{% if request.user in listing.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" onclick="likeListing('{{ listing.id }}')" style="height: 30px; cursor: pointer; vertical-align: middle;">
+                <span id="likes-{{ listing.id }}" style="vertical-align: middle; font-size: 1em;">{{ listing.likes.count }}</span><br>
                 {% if listing.user == request.user %}
-                    <div style="color: grey; font-size: 0.8em; margin-left: 35px;">
-                        <a href="{% url 'listing-update' listing.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | 
-                        <a href="{% url 'listing-delete' listing.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a>
-                    </div>
+                <hr>
+                <div style="display: inline-block">
+                    <a href="{% url 'listing-update' listing.id %}" style="color: rgb(171, 171, 171) !important; font-size: 0.8em;">Update</a> | 
+                    <a href="{% url 'listing-delete' listing.id %}" style="color: rgb(171, 171, 171) !important; font-size: 0.8em;">Delete</a>
+                </div>
                 {% endif %}
-            </li>
+            </div>
+            <br>
             {% endfor %}
-        </ul>
-    </li>
-    <hr>
     {% endfor %}
-</ul>
+
+<script>
+function likeListing(listingId) {
+    fetch(`/merch/${listingId}/like/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById(`likes-${listingId}`).innerText = data.likes;
+            const likeButton = document.getElementById(`like-button-${listingId}`);
+            if (data.action === 'like') {
+                likeButton.src = "{% static 'listings/images/metal hand ON.svg' %}";
+            } else if (data.action === 'unlike') {
+                likeButton.src = "{% static 'listings/images/metal hand OFF.svg' %}";
+            }
+        } else {
+            alert(data.message);
+        }
+    });
+}
+</script>
 
 {% endblock %}

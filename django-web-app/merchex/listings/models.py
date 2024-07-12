@@ -69,6 +69,7 @@ class Listing(models.Model):
     band = models.ForeignKey(Band, null=True, on_delete=models.SET_NULL)
     point_of_sale = models.CharField(max_length=255, null=True, blank=True, verbose_name='Point of Sale')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='listings', default=1)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_listings', blank=True)
 
     def __str__(self):
         return f'{self.type} - {self.year}'
