@@ -1,12 +1,30 @@
 from django.contrib import admin
-from listings.models import Band, Listing, Event, Ad  # Ajoutez Ad ici
+from listings.models import Band, Listing, Event, Ad
 from authentification.models import User
+from django import forms
+from PIL import Image
+
+class BandAdminForm(forms.ModelForm):
+    class Meta:
+        model = Band
+        fields = '__all__'
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if image:
+            img = Image.open(image)
+            if img.format not in ['JPEG', 'PNG']:
+                raise forms.ValidationError('Unsupported file type. Supported types are JPEG and PNG.')
+            if image.size > 5 * 1024 * 1024:  # 5 Mo
+                raise forms.ValidationError('File too large. Size should not exceed 5 MB.')
+        return image
 
 class BandAdmin(admin.ModelAdmin):
-    list_display = ('name', 'year_formed', 'genre', 'city', 'mail')
+    form = BandAdminForm
+    list_display = ('name', 'year_formed', 'genre', 'city', 'mail', 'image')
 
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ('description', 'sold', 'year', 'type', 'band')
+    list_display = ('description', 'sold', 'year', 'type', 'band', 'image')
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('band', 'date', 'venue', 'price')

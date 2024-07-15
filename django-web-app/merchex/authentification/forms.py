@@ -10,10 +10,11 @@ class SignupForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, help_text="First name")
     last_name = forms.CharField(max_length=30, help_text="Last name")
     role = forms.ChoiceField(choices=User.ROLE_CHOICES, help_text="Select your role: Creator or Subscriber")
+    profile_photo = forms.ImageField(required=False, help_text="Upload your profile photo")
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name', 'role')
+        fields = ('username', 'email', 'first_name', 'last_name', 'role', 'profile_photo')
         help_texts = {
             'username': 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.',
         }
@@ -32,4 +33,4 @@ class LoginForm(forms.Form):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name', 'profile_photo')

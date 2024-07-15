@@ -15,9 +15,10 @@ class ContactUsForm(forms.Form):
 class BandForm(forms.ModelForm):
     class Meta:
         model = Band
-        fields = ('name', 'genre', 'biography', 'official_homepage', 'year_formed', 'active', 'city', 'mail')
+        fields = ('name', 'genre', 'biography', 'official_homepage', 'year_formed', 'active', 'city', 'mail', 'image')
         widgets = {
             'biography': forms.Textarea(attrs={'rows': 5}),  # Agrandir la zone de texte pour la biographie
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),  # Ajouter un widget pour le champ image
         }
 
 class EventForm(forms.ModelForm):
@@ -31,11 +32,12 @@ class EventForm(forms.ModelForm):
 class ListingForm(forms.ModelForm):
     class Meta:
         model = Listing
-        fields = ['description', 'type', 'year', 'band', 'point_of_sale', 'sold']
+        fields = ['description', 'type', 'year', 'band', 'point_of_sale', 'sold', 'image']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['band'].queryset = Band.objects.all()  # Afficher tous les groupes disponibles dans le formulaire
+        self.fields['image'].widget.attrs.update({'class': 'form-control'})  # Ajouter une classe pour le champ image
 
 class AdForm(forms.ModelForm):
     class Meta:

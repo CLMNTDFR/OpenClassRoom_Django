@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
-from PIL import Image
 
 @require_POST
 @login_required
@@ -196,7 +195,7 @@ def band_delete(request, id):
     if request.method == 'POST':
         band.delete()
         messages.success(request, f'The band "{band.name}" has been deleted successfully.', extra_tags='success')
-        return redirect('band_list')
+        return redirect('bands_list')
     return render(request, 'listings/band_delete.html', {'band': band, 'request': request})
 
 @login_required
@@ -219,7 +218,7 @@ def event_delete(request, id):
 
     if request.method == 'POST':
         event.delete()
-        messages.success(request, f'The event "{event.name}" has been deleted successfully.', extra_tags='success')
+        messages.success(request, f'The event "{event.date}" has been deleted successfully.', extra_tags='success')
         return redirect('event_list')
     return render(request, 'listings/event_delete.html', {'event': event, 'request': request})
 

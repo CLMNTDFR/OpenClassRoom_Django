@@ -60,7 +60,7 @@ def edit_account(request, username):
     if user != request.user:
         return render(request, 'authentification/permission_denied.html')
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST, instance=user)
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)  # Ajout de request.FILES ici
         if form.is_valid():
             form.save()
             return redirect('account', username=user.username)

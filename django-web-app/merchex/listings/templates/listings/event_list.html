@@ -10,16 +10,17 @@
 <div class="event-container">
     {% for event in upcoming_events %}
         <div class="event-border">
-            <strong><span class="event-date">{{ event.date|date:"d F Y" }}</span><br><em>{{ event.band.name }}</em></strong>
+            <strong><span class="event-date">{{ event.date|date:"d F Y" }}</span> • <em>{{ event.band.name }}</em></strong>
             <br>
             <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
             <br>
-            <ul>
-                <li><strong>Venue:</strong> {{ event.venue }}</li>
-                <li><strong>Price:</strong> {{ event.price }}€</li>
-                <li><strong>Description:</strong> {{ event.description }}</li>
-                <br>
-                <li>
+            {{ event.description }}
+            <br>
+            <br>
+            <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+            <br>
+            {{ event.venue }} • {{ event.price }}€
+            <br><br>
                     <div class="event-link-container">
                         {% if event.event_link %}
                             <a href="{{ event.event_link }}" target="_blank">Event Link</a>
@@ -27,8 +28,6 @@
                             <a href="#" style="color: grey !important">No event link yet</a>
                         {% endif %}
                     </div>
-                </li>
-            </ul>
             {% if event.user == request.user %}
             <div style="color: grey; font-size: 0.8em;"><a href="{% url 'event-update' event.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | <a href="{% url 'event-delete' event.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a></div>
             {% else %}
@@ -47,24 +46,28 @@
 <div class="event-container">
     {% for event in past_events %}
     <div class="event-border">
-        <strong><span class="event-date">{{ event.date|date:"d F Y" }}</span><br><em>{{ event.band.name }}</em></strong>
-        <hr>
-        <ul>
-            <li><strong>Venue:</strong> {{ event.venue }}</li>
-            <li><strong>Price:</strong> {{ event.price }}</li>
-            <li><strong>Description:</strong> {{ event.description }}</li>
-            <br>
-            {% if event.event_link %}
-            <li>
+        <strong><span class="event-date">{{ event.date|date:"d F Y" }}</span> • <em>{{ event.band.name }}</em></strong>
+        <br>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+        <br>
+        {{ event.description }}
+        <br>
+        <br>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+        <br>
+        {{ event.venue }} • {{ event.price }}€
+        <br><br>
                 <div class="event-link-container">
-                    <a href="{{ event.event_link }}" target="_blank" >Event Link</a>
+                    {% if event.event_link %}
+                        <a href="{{ event.event_link }}" target="_blank">Event Link</a>
+                    {% else %}
+                        <a href="#" style="color: grey !important">No event link yet</a>
+                    {% endif %}
                 </div>
-            </li>
-            {% endif %}
-        </ul>
         {% if event.user == request.user %}
-            <a href="{% url 'event-update' event.id %}" class="update-button-small">Update</a>
-            <a href="{% url 'event-delete' event.id %}" class="delete-button-small">Delete</a>
+        <div style="color: grey; font-size: 0.8em;"><a href="{% url 'event-update' event.id %}" style="color: rgb(40, 213, 40) !important;">Update</a> | <a href="{% url 'event-delete' event.id %}" style="color: rgb(253, 86, 86) !important;">Delete</a></div>
+        {% else %}
+        <div style="color: grey; font-size: 0.8em;">Created by {{ event.user.username }}</div>
         {% endif %}
     </div>
     {% empty %}

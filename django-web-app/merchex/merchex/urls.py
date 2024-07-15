@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from listings import views
 import authentification.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -51,3 +53,6 @@ urlpatterns = [
     path('ads/<int:id>/update/', views.ad_update, name='ad_update'),
     path('ads/<int:id>/delete/', views.ad_delete, name='ad_delete'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,3 +11,6 @@ class User(AbstractUser):
         (SUBSCRIBER, 'Subscriber'),
     )
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, verbose_name='Role')
+    
+    # Ajout du champ pour la photo de profil
+    profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True, verbose_name='Profile Photo')

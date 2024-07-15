@@ -1,7 +1,19 @@
-# listings/models.py
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from PIL import Image
+
+def validate_image_file_extension(value):
+    valid_extensions = ['JPEG', 'PNG']
+    ext = Image.open(value).format
+    if ext not in valid_extensions:
+        raise ValidationError(f'File type not supported. Supported types are: {", ".join(valid_extensions)}')
+
+def validate_image_file_size(value):
+    max_size = 5 * 1024 * 1024  # 5 Mo
+    if value.size > max_size:
+        raise ValidationError(f'File too large. Size should not exceed {max_size / 1024 / 1024} MB')
 
 class Band(models.Model):
     class Genre(models.TextChoices):
@@ -39,6 +51,7 @@ class Band(models.Model):
     mail = models.EmailField(null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bands', default=1)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_bands', blank=True)
+    image = models.ImageField(upload_to='bands/', null=True, blank=True, validators=[validate_image_file_extension, validate_image_file_size])
 
     def __str__(self):
         return f'{self.name}'
@@ -70,6 +83,7 @@ class Listing(models.Model):
     point_of_sale = models.CharField(max_length=255, null=True, blank=True, verbose_name='Point of Sale')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='listings', default=1)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_listings', blank=True)
+    image = models.ImageField(upload_to='listings/', null=True, blank=True, validators=[validate_image_file_extension, validate_image_file_size])
 
     def __str__(self):
         return f'{self.type} - {self.year}'
