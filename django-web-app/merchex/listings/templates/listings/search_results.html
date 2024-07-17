@@ -1,0 +1,56 @@
+{% extends 'listings/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="search-results">
+    <h1 class="title">Search Results for "{{ query }}"</h1>
+    <br>
+    <div class="container">
+        <div class="column-container">
+            <div class="column">
+                <h3 style="text-align: center;">Bands</h3>
+                <br>
+                <ul>
+                    {% for band in bands %}
+                        <li>
+                            <a href="{% url 'band_detail' band.id %}" class="search-item-container">
+                                <div class="search-image-container">
+                                    <img src="{% if band.image %}{{ band.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ band.name }}">
+                                </div>
+                                <div class="band-name">{{ band.name }}</div>
+                                <br>
+                                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li style="text-align: center; font-style: italic; font-size: 0.9em; color: gray;">No bands found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="separator"></div>
+            <div class="column">
+                <h3 style="text-align: center;">Merch</h3>
+                <br>
+                <ul>
+                    {% for listing in listings %}
+                        <li>
+                            <a href="{% url 'listing_detail' listing.id %}" class="search-item-container">
+                                <div class="search-image-container">
+                                    <img src="{% if listing.image %}{{ listing.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.description }}">
+                                </div>
+                                <div class="listing-name">{{ listing.band.name }} - "{{ listing.description }}"</div>
+                                <br>
+                                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li style="text-align: center; font-style: italic; font-size: 0.9em; color: gray;">No merch found.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Band, Event, Listing, Ad
+from .models import Band, Event, Listing, Ad, Message
 
 class ContactUsForm(forms.Form):
     name = forms.CharField(required=False)
@@ -15,10 +15,16 @@ class ContactUsForm(forms.Form):
 class BandForm(forms.ModelForm):
     class Meta:
         model = Band
-        fields = ('name', 'genre', 'biography', 'official_homepage', 'year_formed', 'active', 'city', 'mail', 'image')
+        fields = ['name', 'genre', 'biography', 'year_formed', 'active', 'official_homepage', 'city', 'mail', 'image', 'audio_file1', 'audio_file1_title', 'audio_file2', 'audio_file2_title', 'audio_file3', 'audio_file3_title']
         widgets = {
-            'biography': forms.Textarea(attrs={'rows': 5}),  # Agrandir la zone de texte pour la biographie
-            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),  # Ajouter un widget pour le champ image
+            'biography': forms.Textarea(attrs={'rows': 5}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'audio_file1': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'audio_file1_title': forms.TextInput(attrs={'class': 'form-control'}),
+            'audio_file2': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'audio_file2_title': forms.TextInput(attrs={'class': 'form-control'}),
+            'audio_file3': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'audio_file3_title': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 class EventForm(forms.ModelForm):
@@ -43,3 +49,22 @@ class AdForm(forms.ModelForm):
     class Meta:
         model = Ad
         fields = ['title', 'category', 'description']
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['recipient', 'subject', 'body', 'parent']
+        widgets = {
+            'recipient': forms.Select(attrs={'class': 'form-control'}),
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
+            'parent': forms.HiddenInput(),
+        }
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['body']
+        widgets = {
+            'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }

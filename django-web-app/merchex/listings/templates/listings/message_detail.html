@@ -1,0 +1,45 @@
+{% extends 'listings/base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="chat-container">
+    <h3 style="text-align: center;">{{ message.subject }}</h3>
+    <div style="text-align: center; color: #ccc;">{{ message.created_at|date:"F j, Y" }}</div>
+    <hr>
+    <div class="chat-message-container" id="chat-message-container">
+        <div class="chat-message received">
+            <div class="chat-message-header">
+                <strong>{{ message.sender.username }}</strong> {{ message.created_at|date:"g:i a" }}
+            </div>
+            <div class="chat-message-body">
+                <p>{{ message.body }}</p>
+            </div>
+        </div>
+
+        {% for reply in replies %}
+        <div class="chat-message {% if reply.sender == request.user %}sent{% else %}received{% endif %}">
+            <div class="chat-message-header">
+                <strong>{{ reply.sender.username }}</strong> {{ reply.created_at|date:"g:i a" }}
+            </div>
+            <div class="chat-message-body">
+                <p>{{ reply.body }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <form method="post" class="chat-form">
+        {% csrf_token %}
+        {{ form.body }}
+        <button type="submit" class="chat-btn-send">
+            <img src="{% static 'listings/images/btn-send.svg' %}" alt="Send" class="chat-btn-send-img">
+        </button>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var messageContainer = document.getElementById('chat-message-container');
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+});
+</script>
+{% endblock %}

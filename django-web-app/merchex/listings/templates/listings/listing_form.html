@@ -4,12 +4,12 @@
 
 <div class="form-container">
     <div class="title">Add Merchandise</div>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <br><br>
-    <button type="submit" class="default-button">Save Merchandise</button>
-</form>
+    <form method="post" enctype="multipart/form-data">  <!-- Ajout de enctype="multipart/form-data" ici -->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br><br>
+        <button type="submit" class="default-button">Save Merchandise</button>
+    </form>
 </div>
 
 {% endblock %}

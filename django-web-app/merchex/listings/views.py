@@ -1,14 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from listings.models import Band, Listing, Event, Ad
+from listings.models import Band, Listing, Event, Ad, Message
 from listings.forms import ContactUsForm, BandForm, EventForm, ListingForm, AdForm
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.views.generic import ListView
+from django.db.models import Q
+from .forms import MessageForm, ReplyForm
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 @require_POST
 @login_required
@@ -38,11 +43,19 @@ def home(request):
     ads = Ad.objects.all()  # Récupérer toutes les annonces
     return render(request, 'listings/home.html', {'ads': ads})
 
-@login_required
 def band_list(request):
-    bands = Band.objects.order_by('name')
-    alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
-    return render(request, 'listings/band_list.html', {'bands': bands, 'alphabet': alphabet, 'request': request})
+    bands = Band.objects.all()
+    band_groups = {}
+
+    for band in bands:
+        first_letter = band.get_first_letter_upper()
+        if first_letter not in band_groups:
+            band_groups[first_letter] = []
+        band_groups[first_letter].append(band)
+
+    sorted_band_groups = dict(sorted(band_groups.items()))
+
+    return render(request, 'listings/band_list.html', {'band_groups': sorted_band_groups})
 
 @login_required
 def band_detail(request, id):
@@ -56,7 +69,7 @@ def band_detail(request, id):
 @login_required
 def band_create(request):
     if request.method == 'POST':
-        form = BandForm(request.POST)
+        form = BandForm(request.POST, request.FILES)  # Ajout de request.FILES ici
         if form.is_valid():
             band = form.save(commit=False)
             band.user = request.user  # Définir l'utilisateur actuellement connecté
@@ -75,7 +88,7 @@ def band_update(request, id):
         return HttpResponse('You are not authorized to update this band.', status=403)
 
     if request.method == 'POST':
-        form = BandForm(request.POST, instance=band)
+        form = BandForm(request.POST, request.FILES, instance=band)  # Ajout de request.FILES ici
         if form.is_valid():
             form.save()
             return redirect('band_detail', id=band.id)
@@ -83,11 +96,19 @@ def band_update(request, id):
         form = BandForm(instance=band)
     return render(request, 'listings/band_update.html', {'form': form, 'band': band, 'request': request})
 
-@login_required
 def listing_list(request):
     listings = Listing.objects.select_related('band').order_by('band__name', 'description')
-    alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
-    return render(request, 'listings/listing_list.html', {'listings': listings, 'alphabet': alphabet, 'request': request})
+    listing_groups = {}
+
+    for listing in listings:
+        first_letter = listing.band.get_first_letter_upper()
+        if first_letter not in listing_groups:
+            listing_groups[first_letter] = []
+        listing_groups[first_letter].append(listing)
+
+    sorted_listing_groups = dict(sorted(listing_groups.items()))
+
+    return render(request, 'listings/listing_list.html', {'listing_groups': sorted_listing_groups})
 
 @login_required
 def listing_detail(request, id):
@@ -101,7 +122,7 @@ def listing_detail(request, id):
 @login_required
 def listing_create(request):
     if request.method == 'POST':
-        form = ListingForm(request.POST)
+        form = ListingForm(request.POST, request.FILES)  # Ajout de request.FILES ici
         if form.is_valid():
             listing = form.save(commit=False)
             listing.user = request.user  # Définir l'utilisateur actuellement connecté
@@ -119,7 +140,7 @@ def listing_update(request, id):
         return HttpResponse('You are not authorized to update this listing.', status=403)
 
     if request.method == 'POST':
-        form = ListingForm(request.POST, instance=listing)
+        form = ListingForm(request.POST, request.FILES, instance=listing)  # Ajout de request.FILES ici
         if form.is_valid():
             form.save()
             return redirect('listing_detail', id=listing.id)
@@ -246,7 +267,7 @@ def ad_create(request):
             ad = form.save(commit=False)
             ad.user = request.user
             ad.save()
-            return redirect('ad_detail', ad.id)
+            return redirect('home')
     else:
         form = AdForm()
     return render(request, 'listings/ad_form.html', {'form': form})
@@ -276,3 +297,133 @@ def ad_delete(request, id):
         ad.delete()
         return redirect('home')
     return render(request, 'listings/ad_confirm_delete.html', {'ad': ad})
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        bands = Band.objects.filter(
+            Q(name__icontains=query) | Q(genre__icontains=query)
+        )
+        listings = Listing.objects.filter(
+            Q(description__icontains=query) | Q(band__name__icontains=query) | Q(year__icontains=query)
+        )
+        events = Event.objects.filter(
+            Q(description__icontains=query) | Q(band__name__icontains=query) | Q(venue__icontains=query) | Q(date__icontains=query)
+        )
+    else:
+        bands = Band.objects.none()
+        listings = Listing.objects.none()
+        events = Event.objects.none()
+
+    return render(request, 'listings/search_results.html', {
+        'query': query,
+        'bands': bands,
+        'listings': listings,
+        'events': events,
+    })
+
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            return redirect('message_detail', message.id)
+    else:
+        form = MessageForm()
+    return render(request, 'listings/send_message.html', {'form': form})
+
+@login_required
+def message_list(request):
+    received_messages = Message.objects.filter(recipient=request.user)
+    conversations = {}
+
+    for message in received_messages:
+        if message.parent is None:
+            conversations[message.id] = {
+                'message': message,
+                'replies': list(Message.objects.filter(parent=message).order_by('-created_at')),
+                'last_message': message  # Initialise avec le message principal
+            }
+        else:
+            if message.parent.id not in conversations:
+                conversations[message.parent.id] = {
+                    'message': message.parent,
+                    'replies': [],
+                    'last_message': message.parent  # Initialise avec le message principal
+                }
+            conversations[message.parent.id]['replies'].append(message)
+            conversations[message.parent.id]['last_message'] = message  # Met à jour avec le dernier message
+
+    # Récupérer le dernier message de chaque conversation
+    for conversation_id, conversation in conversations.items():
+        last_message = Message.objects.filter(parent=conversation['message']).order_by('-created_at').first()
+        if last_message:
+            conversations[conversation_id]['last_message'] = last_message
+
+    # Trier les conversations par la date du dernier message
+    sorted_conversations = sorted(conversations.items(), key=lambda x: x[1]['last_message'].created_at, reverse=True)
+
+    return render(request, 'listings/message_list.html', {'conversations': dict(sorted_conversations)})
+
+    # Récupérer le dernier message de chaque conversation
+    for conversation_id, conversation in conversations.items():
+        last_message = Message.objects.filter(parent=conversation['message']).order_by('-created_at').first()
+        if last_message:
+            conversations[conversation_id]['last_message'] = last_message
+
+    return render(request, 'listings/message_list.html', {'conversations': conversations})
+
+@login_required
+def message_detail(request, message_id):
+    message = get_object_or_404(Message, id=message_id)
+    if request.user not in [message.sender, message.recipient]:
+        return render(request, 'authentification/permission_denied.html')
+    
+    if request.user == message.recipient and not message.read_at:
+        message.read_at = timezone.now()
+        message.save()
+    
+    replies = Message.objects.filter(parent=message).order_by('created_at')
+    
+    if request.method == 'POST':
+        form = ReplyForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.sender = request.user
+            reply.recipient = message.sender
+            reply.subject = f"Re: {message.subject}"
+            reply.parent = message
+            reply.save()
+            return redirect('message_detail', message.id)
+    else:
+        form = ReplyForm()
+    
+    return render(request, 'listings/message_detail.html', {'message': message, 'replies': replies, 'form': form})
+
+@login_required
+def send_message_to_user(request, username):
+    recipient = get_object_or_404(User, username=username)
+    initial_data = {'recipient': recipient.id}
+    if 'subject' in request.GET:
+        initial_data['subject'] = request.GET['subject']
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            return redirect('message_detail', message.id)
+    else:
+        form = MessageForm(initial=initial_data)
+    return render(request, 'listings/send_message.html', {'form': form, 'recipient': recipient})
+
+@require_GET
+@login_required
+def check_unread_messages(request, user_id):
+    print(f"Checking unread messages for user {user_id}")
+    has_unread_messages = Message.objects.filter(recipient_id=user_id, read_at__isnull=True).exists()
+    print(f"Has unread messages: {has_unread_messages}")
+    return JsonResponse({'has_unread_messages': has_unread_messages})

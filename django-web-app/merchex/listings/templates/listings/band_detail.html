@@ -1,60 +1,192 @@
 {% extends 'listings/base.html' %}
+{% load static %}
 
 {% block content %}
 
 <h2 class="bandname">{{ band.name }}</h2>
-<div class="band-container">
-    <div class="band-border">
-    <b>Genre :</b> {{ band.genre }}<br>
-    <b>Year formed :</b> {{ band.year_formed }}<br>
-    <b>Active :</b> {{ band.active|yesno }}<br>
-    <b>Official Homepage :</b> <a href="{{ band.official_homepage }}">{{ band.official_homepage }}</a><br>
-    </div>
+<div class="band-detail-image-container">
+    <img src="{% if band.image %}{{ band.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ band.name }}">
 </div>
-<div class="band-container">
-    <div class="band-border">
-<h3>Bio:</h3>
-<p>{{ band.biography }}</p>
-</div>
-</div>
-<div class="band-container">
-    <div class="band-border">
-<h3>Merch:</h3>
-<ul>
-    {% for listing in band.listing_set.all %}
-        <a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a><br><br>
-        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
-    {% empty %}
-        <div class="empty-message">No merch available.</div>
-    {% endfor %}
-</ul>
-</div>
-</div>
-<div class="band-container">
-    <div class="band-border">
-<h3>Events:</h3>
-<ul>
-    {% for event in band.events.all %}
-        <div class="event-item">
-            <strong>{{ event.date }}</strong> @ {{ event.venue }}<br>
-            <b>Price:</b> {{ event.price }}€<br>
-            <b>Description:</b> {{ event.description }}
-        </div>
-        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
-            {% empty %}
-        <div class="empty-message">No events available.</div>
-    {% endfor %}
-</ul>
-</div>
-</div>
-        {% if band.user == request.user %}
-        <div class="event-container">
-            <div class="event-border">
-            <a href="{% url 'band-update' band.id %}" class="update-button-small">Update</a>
-            <a href="{% url 'band-delete' band.id %}" class="delete-button-small">Delete</a>
-        </div>
-    </div>
-        {% endif %}
 
+{% if band.audio_file1 or band.audio_file2 or band.audio_file3 %}
+<div class="music-player" style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+    <div class="audio-controls" style="display: flex; justify-content: center; margin-bottom: 10px;">
+        <button class="prev-track" style="background: none; border: none; cursor: pointer; margin: 0 20px;">
+            <img src="{% static 'listings/images/PREVIOUS.svg' %}" alt="Previous" width="30" height="30">
+        </button>
+        <button class="play-pause" style="background: none; border: none; cursor: pointer; margin: 0 20px;">
+            <img src="{% static 'listings/images/PLAY.svg' %}" alt="Play" width="30" height="30" class="play-icon">
+            <img src="{% static 'listings/images/PAUSE.svg' %}" alt="Pause" width="30" height="30" class="pause-icon" style="display: none;">
+        </button>
+        <button class="next-track" style="background: none; border: none; cursor: pointer; margin: 0 20px;">
+            <img src="{% static 'listings/images/NEXT.svg' %}" alt="Next" width="30" height="30">
+        </button>
+    </div>
+    <div class="audio-info" style="font-size: 0.9em; margin-bottom: 5px;">
+        <span class="current-time">0:00</span> / <span class="duration">0:00</span>
+    </div>
+    <div class="progress-bar" style="width: 80%; height: 5px; background-color: white; border-radius: 5px; position: relative; margin-bottom: 10px; cursor: pointer;">
+        <div class="progress" style="height: 100%; background-color: red; border-radius: 5px; width: 0%;"></div>
+    </div>
+    <div class="audio-title" style="font-size: 0.8em; color: lightgray; text-align: center; margin-top: 5px;">
+        <span class="current-track-title">{{ band.audio_file1_title|safe }}</span>
+    </div>
+    <audio id="audio-player">
+        {% if band.audio_file1 %}<source src="{{ band.audio_file1.url }}" type="audio/mpeg">{% endif %}
+        {% if band.audio_file2 %}<source src="{{ band.audio_file2.url }}" type="audio/mpeg">{% endif %}
+        {% if band.audio_file3 %}<source src="{{ band.audio_file3.url }}" type="audio/mpeg">{% endif %}
+        Your browser does not support the audio element.
+    </audio>
+</div>
+{% endif %}
+<br>
+<div class="band-container">
+    <div class="band-border">
+        <b>Genre :</b> {{ band.genre }}<br>
+        <b>Year formed :</b> {{ band.year_formed }}<br>
+        <b>Active :</b> {{ band.active|yesno }}<br>
+        <b>Official Homepage :</b> <a href="{{ band.official_homepage }}">{{ band.official_homepage }}</a><br>
+    </div>
+</div>
+<div class="band-container">
+    <div class="band-border">
+        <p>{{ band.biography }}</p>
+    </div>
+</div>
+<div class="band-container">
+    <div class="band-border">
+        <h3>Merch:</h3>
+        <ul>
+            {% for listing in band.listing_set.all %}
+                <a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a><br><br>
+                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
+            {% empty %}
+                <div class="empty-message">No merch available.</div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="band-container">
+    <div class="band-border">
+        <h3>Events:</h3>
+        <ul>
+            {% for event in band.events.all %}
+                <div class="event-item">
+                    <strong>{{ event.date }}</strong> @ {{ event.venue }}<br>
+                    <b>Price:</b> {{ event.price }}€<br>
+                    <b>Description:</b> {{ event.description }}
+                </div>
+                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
+            {% empty %}
+                <div class="empty-message">No events available.</div>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% if band.user == request.user %}
+<div class="event-container">
+    <div class="event-border">
+        <a href="{% url 'band-update' band.id %}" class="update-button-small">Update</a>
+        <a href="{% url 'band-delete' band.id %}" class="delete-button-small">Delete</a>
+    </div>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const audioPlayer = document.getElementById('audio-player');
+    const playPauseBtn = document.querySelector('.play-pause');
+    const prevTrackBtn = document.querySelector('.prev-track');
+    const nextTrackBtn = document.querySelector('.next-track');
+    const progressBar = document.querySelector('.progress-bar');
+    const progress = document.querySelector('.progress');
+    const currentTimeSpan = document.querySelector('.current-time');
+    const durationSpan = document.querySelector('.duration');
+    const currentTrackTitle = document.querySelector('.current-track-title');
+    const playIcon = document.querySelector('.play-icon');
+    const pauseIcon = document.querySelector('.pause-icon');
+
+    const audioSources = audioPlayer.querySelectorAll('source');
+    const audioTitles = [
+        "{{ band.audio_file1_title|safe }}",
+        "{{ band.audio_file2_title|safe }}",
+        "{{ band.audio_file3_title|safe }}"
+    ];
+    let currentTrackIndex = 0;
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secondsPart = Math.floor(seconds % 60);
+        return `${minutes}:${secondsPart < 10 ? '0' : ''}${secondsPart}`;
+    }
+
+    function loadTrack(index) {
+        const source = audioSources[index];
+        if (source) {
+            audioPlayer.src = source.src;
+            audioPlayer.load();
+            playIcon.style.display = 'inline';
+            pauseIcon.style.display = 'none';
+            currentTrackTitle.textContent = audioTitles[index] || 'Untitled';
+        }
+    }
+
+    audioPlayer.addEventListener('loadedmetadata', function() {
+        durationSpan.textContent = formatTime(audioPlayer.duration);
+    });
+
+    audioPlayer.addEventListener('timeupdate', function() {
+        currentTimeSpan.textContent = formatTime(audioPlayer.currentTime);
+        const progressPercent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progress.style.width = `${progressPercent}%`;
+    });
+
+    audioPlayer.addEventListener('ended', function() {
+        currentTrackIndex = (currentTrackIndex + 1) % audioSources.length;
+        loadTrack(currentTrackIndex);
+        audioPlayer.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'inline';
+    });
+
+    playPauseBtn.addEventListener('click', function() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'inline';
+        } else {
+            audioPlayer.pause();
+            playIcon.style.display = 'inline';
+            pauseIcon.style.display = 'none';
+        }
+    });
+
+    prevTrackBtn.addEventListener('click', function() {
+        currentTrackIndex = (currentTrackIndex - 1 + audioSources.length) % audioSources.length;
+        loadTrack(currentTrackIndex);
+        audioPlayer.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'inline';
+    });
+
+    nextTrackBtn.addEventListener('click', function() {
+        currentTrackIndex = (currentTrackIndex + 1) % audioSources.length;
+        loadTrack(currentTrackIndex);
+        audioPlayer.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'inline';
+    });
+
+    progressBar.addEventListener('click', function(event) {
+        const rect = progressBar.getBoundingClientRect();
+        const clickPosition = event.clientX - rect.left;
+        const progressPercent = (clickPosition / rect.width) * 100;
+        const newTime = (progressPercent / 100) * audioPlayer.duration;
+        audioPlayer.currentTime = newTime;
+    });
+
+    loadTrack(currentTrackIndex);
+});
+</script>
 
 {% endblock %}

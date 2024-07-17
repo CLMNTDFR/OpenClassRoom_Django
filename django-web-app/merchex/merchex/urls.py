@@ -52,6 +52,12 @@ urlpatterns = [
     path('ads/<int:id>/', views.ad_detail, name='ad_detail'),
     path('ads/<int:id>/update/', views.ad_update, name='ad_update'),
     path('ads/<int:id>/delete/', views.ad_delete, name='ad_delete'),
+    path('search/', views.search, name='search'),
+    path('messages/send/', views.send_message, name='send_message'),
+    path('messages/', views.message_list, name='message_list'),
+    path('messages/send/<str:username>/', views.send_message_to_user, name='send_message_to_user'),
+    path('messages/<int:message_id>/', views.message_detail, name='message_detail'),
+    path('check_unread_messages/<int:user_id>/', views.check_unread_messages, name='check_unread_messages'),
 ]
 
 if settings.DEBUG:

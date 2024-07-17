@@ -11,7 +11,7 @@ from listings.models import Band, Event, Listing  # Import des modèles depuis l
 def signup_page(request):
     form = SignupForm()
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST, request.FILES)  # Ajout de request.FILES ici
         if form.is_valid():
             user = form.save()
             # auto-login user

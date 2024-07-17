@@ -22,19 +22,21 @@
         <i class="uil uil-bars navOpenBtn"></i>
         <a href="{% url 'home' %}" class="logo">N.U.B</a>
         <ul class="nav-links">
-          <i class="uil uil-times navCloseBtn"></i>
-        <li><a href="{% url 'bands_list' %}">Bands</a></li>
-        <li><a href="{% url 'listing_list' %}">Merch</a></li>
-        <li><a href="{% url 'event_list' %}">Events</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
+            <i class="uil uil-times navCloseBtn"></i>
+            <li><a href="{% url 'bands_list' %}">Bands</a></li>
+            <li><a href="{% url 'listing_list' %}">Merch</a></li>
+            <li><a href="{% url 'event_list' %}">Events</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
         </ul>
         <i class="uil uil-search search-icon" id="searchIcon"></i>
         <div class="search-box">
-          <i class="uil uil-search search-icon"></i>
-          <input type="text" placeholder="Search here..." />
+            <form action="{% url 'search' %}" method="get" class="search-form">
+                <i class="uil uil-search search-icon"></i>
+                <input type="text" name="q" placeholder="Search here..." class="search-input" />
+            </form>
         </div>
-      </nav>
+    </nav>
     <div class="content">
         {% if messages %}
         <ul class="messages">
@@ -50,28 +52,38 @@
     <footer class="footer-nav">
         <div class="footer-nav-icon">
             <a href="{% url 'home' %}" class="logo">
-            <img src="{% static 'listings/images/home.svg' %}" alt="Home">
+                <img src="{% static 'listings/images/home.svg' %}" alt="Home">
             </a>
         </div>
         <div class="footer-nav-icon">
             <img src="{% static 'listings/images/add.svg' %}" alt="Add" id="addIcon">
         </div>
-        <div class="footer-nav-icon">
-            <img src="{% static 'listings/images/mail.svg' %}" alt="Mail">
+        {% if user.is_authenticated %}
+        <div class="footer-nav-icon" data-user-id="{{ user.id }}">
+            <a href="{% url 'message_list' %}">
+                <img src="{% static 'listings/images/mail.svg' %}" alt="Mail" id="mailIcon">
+            </a>
         </div>
+        {% else %}
+        <div class="footer-nav-icon">
+            <a href="{% url 'login' %}">
+                <img src="{% static 'listings/images/mail.svg' %}" alt="Mail" id="mailIcon">
+            </a>
+        </div>
+        {% endif %}
         <div class="footer-nav-icon">
             {% if user.is_authenticated %}
             <a href="{% url 'account' user.username %}">
-            <img src="{% static 'listings/images/user-on.svg' %}" alt="User On">
+                <img src="{% static 'listings/images/user-on.svg' %}" alt="User On">
             </a>
             {% else %}
             <a href="{% url 'login' %}">
-            <img src="{% static 'listings/images/user-off.svg' %}" alt="User Off">
+                <img src="{% static 'listings/images/user-off.svg' %}" alt="User Off">
             </a>
             {% endif %}
         </div>
     </footer>
-
+    
     <!-- Pop-up window -->
     <div class="popup" id="popup">
         <div class="popup-content">
@@ -82,5 +94,33 @@
             <a href="{% url 'ad_create' %}"><button><img src="{% static 'listings/images/add.svg' %}" alt="Add">Add a new AD</button></a>
         </div>
     </div>
-</body>
-</html>
+    
+    <script>
+        console.log('JavaScript script loaded');
+        document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
+    const mailIcon = document.getElementById('mailIcon');
+    const userId = mailIcon.parentElement.getAttribute('data-user-id');
+    console.log('User ID:', userId);
+
+    if (userId) {
+        console.log('Fetching unread messages for user:', userId);
+        fetch(`/check_unread_messages/${userId}/`)
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.has_unread_messages) {
+                    console.log('User has unread messages');
+                    mailIcon.src = "{% static 'listings/images/new-mail.svg' %}";
+                    console.log('Mail icon updated to new-mail.svg'); // Vérifiez que l'icône est bien mise à jour
+                } else {
+                    console.log('User has no unread messages');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+});
+        </script>

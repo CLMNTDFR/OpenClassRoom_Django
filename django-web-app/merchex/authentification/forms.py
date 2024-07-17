@@ -9,7 +9,6 @@ class SignupForm(UserCreationForm):
     email = forms.EmailField(help_text="Email address")
     first_name = forms.CharField(max_length=30, help_text="First name")
     last_name = forms.CharField(max_length=30, help_text="Last name")
-    role = forms.ChoiceField(choices=User.ROLE_CHOICES, help_text="Select your role: Creator or Subscriber")
     profile_photo = forms.ImageField(required=False, help_text="Upload your profile photo")
 
     class Meta(UserCreationForm.Meta):

@@ -8,7 +8,7 @@
     {% if form.errors %}
         {{ form.errors }}
     {% endif %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">  <!-- Ajout de enctype="multipart/form-data" ici -->
         {% csrf_token %}
         {% for field in form %}
             <div class="form-group">

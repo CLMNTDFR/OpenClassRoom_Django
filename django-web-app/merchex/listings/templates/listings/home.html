@@ -9,6 +9,12 @@
         {% endfor %}
     </ul>
 {% endif %}
+<div class="Welcome">Welcome to <b>N.U.B</b><br>
+    <div style="font-size: 0.8em; color: gray;">The North Underground Bands's Social networks.</div>
+        {% if user.is_authenticated %}You are logged in as <b>{{ user.username }}</b>.<br>
+        {% else %}
+    Please <b><a href="{% url 'signup' %}">create an account</a></b> or <b><a href="{% url 'login' %}">log in</a></b> to access the full features of the site.
+    {% endif %}</div>
 <!--Debut du carroussel -->
 <div class="g-container">
     <ul class="carousel-list">
@@ -36,36 +42,32 @@
     </ul>
 </div>
 <!--fin du carroussel -->
-<div class="Welcome">Welcome to <b>N.U.B</b><br>
-<div style="font-size: 0.8em; color: gray;">The North Underground Bands's Social networks.</div>
-    {% if user.is_authenticated %}You are logged in as <b>{{ user.username }}</b>.<br>
-    {% else %}
-Please <b><a href="{% url 'signup' %}">create an account</a></b> or <b><a href="{% url 'login' %}">log in</a></b> to access the full features of the site.
-{% endif %}</div>
 <div class="home">Classified Ads</div>
 <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
 <br>
 <div class="event-container">
     {% for ad in ads %}
         <div class="event-border">
-            <strong><span class="event-date">{{ ad.user.username }}</span></strong>  <div style="color: grey !important; font-size: O.6em !important">{{ ad.created_at|date:"d F Y" }}</div><em>{{ ad.title }}</em>
-            <hr>
-            <ul>
-                <li><strong>{{ ad.get_category_display }}</strong></li>
-                <hr>
-                <li><strong>Description:</strong> {{ ad.description }}</li>
-                <br>
-                <li>
-                    <div class="event-link-container">
-                        <!-- Vous pouvez ajouter un lien ou une action spécifique à l'annonce ici si nécessaire -->
-                        <a href="#" style="color: grey !important">Reply</a>
-                    </div>
-                </li>
-            </ul>
+            <div class="ad-header">
+                <strong class="event-date">{{ ad.user.username }}</strong>
+                <span class="event-date" style="color: white; font-size: 0.8em;">{{ ad.created_at|date:"d F Y" }}</span>
+            </div>
+            <hr><br>
+            <div class="ad-title">
+                {{ ad.title }} ({{ ad.get_category_display }})
+            </div>
+            <br>
+            <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+            <br>
+            <div class="ad-description">
+                {{ ad.description }}
+            </div>
+            <br>
+            <div class="event-link-container">
+                <a href="{% url 'send_message_to_user' ad.user.username %}?subject={{ ad.title }}">Reply</a>
+            </div>
             {% if ad.user == request.user %}
             <div style="color: grey; font-size: 0.8em;"><a href="{% url 'ad_update' ad.id %}" style="color: rgb(171, 171, 171) !important;">Update</a> | <a href="{% url 'ad_delete' ad.id %}" style="color: rgb(171, 171, 171) !important;">Delete</a></div>
-            {% else %}
-            <div style="color: grey; font-size: 0.8em;">Posted by {{ ad.user.username }}</div>
             {% endif %}
         </div>
     {% empty %}

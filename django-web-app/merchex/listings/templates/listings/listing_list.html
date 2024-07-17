@@ -4,54 +4,37 @@
 {% load static %}
 
 <div class="page-name">Merch</div>
-{% regroup listings by band.name.0 as band_list %}
-    {% for band in band_list %}
-        <div class="title"><a id="{{ band.grouper }}">{{ band.grouper }}</a></div>
-        <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
-        <br>
-        <div class="horizontal-scroll-container">
-            <div class="horizontal-scroll">
-                {% for listing in band.list %}
-                    <div class="band-item">
+{% for first_letter, listings in listing_groups.items %}
+    <div class="title"><a id="{{ first_letter }}">{{ first_letter }}</a></div>
+    <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+    <br>
+    <div class="horizontal-scroll-container">
+        <div class="horizontal-scroll">
+            {% for listing in listings %}
+                <div class="band-item">
+                        <div class="like-counter">
+                            <span id="like-button-{{ listing.id }}" onclick="likeListing('{{ listing.id }}')" style="cursor: pointer;">
+                                <img src="{% if request.user in listing.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" style="height: 30px; vertical-align: middle;">
+                            </span>
+                            <span id="likes-{{ listing.id }}" style="vertical-align: middle; font-size: 1em;">{{ listing.likes.count }}</span>
+                        </div>
                         <a href="{% url 'listing_detail' listing.id %}">
-                            <div class="like-counter">
-                                <span id="like-button-{{ listing.id }}" onclick="likeListing('{{ listing.id }}')" style="cursor: pointer;">
-                                    <img src="{% if request.user in listing.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" style="height: 30px; vertical-align: middle;">
-                                </span>
-                                <span id="likes-{{ listing.id }}" style="vertical-align: middle; font-size: 1em;">{{ listing.likes.count }}</span>
-                            </div>
-                            <div class="image-container">
-                                <img src="{% if listing.image %}{{ listing.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.band.name }}">
-                            </div>
-                            <div class="band-name">{{ listing.band.name }}</div>
-                            <div class="listing-description">{{ listing.description }}</div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-            <div style="display: flex; justify-content: center; margin-top: 16px;">
-                <button id="left-scroll-button" class="scroll-button" onclick="scrollHorizontally(-1)" style="font-size: 1.2rem; color: white; background-color: rgba(0, 0, 0, 0.5); border: none; padding: 4px 8px; margin: 0 25px; cursor: pointer; transition: color 0.3s ease-in-out;"><</button>
-                <button id="right-scroll-button" class="scroll-button" onclick="scrollHorizontally(1)" style="font-size: 1.2rem; color: white; background-color: rgba(0, 0, 0, 0.5); border: none; padding: 4px 8px; margin: 0 25px; cursor: pointer; transition: color 0.3s ease-in-out;">></button>
-            </div>
-            
-            <script>
-            document.getElementById('left-scroll-button').addEventListener('mouseover', function() {
-                this.style.color = 'red';
-            });
-            document.getElementById('left-scroll-button').addEventListener('mouseout', function() {
-                this.style.color = 'white';
-            });
-            
-            document.getElementById('right-scroll-button').addEventListener('mouseover', function() {
-                this.style.color = 'red';
-            });
-            document.getElementById('right-scroll-button').addEventListener('mouseout', function() {
-                this.style.color = 'white';
-            });
-            </script>
+                        <div class="image-container">
+                            <img src="{% if listing.image %}{{ listing.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.band.name }}">
+                        </div>
+                        <div class="band-name">{{ listing.band.name }}</div>
+                        <div class="listing-description">{{ listing.description }}</div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-        <br>
-    {% endfor %}
+        <div style="display: flex; justify-content: center; margin-top: 16px;">
+            <button id="left-scroll-button" class="scroll-button" onclick="scrollHorizontally(-1)" style="font-size: 1.2rem; color: white; background-color: rgba(0, 0, 0, 0.5); border: none; padding: 4px 8px; margin: 0 25px; cursor: pointer; transition: color 0.3s ease-in-out;"><</button>
+            <button id="right-scroll-button" class="scroll-button" onclick="scrollHorizontally(1)" style="font-size: 1.2rem; color: white; background-color: rgba(0, 0, 0, 0.5); border: none; padding: 4px 8px; margin: 0 25px; cursor: pointer; transition: color 0.3s ease-in-out;">></button>
+        </div>
+    </div>
+    <br>
+{% endfor %}
 
 <script>
 function likeListing(listingId) {

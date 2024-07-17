@@ -5,7 +5,7 @@
 <div class="form-container">
     <div class="title">Create a New Band</div>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">  <!-- Ajout de enctype="multipart/form-data" ici -->
         {% csrf_token %}
         {{ form.as_p }}
         <br><br>

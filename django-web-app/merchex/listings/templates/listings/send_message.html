@@ -1,0 +1,12 @@
+{% extends 'listings/base.html' %}
+{% load static %}
+{% block content %}
+<div class="form-container">
+    <div class="title">Send Message</div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="default-button">Send</button>
+    </form>
+</div>
+{% endblock %}

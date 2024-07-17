@@ -1,21 +1,27 @@
 {% extends 'listings/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="event-container">
-<div class="event-border">
-<h2>{{ listing.description }}</h2><br>
-<hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
-<ul>
-    <li><b>Type :</b> {{ listing.type }}</li>
-    <li><b>Year :</b> {{ listing.year }}</li>
-    <li><b>Sold :</b> {{ listing.sold|yesno }}</li>
-    <li><b>Band :</b> <a href="{% url 'band_detail' listing.band.id %}">{{ listing.band.name }}</a></li>
-    <li><b>Point of Sale :</b> {{ listing.point_of_sale }}</li>
-</ul>
-{% if listing.user == request.user %}
-    <a href="{% url 'listing-update' listing.id %}" class="update-button-small">Update</a>
-    <a href="{% url 'listing-delete' listing.id %}" class="delete-button-small">Delete</a>
-{% endif %}
+
+<h2 class="bandname">{{ listing.description }}</h2>
+<div class="band-detail-image-container">
+    <img src="{% if listing.image %}{{ listing.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.description }}">
 </div>
+<div class="band-container">
+    <div class="band-border">
+        <b>Type :</b> {{ listing.type }}<br>
+        <b>Year :</b> {{ listing.year }}<br>
+        <b>Sold :</b> {{ listing.sold|yesno }}<br>
+        <b>Band :</b> <a href="{% url 'band_detail' listing.band.id %}">{{ listing.band.name }}</a><br>
+        <b>Point of Sale :</b> {{ listing.point_of_sale }}<br>
+    </div>
 </div>
+    {% if listing.user == request.user %}
+    <div class="event-container">
+        <div class="event-border">
+        <a href="{% url 'listing-update' listing.id %}" class="update-button-small">Update</a>
+        <a href="{% url 'listing-delete' listing.id %}" class="delete-button-small">Delete</a>
+    </div>
+</div>
+    {% endif %}
 {% endblock %}
