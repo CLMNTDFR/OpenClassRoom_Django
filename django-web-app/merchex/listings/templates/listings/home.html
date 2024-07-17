@@ -9,39 +9,19 @@
         {% endfor %}
     </ul>
 {% endif %}
-<div class="Welcome">Welcome to <b>N.U.B</b><br>
-    <div style="font-size: 0.8em; color: gray;">The North Underground Bands's Social networks.</div>
+
+<!-- Nouveau GIF -->
+<div class="gif-container">
+    <img src="{% static 'listings/images/To N.U.B.gif' %}" alt="To N.U.B" class="responsive-gif">
+</div>
+
+<div class="Welcome">
+    <div style="font-size: 0.7em; color: gray;">North Underground Bands's Social networks</div>
         {% if user.is_authenticated %}You are logged in as <b>{{ user.username }}</b>.<br>
         {% else %}
     Please <b><a href="{% url 'signup' %}">create an account</a></b> or <b><a href="{% url 'login' %}">log in</a></b> to access the full features of the site.
     {% endif %}</div>
-<!--Debut du carroussel -->
-<div class="g-container">
-    <ul class="carousel-list">
-    <li>
-            <img src="{% static 'listings/images/0.png' %}">
-    </li>
-      <li>
-        <img src="{% static 'listings/images/1.png' %}">
-      </li>
-      <li>
-        <img src="{% static 'listings/images/2.png' %}">
-      </li>
-      <li>
-        <img src="{% static 'listings/images/3.png' %}">
-      </li>
-      <li>
-        <img src="{% static 'listings/images/4.png' %}">
-      </li>
-      <li>
-        <img src="{% static 'listings/images/7.png' %}">
-      </li>
-      <li>
-        <img src="{% static 'listings/images/6.png' %}">
-      </li>
-    </ul>
-</div>
-<!--fin du carroussel -->
+
 <div class="home">Classified Ads</div>
 <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
 <br>
