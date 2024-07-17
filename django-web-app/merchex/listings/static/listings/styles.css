@@ -1563,7 +1563,7 @@ ul li strong {
 
 .chat-message.sent {
     align-self: flex-end;
-    background: linear-gradient(to top, #870000, #2c2c6b); /* Gradient from red to blue */
+    background: linear-gradient(to top, #870000, #141414); /* Gradient from red to blue */
     border-bottom-right-radius: 0;
 }
 

@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+	<title>home-svg</title>
+	<defs>
+		<image  width="454" height="454" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcYAAAHGAQMAAADUrLlqAAAAAXNSR0IB2cksfwAAAAZQTFRF////////VXz1bAAAAAJ0Uk5TAP9bkSK1AAAAgUlEQVR4nO3VsQ0AIQwEQbuCbxk6poEXVGAiApBm09PEl1H2jYjeyjlJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiTJyFnTbT9JkiRJHpX1duN/kiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkg/IBaXXjYDBnc4jAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<use id="Calque 1" href="#img1" x="29" y="22"/>
+</svg>
