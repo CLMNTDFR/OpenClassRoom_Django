@@ -1,4 +1,3 @@
-# forms.py
 from django import forms
 from .models import Band, Event, Listing, Ad, Message
 
@@ -42,8 +41,8 @@ class ListingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['band'].queryset = Band.objects.all()  # Afficher tous les groupes disponibles dans le formulaire
-        self.fields['image'].widget.attrs.update({'class': 'form-control'})  # Ajouter une classe pour le champ image
+        self.fields['band'].queryset = Band.objects.all()
+        self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
 class AdForm(forms.ModelForm):
     class Meta:

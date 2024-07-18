@@ -10,20 +10,21 @@
     </ul>
 {% endif %}
 
-<!-- Nouveau GIF -->
 <div class="gif-container">
-    <img src="{% static 'listings/images/To N.U.B.gif' %}" alt="To N.U.B" class="responsive-gif">
+    <img src="{% static 'listings/images/To N.U.B.gif' %}" alt="Like and Share your local bands N.U.B" class="responsive-gif">
 </div>
 
 <div class="Welcome">
     <div style="font-size: 0.7em; color: gray;">North Underground Bands's Social networks</div>
-        {% if user.is_authenticated %}You are logged in as <b>{{ user.username }}</b>.<br>
-        {% else %}
-    Please <b><a href="{% url 'signup' %}">create an account</a></b> or <b><a href="{% url 'login' %}">log in</a></b> to access the full features of the site.
-    {% endif %}</div>
-    <br>
-    <hr style="border: none; height: 2px; background: linear-gradient(to right, #4b4b4b, #4b4b4b, #4b4b4b);">
-    <br>
+    {% if user.is_authenticated %}
+        You are logged in as <b>{{ user.username }}</b>.<br>
+    {% else %}
+        Please <b><a href="{% url 'signup' %}">create an account</a></b> or <b><a href="{% url 'login' %}">log in</a></b> to access the full features of the site.
+    {% endif %}
+</div>
+<br>
+<hr style="border: none; height: 2px; background: linear-gradient(to right, #4b4b4b, #4b4b4b, #4b4b4b);">
+<br>
 
 <div class="home">Classified Ads</div>
 <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
@@ -50,7 +51,10 @@
                 <a href="{% url 'send_message_to_user' ad.user.username %}?subject={{ ad.title }}">Reply</a>
             </div>
             {% if ad.user == request.user %}
-            <div style="color: grey; font-size: 0.8em;"><a href="{% url 'ad_update' ad.id %}" style="color: rgb(171, 171, 171) !important;">Update</a> | <a href="{% url 'ad_delete' ad.id %}" style="color: rgb(171, 171, 171) !important;">Delete</a></div>
+                <div style="color: grey; font-size: 0.8em;">
+                    <a href="{% url 'ad_update' ad.id %}" style="color: rgb(171, 171, 171) !important;">Update</a> | 
+                    <a href="{% url 'ad_delete' ad.id %}" style="color: rgb(171, 171, 171) !important;">Delete</a>
+                </div>
             {% endif %}
         </div>
     {% empty %}

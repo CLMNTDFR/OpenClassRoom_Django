@@ -6,15 +6,14 @@ from . import forms
 from .forms import SignupForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from .models import User
-from listings.models import Band, Event, Listing  # Import des modèles depuis l'application listings
+from listings.models import Band, Event, Listing
 
 def signup_page(request):
     form = SignupForm()
     if request.method == 'POST':
-        form = SignupForm(request.POST, request.FILES)  # Ajout de request.FILES ici
+        form = SignupForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            # auto-login user
             login(request, user)
             return redirect('account', username=user.username)
     return render(request, 'authentification/signup.html', context={'form': form})
@@ -23,10 +22,8 @@ def signup_page(request):
 def account_view(request, username):
     user = get_object_or_404(User, username=username)
     if user != request.user:
-        # Si l'utilisateur n'est pas celui connecté, rediriger vers une page d'erreur ou de permission refusée
         return render(request, 'authentification/permission_denied.html')
     
-    # Récupérer les items créés par l'utilisateur
     bands = Band.objects.filter(user=user)
     events = Event.objects.filter(user=user)
     listings = Listing.objects.filter(user=user)
@@ -60,7 +57,7 @@ def edit_account(request, username):
     if user != request.user:
         return render(request, 'authentification/permission_denied.html')
     if request.method == 'POST':
-        form = UserUpdateForm(request.POST, request.FILES, instance=user)  # Ajout de request.FILES ici
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('account', username=user.username)

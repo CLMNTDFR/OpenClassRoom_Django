@@ -12,13 +12,13 @@
         <div class="horizontal-scroll">
             {% for listing in listings %}
                 <div class="band-item">
-                        <div class="like-counter">
-                            <span id="like-button-{{ listing.id }}" onclick="likeListing('{{ listing.id }}')" style="cursor: pointer;">
-                                <img src="{% if request.user in listing.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" style="height: 30px; vertical-align: middle;">
-                            </span>
-                            <span id="likes-{{ listing.id }}" style="vertical-align: middle; font-size: 1em;">{{ listing.likes.count }}</span>
-                        </div>
-                        <a href="{% url 'listing_detail' listing.id %}">
+                    <div class="like-counter">
+                        <span id="like-button-{{ listing.id }}" onclick="likeListing('{{ listing.id }}')" style="cursor: pointer;">
+                            <img src="{% if request.user in listing.likes.all %}{% static 'listings/images/metal hand ON.svg' %}{% else %}{% static 'listings/images/metal hand OFF.svg' %}{% endif %}" style="height: 30px; vertical-align: middle;">
+                        </span>
+                        <span id="likes-{{ listing.id }}" style="vertical-align: middle; font-size: 1em;">{{ listing.likes.count }}</span>
+                    </div>
+                    <a href="{% url 'listing_detail' listing.id %}">
                         <div class="image-container">
                             <img src="{% if listing.image %}{{ listing.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.band.name }}">
                         </div>
@@ -62,7 +62,7 @@ function likeListing(listingId) {
 
 function scrollHorizontally(direction) {
     const scrollContainer = document.querySelector('.horizontal-scroll');
-    const scrollAmount = 300; // Ajustez cette valeur selon vos besoins
+    const scrollAmount = 300;
     scrollContainer.scrollLeft += direction * scrollAmount;
 }
 </script>

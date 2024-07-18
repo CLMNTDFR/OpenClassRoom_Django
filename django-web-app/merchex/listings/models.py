@@ -4,23 +4,31 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from PIL import Image
 
-
+# Validators for image file extension and size
 def validate_image_file_extension(value):
+    """
+    Validate that the uploaded image file has a supported extension.
+    """
     valid_extensions = ['JPEG', 'PNG']
     ext = Image.open(value).format
     if ext not in valid_extensions:
         raise ValidationError(
             f'File type not supported. Supported types are: {", ".join(valid_extensions)}')
 
-
 def validate_image_file_size(value):
-    max_size = 5 * 1024 * 1024  # 5 Mo
+    """
+    Validate that the uploaded image file size does not exceed 5 MB.
+    """
+    max_size = 5 * 1024 * 1024  # 5 MB
     if value.size > max_size:
         raise ValidationError(
             f'File too large. Size should not exceed {max_size / 1024 / 1024} MB')
 
-
+# Model for Band
 class Band(models.Model):
+    """
+    Model representing a musical band.
+    """
     class Genre(models.TextChoices):
         METAL = 'Metal', 'Metal'
         BLACK_METAL = 'Black Metal', 'Black Metal'
@@ -91,8 +99,7 @@ class Band(models.Model):
         ALTERNATIVE_ROCK = 'Alternative Rock', 'Alternative Rock'
 
     name = models.CharField(max_length=100)
-    genre = models.CharField(choices=Genre.choices,
-                             max_length=30, null=True, blank=True)
+    genre = models.CharField(choices=Genre.choices, max_length=30, null=True, blank=True)
     biography = models.CharField(max_length=1000, null=True, blank=True)
     year_formed = models.IntegerField(
         validators=[MinValueValidator(1900), MaxValueValidator(2024)],
@@ -134,13 +141,19 @@ class Band(models.Model):
     audio_file3_title = models.CharField(max_length=100, null=True, blank=True)
 
     def get_first_letter_upper(self):
+        """
+        Return the first letter of the band's name in uppercase.
+        """
         return self.name[0].upper()
 
     def __str__(self):
         return f'{self.name}'
 
-
+# Model for Event
 class Event(models.Model):
+    """
+    Model representing a musical event.
+    """
     band = models.ForeignKey(
         'Band', related_name='events', on_delete=models.CASCADE)
     date = models.DateField()
@@ -155,8 +168,11 @@ class Event(models.Model):
     def __str__(self):
         return f'{self.venue} - {self.date}'
 
-
+# Model for Listing
 class Listing(models.Model):
+    """
+    Model representing a listing for sale or trade.
+    """
     class Type(models.TextChoices):
         RECORDS = 'Records', 'Records'
         CLOTHING = 'Clothing', 'Clothing'
@@ -166,8 +182,7 @@ class Listing(models.Model):
     description = models.CharField(max_length=1000, null=True, blank=True)
     sold = models.BooleanField(default=False, null=True, blank=True)
     year = models.IntegerField(null=True, blank=True)
-    type = models.CharField(choices=Type.choices,
-                            max_length=20, null=True, blank=True)
+    type = models.CharField(choices=Type.choices, max_length=20, null=True, blank=True)
     band = models.ForeignKey(Band, null=True, on_delete=models.SET_NULL)
     point_of_sale = models.CharField(
         max_length=255, null=True, blank=True, verbose_name='Point of Sale')
@@ -181,8 +196,11 @@ class Listing(models.Model):
     def __str__(self):
         return f'{self.type} - {self.year}'
 
-
+# Model for Ad
 class Ad(models.Model):
+    """
+    Model representing an advertisement.
+    """
     class Category(models.TextChoices):
         OFFER = 'OF', 'Offer'
         DEMAND = 'DM', 'Demand'
@@ -198,8 +216,11 @@ class Ad(models.Model):
     def __str__(self):
         return self.title
 
-
+# Model for Message
 class Message(models.Model):
+    """
+    Model representing a message between users.
+    """
     sender = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='sent_messages', on_delete=models.CASCADE)
     recipient = models.ForeignKey(

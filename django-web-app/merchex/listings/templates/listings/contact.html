@@ -3,7 +3,7 @@
 {% block content %}
 <div class="title">• Contact us •</div>
 
-<!-- Afficher le message de confirmation si le formulaire a été soumis avec succès -->
+<!-- Display confirmation message if form was submitted successfully -->
 {% if messages %}
     {% for message in messages %}
         <div class="alert alert-success">
@@ -11,88 +11,89 @@
         </div>
     {% endfor %}
 {% endif %}
-<!-- Afficher le formulaire -->
+
+<!-- Display the form -->
 <div class="form-container">
-<form action="" method="post" novalidate>
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="form-group">
-        {{ field.label_tag }}
-        {{ field }}
-        {% if field.errors %}
-        <div class="errorlist">
-            {% for error in field.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+            <div class="errorlist">
+                {% for error in field.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-    </div>
-    {% endfor %}
-    <br>
-    <input type="submit" value="Send" class="default-button">
-</form>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Send" class="default-button">
+    </form>
 </div>
 <br><br>
 <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
 <br><br>
 <div style="margin-left: 30px; margin-right: 30px;">
-<h1 class="title">Privacy Policy</h1>
-<br>
-<p style="font-size: 0.8em; color: #898989">Effective Date: 01/07/2024</p>
+    <h1 class="title">Privacy Policy</h1>
+    <br>
+    <p style="font-size: 0.8em; color: #898989">Effective Date: 01/07/2024</p>
 
-<p>Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
-<br>
-<h3>Information We Collect</h3>
-<ul>
-    <li><b>Personal Data:</b> We may collect personally identifiable information such as your name, email address, and phone number when you register on our site, subscribe to our newsletter, or fill out a form.</li>
-    <li><b>Usage Data:</b> We may collect information about how you access and use our website, such as your IP address, browser type, and operating system.</li>
-</ul>
-<br>
-<h3>How We Use Your Information</h3>
-<ul>
-    <li>To operate and maintain our website</li>
-    <li>To improve our website and services</li>
-    <li>To send periodic emails regarding your order or other products and services</li>
-    <li>To follow up with you after correspondence (live chat, email, or phone inquiries)</li>
-</ul>
-<br>
-<h3>Disclosure of Your Information</h3>
-<p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential.</p>
-<br>
-<h3>Security of Your Information</h3>
-<p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
-<br>
-<h3>Changes to This Privacy Policy</h3>
-<p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+    <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website. Please read this policy carefully to understand our views and practices regarding your personal data and how we will treat it.</p>
+    <br>
+    <h3>Information We Collect</h3>
+    <ul>
+        <li><b>Personal Data:</b> We may collect personally identifiable information such as your name, email address, and phone number when you register on our site, subscribe to our newsletter, or fill out a form.</li>
+        <li><b>Usage Data:</b> We may collect information about how you access and use our website, such as your IP address, browser type, and operating system.</li>
+    </ul>
+    <br>
+    <h3>How We Use Your Information</h3>
+    <ul>
+        <li>To operate and maintain our website</li>
+        <li>To improve our website and services</li>
+        <li>To send periodic emails regarding your order or other products and services</li>
+        <li>To follow up with you after correspondence (live chat, email, or phone inquiries)</li>
+    </ul>
+    <br>
+    <h3>Disclosure of Your Information</h3>
+    <p>We do not sell, trade, or otherwise transfer to outside parties your Personally Identifiable Information unless we provide users with advance notice. This does not include website hosting partners and other parties who assist us in operating our website, conducting our business, or serving our users, so long as those parties agree to keep this information confidential.</p>
+    <br>
+    <h3>Security of Your Information</h3>
+    <p>We use administrative, technical, and physical security measures to help protect your personal information. While we have taken reasonable steps to secure the personal information you provide to us, please be aware that despite our efforts, no security measures are perfect or impenetrable, and no method of data transmission can be guaranteed against any interception or other type of misuse.</p>
+    <br>
+    <h3>Changes to This Privacy Policy</h3>
+    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
 
-<p>If you have any questions about this Privacy Policy, please contact us.</p>
-<br><br>
-<hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
-<br><br>
-<h1 class="title">Terms of Service</h1>
-<br>
-<p style="font-size: 0.8em; color: #898989">Effective Date: 01/07/2024</p>
+    <p>If you have any questions about this Privacy Policy, please contact us.</p>
+    <br><br>
+    <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+    <br><br>
+    <h1 class="title">Terms of Service</h1>
+    <br>
+    <p style="font-size: 0.8em; color: #898989">Effective Date: 01/07/2024</p>
 
-<h3>Acceptance of Terms</h3>
-<p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this site.</p>
-<br>
-<h3>Use of Our Website</h3>
-<p>Our website and its contents are intended solely for personal, non-commercial use. You may not use our site or its content for any purpose not related to your business with us. You are prohibited from:</p>
-<ul>
-    <li>Modifying, distributing, transmitting, displaying, reproducing, publishing, licensing, creating derivative works from, transferring, or selling any information, software, products, or services obtained from our website</li>
-    <li>Using our website for any unlawful purpose</li>
-    <li>Attempting to gain unauthorized access to any portion or feature of the site, or any other systems or networks connected to the site or to any server, or to any of the services offered on or through the site</li>
-</ul>
-<br>
-<h3>Intellectual Property</h3>
-<p>All content included on this site, such as text, graphics, logos, images, and software, is the property of <strong>N.U.B</strong> or its content suppliers and is protected by international copyright laws. The compilation of all content on this site is the exclusive property of <strong>N.U.B</strong>, with copyright authorship for this collection by <strong>N.U.B</strong>, and protected by international copyright laws.</p>
-<br>
-<h3>Disclaimer of Warranties and Limitation of Liability</h3>
-<p>This site is provided by <strong>N.U.B</strong> on an "as is" and "as available" basis. <strong>N.U.B</strong> makes no representations or warranties of any kind, express or implied, regarding the operation or availability of the site or the information, content, materials, or products included on the site. You expressly agree that your use of the site is at your sole risk.</p>
-<br><br>
-<hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
-<br><br>
-<p style="text-align: center;">2024 N.U.B • North Underground Bands (Clément DEFER) • All rights reserved.</p>
-<br>
+    <h3>Acceptance of Terms</h3>
+    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this site.</p>
+    <br>
+    <h3>Use of Our Website</h3>
+    <p>Our website and its contents are intended solely for personal, non-commercial use. You may not use our site or its content for any purpose not related to your business with us. You are prohibited from:</p>
+    <ul>
+        <li>Modifying, distributing, transmitting, displaying, reproducing, publishing, licensing, creating derivative works from, transferring, or selling any information, software, products, or services obtained from our website</li>
+        <li>Using our website for any unlawful purpose</li>
+        <li>Attempting to gain unauthorized access to any portion or feature of the site, or any other systems or networks connected to the site or to any server, or to any of the services offered on or through the site</li>
+    </ul>
+    <br>
+    <h3>Intellectual Property</h3>
+    <p>All content included on this site, such as text, graphics, logos, images, and software, is the property of <strong>N.U.B</strong> or its content suppliers and is protected by international copyright laws. The compilation of all content on this site is the exclusive property of <strong>N.U.B</strong>, with copyright authorship for this collection by <strong>N.U.B</strong>, and protected by international copyright laws.</p>
+    <br>
+    <h3>Disclaimer of Warranties and Limitation of Liability</h3>
+    <p>This site is provided by <strong>N.U.B</strong> on an "as is" and "as available" basis. <strong>N.U.B</strong> makes no representations or warranties of any kind, express or implied, regarding the operation or availability of the site or the information, content, materials, or products included on the site. You expressly agree that your use of the site is at your sole risk.</p>
+    <br><br>
+    <hr style="border: none; height: 2px; background: linear-gradient(to right, black, red, black);">
+    <br><br>
+    <p style="text-align: center;">2024 N.U.B • North Underground Bands (Clément DEFER) • All rights reserved.</p>
+    <br>
 </div>
 {% endblock %}

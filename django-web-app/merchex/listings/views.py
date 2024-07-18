@@ -40,7 +40,7 @@ def like_listing(request, id):
         return JsonResponse({'status': 'success', 'action': 'like', 'likes': listing.likes.count()})
 
 def home(request):
-    ads = Ad.objects.all()  # Récupérer toutes les annonces
+    ads = Ad.objects.all()
     return render(request, 'listings/home.html', {'ads': ads})
 
 def band_list(request):
@@ -69,10 +69,10 @@ def band_detail(request, id):
 @login_required
 def band_create(request):
     if request.method == 'POST':
-        form = BandForm(request.POST, request.FILES)  # Ajout de request.FILES ici
+        form = BandForm(request.POST, request.FILES)
         if form.is_valid():
             band = form.save(commit=False)
-            band.user = request.user  # Définir l'utilisateur actuellement connecté
+            band.user = request.user
             band.save()
             messages.success(request, 'Band created successfully!')
             return redirect('band_detail', band.id)
@@ -88,7 +88,7 @@ def band_update(request, id):
         return HttpResponse('You are not authorized to update this band.', status=403)
 
     if request.method == 'POST':
-        form = BandForm(request.POST, request.FILES, instance=band)  # Ajout de request.FILES ici
+        form = BandForm(request.POST, request.FILES, instance=band)
         if form.is_valid():
             form.save()
             return redirect('band_detail', id=band.id)
@@ -122,10 +122,10 @@ def listing_detail(request, id):
 @login_required
 def listing_create(request):
     if request.method == 'POST':
-        form = ListingForm(request.POST, request.FILES)  # Ajout de request.FILES ici
+        form = ListingForm(request.POST, request.FILES)
         if form.is_valid():
             listing = form.save(commit=False)
-            listing.user = request.user  # Définir l'utilisateur actuellement connecté
+            listing.user = request.user
             listing.save()
             return redirect('listing_detail', listing.id)
     else:
@@ -140,7 +140,7 @@ def listing_update(request, id):
         return HttpResponse('You are not authorized to update this listing.', status=403)
 
     if request.method == 'POST':
-        form = ListingForm(request.POST, request.FILES, instance=listing)  # Ajout de request.FILES ici
+        form = ListingForm(request.POST, request.FILES, instance=listing)
         if form.is_valid():
             form.save()
             return redirect('listing_detail', id=listing.id)
@@ -161,7 +161,7 @@ def event_create(request):
         form = EventForm(request.POST)
         if form.is_valid():
             event = form.save(commit=False)
-            event.user = request.user  # Définir l'utilisateur actuellement connecté
+            event.user = request.user
             event.save()
             return redirect('event_list')
     else:
@@ -281,7 +281,7 @@ def ad_update(request, id):
         form = AdForm(request.POST, instance=ad)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirige vers la page d'accueil après la mise à jour
+            return redirect('home')
     else:
         form = AdForm(instance=ad)
 
@@ -345,30 +345,27 @@ def message_list(request):
             conversations[message.id] = {
                 'message': message,
                 'replies': list(Message.objects.filter(parent=message).order_by('-created_at')),
-                'last_message': message  # Initialise avec le message principal
+                'last_message': message
             }
         else:
             if message.parent.id not in conversations:
                 conversations[message.parent.id] = {
                     'message': message.parent,
                     'replies': [],
-                    'last_message': message.parent  # Initialise avec le message principal
+                    'last_message': message.parent
                 }
             conversations[message.parent.id]['replies'].append(message)
-            conversations[message.parent.id]['last_message'] = message  # Met à jour avec le dernier message
+            conversations[message.parent.id]['last_message'] = message
 
-    # Récupérer le dernier message de chaque conversation
     for conversation_id, conversation in conversations.items():
         last_message = Message.objects.filter(parent=conversation['message']).order_by('-created_at').first()
         if last_message:
             conversations[conversation_id]['last_message'] = last_message
 
-    # Trier les conversations par la date du dernier message
     sorted_conversations = sorted(conversations.items(), key=lambda x: x[1]['last_message'].created_at, reverse=True)
 
     return render(request, 'listings/message_list.html', {'conversations': dict(sorted_conversations)})
 
-    # Récupérer le dernier message de chaque conversation
     for conversation_id, conversation in conversations.items():
         last_message = Message.objects.filter(parent=conversation['message']).order_by('-created_at').first()
         if last_message:

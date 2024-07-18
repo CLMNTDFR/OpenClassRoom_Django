@@ -1,10 +1,13 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="North Underground Bands - Discover and connect with underground bands from the north.">
+    <meta name="keywords" content="underground bands north of france, music, events, merch, contact, ads">
+    <title>N.U.B - North Underground Bands</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
@@ -12,7 +15,6 @@
     <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
-    <title>N.U.B - North Underground Bands</title>
     <link rel="stylesheet" href="{% static 'listings/styles.css' %}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <script src="{% static 'listings/script.js' %}" defer></script>
@@ -96,31 +98,21 @@
     </div>
     
     <script>
-        console.log('JavaScript script loaded');
         document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
-    const mailIcon = document.getElementById('mailIcon');
-    const userId = mailIcon.parentElement.getAttribute('data-user-id');
-    console.log('User ID:', userId);
+            const mailIcon = document.getElementById('mailIcon');
+            const userId = mailIcon.parentElement.getAttribute('data-user-id');
 
-    if (userId) {
-        console.log('Fetching unread messages for user:', userId);
-        fetch(`/check_unread_messages/${userId}/`)
-            .then(response => {
-                console.log('Response status:', response.status);
-                return response.json();
-            })
-            .then(data => {
-                console.log('Response data:', data);
-                if (data.has_unread_messages) {
-                    console.log('User has unread messages');
-                    mailIcon.src = "{% static 'listings/images/new-mail.svg' %}";
-                    console.log('Mail icon updated to new-mail.svg'); // Vérifiez que l'icône est bien mise à jour
-                } else {
-                    console.log('User has no unread messages');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-});
-        </script>
+            if (userId) {
+                fetch(`/check_unread_messages/${userId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.has_unread_messages) {
+                            mailIcon.src = "{% static 'listings/images/new-mail.svg' %}";
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    </script>
+</body>
+</html>
