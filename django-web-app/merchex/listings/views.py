@@ -337,41 +337,33 @@ def send_message(request):
 
 @login_required
 def message_list(request):
-    received_messages = Message.objects.filter(recipient=request.user)
+    received_messages = Message.objects.filter(recipient=request.user).select_related('sender', 'recipient', 'parent')
+    sent_messages = Message.objects.filter(sender=request.user).select_related('sender', 'recipient', 'parent')
+    
     conversations = {}
 
-    for message in received_messages:
-        if message.parent is None:
-            conversations[message.id] = {
-                'message': message,
-                'replies': list(Message.objects.filter(parent=message).order_by('-created_at')),
+    def add_message_to_conversation(message):
+        parent_id = message.parent.id if message.parent else message.id
+        if parent_id not in conversations:
+            conversations[parent_id] = {
+                'message': message.parent if message.parent else message,
+                'replies': [],
                 'last_message': message
             }
-        else:
-            if message.parent.id not in conversations:
-                conversations[message.parent.id] = {
-                    'message': message.parent,
-                    'replies': [],
-                    'last_message': message.parent
-                }
-            conversations[message.parent.id]['replies'].append(message)
-            conversations[message.parent.id]['last_message'] = message
+        conversations[parent_id]['replies'].append(message)
+        if message.created_at > conversations[parent_id]['last_message'].created_at:
+            conversations[parent_id]['last_message'] = message
 
-    for conversation_id, conversation in conversations.items():
-        last_message = Message.objects.filter(parent=conversation['message']).order_by('-created_at').first()
-        if last_message:
-            conversations[conversation_id]['last_message'] = last_message
+    for message in received_messages:
+        add_message_to_conversation(message)
+    
+    for message in sent_messages:
+        add_message_to_conversation(message)
 
     sorted_conversations = sorted(conversations.items(), key=lambda x: x[1]['last_message'].created_at, reverse=True)
 
     return render(request, 'listings/message_list.html', {'conversations': dict(sorted_conversations)})
 
-    for conversation_id, conversation in conversations.items():
-        last_message = Message.objects.filter(parent=conversation['message']).order_by('-created_at').first()
-        if last_message:
-            conversations[conversation_id]['last_message'] = last_message
-
-    return render(request, 'listings/message_list.html', {'conversations': conversations})
 
 @login_required
 def message_detail(request, message_id):

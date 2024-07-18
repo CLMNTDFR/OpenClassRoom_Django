@@ -1,84 +1,123 @@
 <p align="center">
 <img src="https://i.postimg.cc/XvHcvShj/NUB-logo.png" alt="N.U.B"/></p>
 
-<div align="center">
 
-# North Underground Bands
-I turned the project to create a web application similar to a social network.
-The aim of this network is to share groups from the Lille underground scene.
-A user will be able to authenticate in order to share various information about a music group, such as its contact details, its derivative products and its events using typical "CRUD" operations.<br><br>
-For now, I've named this interface N.U.B for "North Underground Bands".
-Feel free to browse the site and navigate through structured data.<br><br>
-I am open to any avenues for improvement!
-<br><br>
-## N.U.B is a Django exercices
-</div>
 
-Welcome to this repository dedicated to learning the Django Framework.
-In this project, you will see that I have developed the following skills:
+# North Underground Bands (N.U.B)
+I transformed the project into a web application akin to a social network. The primary goal of this network is to share groups from the Lille underground music scene. A user can authenticate to share various information about a music group, such as contact details, merchandise, and events using typical "CRUD" operations.
+
+
+For now, I've named this interface N.U.B for "North Underground Bands". Feel free to explore the site and navigate through structured data.
+
+
+I am open to any suggestions for improvement!
+
+<hr>
+
+Welcome to this repository dedicated to learning the Django Framework. In this project, you will see that I have developed the following skills:
+
 - Installing Django via a virtual environment
-- Initialized a basic project with the appropriate dependencies
-- Started a server and created a database
-- Created a sub-application that I installed in the project
-- Created views with HTTP responses
-- Separated the application logic with a Django template
-- Added style with CSS
-- Performed CRUD operations via the Django administrator
-- Linked data to views
-- Use of DjangoForms and ModelForm
-- The front end is only designed with raw HTML and CSS
-<br><br><br>
 
-<div align="center">
+- Initializing a basic project with the appropriate dependencies
 
-## Memo for a quick start
-</div>
+- Starting a server and creating a database
 
-1. <strong>Create env:</strong><br>
-- `python -m venv env`
+- Creating a sub-application that I installed in the project
 
-2. <strong>Activate env:</strong><br>
-- `source env/bin/activate`
+- Creating views with HTTP responses
 
-3. <strong>Install Django into env:</strong><br>
-- `pip install django`
+- Separating the application logic with a Django template
 
-4. <strong>Keep track of packages in a file requirements.txt:</strong><br>
-- `pip freeze > requirements.txt`
+- Adding style with CSS
 
-5. <strong>Magic operation with:</strong><br>
-- `django-admin startproject merchex`
-<br>to initialize an empty project.
+- Performing CRUD operations via the Django administrator
 
-6. <strong>Run a server:</strong><br>
-- `cd merchex`<br>
-- `python3 manage.py runserver`<br>
-(`manage.py` is the new `django-admin`)<br>
-💡 You can view a graphical interface of your website at http://127.0.0.1:8000/
+- Linking data to views
 
-7. <strong>Create project's database:</strong><br>
-- Press `Ctrl+C` to exit the running server.
-- `python3 manage.py migrate`<br>
-💡 You will see a new file named `db.sqlite3` in your `merchex` folder. Add `db.sqlite3` to your .gitignore.
+- Using DjangoForms and ModelForm
 
-8. <strong>Create a first sub-application:</strong><br>
-Each application or sub-application will have a specific role.<br>
-Our first app is called "listings":<br>
-- `python3 manage.py startapp listings`<br>
-💡 You will see a new folder named `listings`
+- The front end is designed with raw HTML and CSS
 
-9. <strong>Install app in project:</strong><br>
-Go the your file `merchex/merchex/settings.py` and add your new app 'listings' in 'INSTALLED_APPS':
+### Technologies Used
+<hr>
+<b>Backend:</b> Django
+
+<b>Frontend:</b> HTML, CSS (no frameworks or templates)
+
+<b>Scripting:</b> JavaScript
+
+<b>Database:</b> SQLite
+
+### Testing
+<hr>
+The project includes comprehensive testing to ensure functionality and reliability. Here is the summary of the test results:
+<br><br>
+
 ```
-# Application definition
+----------------------------------------------------------------------
+Ran 14 tests in 8.022s
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'listings',
-]
+OK
+Destroying test database for alias 'default'...
 ```
+### Authentication and Messaging
+<hr>
+N.U.B includes a robust authentication system and a messaging feature, allowing users to communicate securely within the platform.
+
+### Dependencies and Environment
+<hr>
+The project relies on the following dependencies:
+<br><br>
+
+`asgiref==3.8.1`
+
+`certifi==2024.7.4`
+
+`charset-normalizer==3.3.2`
+
+`cloudinary==1.40.0`
+
+`Django==5.0.6`
+
+`django-appconf==1.0.6`
+
+`django-cloudinary-storage==0.3.0`
+
+`django-imagekit==5.0.0`
+
+`idna==3.7`
+
+`numpy==2.0.0`
+
+`opencv-python==4.10.0.84`
+
+`pilkit==3.0`
+
+`Pillow==10.0.0`
+
+`requests==2.32.3`
+
+`six==1.16.0`
+
+`sqlparse==0.5.0`
+
+`typing_extensions==4.12.2`
+
+`urllib3==2.2.2`
+
+### Features
+<hr>
+N.U.B offers a range of social network-like features, including:
+<br><br>
+
+- Authentication: Secure user authentication system.
+
+- Messaging: In-app messaging for users to communicate.
+
+- Sharing: Users can share band information, merchandise, events, and ads.
+
+- Access Control: Limited access for non-logged-in users.
+
+- Search Functionality: Quick search feature to find bands, events, and more.
+<hr>
+Feel free to explore the code and contribute to the project. Your feedback and contributions are highly appreciated!
