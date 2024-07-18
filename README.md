@@ -121,7 +121,7 @@ N.U.B offers a range of social network-like features, including:
 - Search Functionality: Quick search feature to find bands, events, and more.
 
 ### Future Enhancements and New Features
-
+<hr>
 N.U.B is continuously evolving, and here are some exciting features and improvements planned for the future:
 
 - **Enhanced Music Player**: Improve the music player to allow navigation through the duration of audio files, providing a better user experience for listening to music.
