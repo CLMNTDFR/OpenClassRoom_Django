@@ -119,5 +119,18 @@ N.U.B offers a range of social network-like features, including:
 - Access Control: Limited access for non-logged-in users.
 
 - Search Functionality: Quick search feature to find bands, events, and more.
+
+### Future Enhancements and New Features
+
+N.U.B is continuously evolving, and here are some exciting features and improvements planned for the future:
+
+- **Enhanced Music Player**: Improve the music player to allow navigation through the duration of audio files, providing a better user experience for listening to music.
+- **Marketplace Integration**: Replace the Merch section with a full-fledged marketplace where users can buy and sell music-related products.
+- **Customizable User Pages**: Allow users to create and customize their pages similar to MySpace or Bandcamp, giving them the freedom to express their personal or band identity.
+- **Ticketing System**: Implement a ticketing system for events, making it easy for users to purchase tickets and attend concerts or other music events.
+- **Social Wall**: Introduce a feature similar to Facebook's wall, where users can post updates, share content, and interact with each other.
+- **News Feed and Stories**: Create a news feed and a short video feature akin to Instagram Stories, enabling users to share moments and stay connected with the community in real-time.
+
+We are committed to enhancing the user experience and providing a platform that caters to the needs of the music community. Your feedback and suggestions are invaluable in shaping the future of N.U.B.
 <hr>
 Feel free to explore the code and contribute to the project. Your feedback and contributions are highly appreciated!
