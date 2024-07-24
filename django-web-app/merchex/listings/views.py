@@ -96,19 +96,11 @@ def band_update(request, id):
         form = BandForm(instance=band)
     return render(request, 'listings/band_update.html', {'form': form, 'band': band, 'request': request})
 
+@login_required
 def listing_list(request):
     listings = Listing.objects.select_related('band').order_by('band__name', 'description')
-    listing_groups = {}
-
-    for listing in listings:
-        first_letter = listing.band.get_first_letter_upper()
-        if first_letter not in listing_groups:
-            listing_groups[first_letter] = []
-        listing_groups[first_letter].append(listing)
-
-    sorted_listing_groups = dict(sorted(listing_groups.items()))
-
-    return render(request, 'listings/listing_list.html', {'listing_groups': sorted_listing_groups})
+    alphabet = [chr(i) for i in range(ord('A'), ord('Z')+1)]
+    return render(request, 'listings/listing_list.html', {'listings': listings, 'alphabet': alphabet, 'request': request})
 
 @login_required
 def listing_detail(request, id):
