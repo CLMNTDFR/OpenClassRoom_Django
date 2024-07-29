@@ -82,9 +82,14 @@ WSGI_APPLICATION = 'merchex.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'sqlite:///{}'.format(BASE_DIR / 'db.sqlite3'))
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd9sc2divc769vt',
+        'USER': 'udr080e27v8rau',
+        'PASSWORD': 'p2ca6a883a1d402d464c3727f9521f258d31f9c65acc1a874f6706bbf97d7b23e',
+        'HOST': 'c3l5o0rb2a6o4l.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com',
+        'PORT': '5432',
+    }
 }
 
 # Password validation
