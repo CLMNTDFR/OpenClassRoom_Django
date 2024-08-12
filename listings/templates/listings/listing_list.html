@@ -21,11 +21,12 @@
                         </div>
                         <a href="{% url 'listing_detail' listing.id %}">
                             <div class="image-container">
-                                <img src="{% if listing.image %}{{ listing.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.band.name }}">
+                                <img src="{% if listing.image_url %}{{ listing.image_url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ listing.band.name }}">
                             </div>
                             <div class="band-name">{{ listing.band.name }}</div>
                             <div class="listing-description">{{ listing.description }}</div>
                         </a>
+                        
                     </div>
                 {% endfor %}
             </div>
@@ -78,8 +79,8 @@
     }
     function scrollHorizontally(direction) {
         const scrollContainer = document.querySelector('.horizontal-scroll');
-        const scrollAmount = 300; // Ajustez cette valeur selon vos besoins
+        const scrollAmount = 300;
         scrollContainer.scrollLeft += direction * scrollAmount;
     }
     </script>
-    {% endblock %}
+{% endblock %}

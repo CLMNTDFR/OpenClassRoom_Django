@@ -1,28 +1,6 @@
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, URLValidator, FileExtensionValidator
 from django.conf import settings
-from django.core.exceptions import ValidationError
-from PIL import Image
-
-# Validators for image file extension and size
-def validate_image_file_extension(value):
-    """
-    Validate that the uploaded image file has a supported extension.
-    """
-    valid_extensions = ['JPEG', 'PNG']
-    ext = Image.open(value).format
-    if ext not in valid_extensions:
-        raise ValidationError(
-            f'File type not supported. Supported types are: {", ".join(valid_extensions)}')
-
-def validate_image_file_size(value):
-    """
-    Validate that the uploaded image file size does not exceed 5 MB.
-    """
-    max_size = 5 * 1024 * 1024  # 5 MB
-    if value.size > max_size:
-        raise ValidationError(
-            f'File too large. Size should not exceed {max_size / 1024 / 1024} MB')
 
 # Model for Band
 class Band(models.Model):
@@ -113,8 +91,7 @@ class Band(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bands', default=1)
     likes = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='liked_bands', blank=True)
-    image = models.ImageField(upload_to='bands/', null=True, blank=True,
-                              validators=[validate_image_file_extension, validate_image_file_size])
+    image_url = models.URLField(max_length=500, null=True, blank=True, verbose_name='Image URL')
 
     audio_file1 = models.FileField(
         upload_to='bands/audio/',
@@ -134,8 +111,7 @@ class Band(models.Model):
 
     audio_file3 = models.FileField(
         upload_to='bands/audio/',
-        null=True,
-        blank=True,
+        null=True, blank=True,
         validators=[FileExtensionValidator(allowed_extensions=['mp3', 'wav'])]
     )
     audio_file3_title = models.CharField(max_length=100, null=True, blank=True)
@@ -180,18 +156,16 @@ class Listing(models.Model):
         MISCELLANEOUS = 'Miscellaneous', 'Miscellaneous'
 
     description = models.CharField(max_length=1000, null=True, blank=True)
-    sold = models.BooleanField(default=False, null=True, blank=True)
     year = models.IntegerField(null=True, blank=True)
     type = models.CharField(choices=Type.choices, max_length=20, null=True, blank=True)
     band = models.ForeignKey(Band, null=True, on_delete=models.SET_NULL)
-    point_of_sale = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name='Point of Sale')
+    point_of_sale = models.URLField(
+        max_length=255, null=True, blank=True, verbose_name='Point of Sale', validators=[URLValidator()])
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='listings', default=1)
     likes = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='liked_listings', blank=True)
-    image = models.ImageField(upload_to='listings/', null=True, blank=True,
-                              validators=[validate_image_file_extension, validate_image_file_size])
+    image_url = models.URLField(max_length=500, null=True, blank=True, verbose_name='Image URL')
 
     def __str__(self):
         return f'{self.type} - {self.year}'

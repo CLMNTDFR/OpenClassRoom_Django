@@ -20,7 +20,7 @@
                     </div>
                     <a href="{% url 'band_detail' band.id %}">
                         <div class="image-container">
-                            <img src="{% if band.image %}{{ band.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ band.name }}">
+                            <img src="{% if band.image_url %}{{ band.image_url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ band.name }}" alt="{{ band.name }}">
                         </div>
                         <div class="band-name">{{ band.name }}</div>
                     </a>

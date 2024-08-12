@@ -15,6 +15,6 @@ whitenoise==6.7.0
 dj-database-url==1.2.0
 django-heroku==0.3.1
 gunicorn==20.1.0
-psycopg2-binary==2.9.5
+psycopg2-binary==2.9.9
 tomli==2.0.1
 tzdata==2022.7

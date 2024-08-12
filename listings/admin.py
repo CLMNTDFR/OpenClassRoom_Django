@@ -10,24 +10,21 @@ class BandAdminForm(forms.ModelForm):
         model = Band
         fields = '__all__'
 
-    def clean_image(self):
-        image = self.cleaned_data.get('image')
-        if image:
-            img = Image.open(image)
-            if img.format not in ['JPEG', 'PNG']:
-                raise forms.ValidationError('Unsupported file type. Supported types are JPEG and PNG.')
-            if image.size > 5 * 1024 * 1024:  # 5 MB
-                raise forms.ValidationError('File too large. Size should not exceed 5 MB.')
-        return image
+    def clean_image_url(self):
+        image_url = self.cleaned_data.get('image_url')
+        if image_url:
+            # Assuming you're validating image URLs rather than the actual file
+            pass
+        return image_url
 
 # Admin configuration for Band model
 class BandAdmin(admin.ModelAdmin):
     form = BandAdminForm
-    list_display = ('name', 'year_formed', 'genre', 'city', 'mail', 'image')
+    list_display = ('name', 'year_formed', 'genre', 'city', 'mail', 'image_url')
 
 # Admin configuration for Listing model
 class ListingAdmin(admin.ModelAdmin):
-    list_display = ('description', 'sold', 'year', 'type', 'band', 'image')
+    list_display = ('description', 'year', 'type', 'band', 'image_url')
 
 # Admin configuration for Event model
 class EventAdmin(admin.ModelAdmin):

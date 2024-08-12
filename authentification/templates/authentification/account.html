@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="profile-photo-container">
-    {% if user.profile_photo %}
-        <img src="{{ user.profile_photo.url }}" alt="Profile Photo" class="profile-photo">
+    {% if user.profile_photo_url %}
+        <img src="{{ user.profile_photo_url }}" alt="Profile Photo" class="profile-photo">
     {% else %}
         <img src="{% static 'listings/images/NO-PROFIL.png' %}" alt="Default Profile Photo" class="profile-photo">
     {% endif %}
@@ -12,9 +12,11 @@
 
 <div class="title">Welcome, {{ user.username }}!</div>
 <div class="button-container">
-<div style="color: grey !important; font-size: 0.8em;"><a href="{% url 'edit_account' username=user.username %}">Edit</a> | 
-<a href="{% url 'logout' %}">Logout</a> | 
-<a href="{% url 'delete_account' username=user.username %}">Delete Account</a></div>
+    <div style="color: grey !important; font-size: 0.8em;">
+        <a href="{% url 'edit_account' username=user.username %}">Edit</a> | 
+        <a href="{% url 'logout' %}">Logout</a> | 
+        <a href="{% url 'delete_account' username=user.username %}">Delete Account</a>
+    </div>
 </div>
 <br>
 <div class="introduction-text">
@@ -57,9 +59,11 @@
                     <li>
                         <div class="introduction-text">
                             {{ band.name }}
-        <br>
-        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
-                            <div style="color: grey; font-size: 0.8em;"><a href="{% url 'band-update' band.id %}">Update</a> | <a href="{% url 'band-delete' band.id %}">Delete</a></div>
+                            <br>
+                            <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+                            <div style="color: grey; font-size: 0.8em;">
+                                <a href="{% url 'band-update' band.id %}">Update</a> | <a href="{% url 'band-delete' band.id %}">Delete</a>
+                            </div>
                         </div>
                     </li>
                     {% empty %}
@@ -77,8 +81,10 @@
                         <div class="introduction-text">
                             {{ listing.band.name }} - "{{ listing.description }}"
                             <br>
-        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
-                            <div style="color: grey; font-size: 0.8em;"><a href="{% url 'listing-update' listing.id %}">Update</a> | <a href="{% url 'listing-delete' listing.id %}">Delete</a></div>
+                            <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+                            <div style="color: grey; font-size: 0.8em;">
+                                <a href="{% url 'listing-update' listing.id %}">Update</a> | <a href="{% url 'listing-delete' listing.id %}">Delete</a>
+                            </div>
                         </div>
                     </li>
                 {% empty %}
@@ -95,8 +101,10 @@
                         <div class="introduction-text">
                             {{ event.band.name }}  ({{ event.date|date:"d F Y" }}, {{ event.venue }})
                             <br>
-        <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
-                            <div style="color: grey; font-size: 0.8em;"><a href="{% url 'event-update' event.id %}">Update</a> | <a href="{% url 'event-delete' event.id %}">Delete</a></div>
+                            <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);">
+                            <div style="color: grey; font-size: 0.8em;">
+                                <a href="{% url 'event-update' event.id %}">Update</a> | <a href="{% url 'event-delete' event.id %}">Delete</a>
+                            </div>
                         </div>
                     </li>
                 {% empty %}

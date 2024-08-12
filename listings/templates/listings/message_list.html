@@ -13,8 +13,8 @@
                     {% if last_message.sender == request.user %}
                         {% with other_user=last_message.recipient %}
                             <div class="user-photo">
-                                {% if other_user.profile_photo %}
-                                    <img src="{{ other_user.profile_photo.url }}" alt="{{ other_user.username }}" class="user-photo-img">
+                                {% if other_user.profile_photo_url %}
+                                    <img src="{{ other_user.profile_photo_url }}" alt="{{ other_user.username }}" class="user-photo-img">
                                 {% else %}
                                     <img src="{% static 'listings/images/NO-PROFIL.png' %}" alt="{{ other_user.username }}" class="user-photo-img">
                                 {% endif %}
@@ -27,8 +27,8 @@
                     {% else %}
                         {% with other_user=last_message.sender %}
                             <div class="user-photo">
-                                {% if other_user.profile_photo %}
-                                    <img src="{{ other_user.profile_photo.url }}" alt="{{ other_user.username }}" class="user-photo-img">
+                                {% if other_user.profile_photo_url %}
+                                    <img src="{{ other_user.profile_photo_url }}" alt="{{ other_user.username }}" class="user-photo-img">
                                 {% else %}
                                     <img src="{% static 'listings/images/NO-PROFIL.png' %}" alt="{{ other_user.username }}" class="user-photo-img">
                                 {% endif %}

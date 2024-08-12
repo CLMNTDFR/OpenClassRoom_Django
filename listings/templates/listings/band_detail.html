@@ -5,7 +5,7 @@
 
 <h2 class="bandname">{{ band.name }}</h2>
 <div class="band-detail-image-container">
-    <img src="{% if band.image %}{{ band.image.url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ band.name }}">
+    <img src="{% if band.image_url %}{{ band.image_url }}{% else %}{% static 'listings/images/NO-PIC.png' %}{% endif %}" alt="{{ band.name }}">
 </div>
 
 {% if band.audio_file1 or band.audio_file2 or band.audio_file3 %}
@@ -56,16 +56,31 @@
 <div class="band-container">
     <div class="band-border">
         <h3>Merch:</h3>
-        <ul>
+        <br>
+        <ul style="list-style-type: none; padding: 0;">
             {% for listing in band.listing_set.all %}
-                <a href="{% url 'listing_detail' listing.id %}">{{ listing.description }}</a><br><br>
-                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414);"><br>
+            <li style="margin-bottom: 20px; text-align: center;">
+                {% if listing.image_url %}
+                    <a href="{% url 'listing_detail' listing.id %}" style="display: inline-block; text-decoration: none; color: inherit;">
+                        <img src="{{ listing.image_url }}" alt="{{ listing.description }}" style="width: 100%; max-width: 300px; height: auto;"/>
+                    </a>
+                {% endif %}
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'listing_detail' listing.id %}" style="text-decoration: none; color: rgb(255, 255, 255); font-weight: bold;">
+                        {{ listing.description }}
+                    </a>
+                </div>
+                <br>
+                <hr style="border: none; height: 2px; background: linear-gradient(to right, #141414, grey, #141414); margin: 10px 0;">
+            </li>
             {% empty %}
-                <div class="empty-message">No merch available.</div>
+                <div class="empty-message" style="text-align: center; font-style: italic;">No merch available.</div>
             {% endfor %}
         </ul>
     </div>
 </div>
+
+
 <div class="band-container">
     <div class="band-border">
         <h3>Events:</h3>
